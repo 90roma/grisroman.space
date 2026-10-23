@@ -1,0 +1,178 @@
+/*
+  Токены стиля D «Холст». Значения — из docs/style/d-holst.md.
+  Здесь единственное место с «сырыми» значениями; остальной CSS берёт только переменные.
+*/
+
+/* Цвет пунктира анимируется при наведении — для этого переменная зарегистрирована */
+@property --dash-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #C6C8CC;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Цвет — светлая тема (основная) */
+  --bg: #EEEFF1;
+  --surface: #FFFFFF;
+  --cell: #E4E5E8;
+  --cover: #D9DADD;
+  --glow: #F7F7F8;
+  --fg: #141414;
+  --muted: #66686D;
+  --on-accent: #FFFFFF;
+  --line: #C6C8CC;
+  --handle: #141414;
+  --accent: #2C46F5;
+  --accent-hover: #1F35D6;
+  --accent-text: #2C46F5;
+  --focus: #2C46F5;
+
+  /* Шкала отступов */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+
+  /* Линии и маркеры */
+  --line-width: 1px;
+  --dash: 4px;              /* штрих 4 / пробел 4 */
+  --focus-width: 2px;       /* обводка фокуса 2 px со смещением 2 px */
+  --link-offset: 3px;       /* смещение подчёркивания ссылки в тексте */
+  --accent-line: 2px;       /* линия вставки и цитаты */
+  --result-line: 3px;       /* подчёркивание «стало» в блоке результата */
+  --mark-cross: 11px;
+  --mark-dot: 4px;
+  --icon: 12px;
+  --arrow-w: 16px;          /* пиксельная стрелка «→» при наведении: сетка 8 × 7, пиксель 2 px */
+  --arrow-h: 14px;
+  --avatar: 48px;
+  --diagram-w: 1600px;      /* ширина широкой схемы: текст схемы не мельче Text/XS, лишнее — прокрутка */
+
+  /* Движение: 200 мс с замедлением в конце; увеличение картинки 3% */
+  --motion-duration: 200ms;
+  --motion-ease: ease-out;
+  --zoom: 1.03;
+
+  /* Шрифты */
+  --font-sans: 'Geologica', system-ui, sans-serif;
+  --font-mono: 'Martian Mono', ui-monospace, monospace;
+
+  /* Шкала текста: ступени (константы). Высота строки — в px, кратно 4 */
+  --step-h1-size: 56px;  --step-h1-lh: 60px;  --step-h1-wt: 300; --step-h1-tr: -0.01em;
+  --step-h2-size: 40px;  --step-h2-lh: 44px;  --step-h2-wt: 300; --step-h2-tr: -0.01em;
+  --step-h3-size: 32px;  --step-h3-lh: 40px;  --step-h3-wt: 300; --step-h3-tr: -0.01em;
+  --step-h4-size: 24px;  --step-h4-lh: 32px;  --step-h4-wt: 400; --step-h4-tr: 0;
+  --step-h5-size: 20px;  --step-h5-lh: 28px;  --step-h5-wt: 400; --step-h5-tr: 0;
+  --step-sub1-size: 28px; --step-sub1-lh: 36px;
+  --step-sub2-size: 22px; --step-sub2-lh: 28px;
+  --step-sub3-size: 18px; --step-sub3-lh: 24px;
+
+  /* Текст и подписи (на узких экранах не сдвигаются) */
+  --text-l-size: 16px;  --text-l-lh: 24px;
+  --text-m-size: 15px;  --text-m-lh: 24px;
+  --text-s-size: 14px;  --text-s-lh: 20px;
+  --text-xs-size: 12px; --text-xs-lh: 16px;
+  --label-l-size: 13px; --label-m-size: 11px; --label-s-size: 11px; --label-lh: 16px;
+
+  /* Роли берут ступень; на узких экранах роль сдвигается на ступень вниз */
+  --h1-size: var(--step-h1-size); --h1-lh: var(--step-h1-lh); --h1-wt: var(--step-h1-wt); --h1-tr: var(--step-h1-tr);
+  --h2-size: var(--step-h2-size); --h2-lh: var(--step-h2-lh); --h2-wt: var(--step-h2-wt); --h2-tr: var(--step-h2-tr);
+  --h3-size: var(--step-h3-size); --h3-lh: var(--step-h3-lh); --h3-wt: var(--step-h3-wt); --h3-tr: var(--step-h3-tr);
+  --h4-size: var(--step-h4-size); --h4-lh: var(--step-h4-lh); --h4-wt: var(--step-h4-wt); --h4-tr: var(--step-h4-tr);
+  --h5-size: var(--step-h5-size); --h5-lh: var(--step-h5-lh); --h5-wt: var(--step-h5-wt); --h5-tr: var(--step-h5-tr);
+  --sub1-size: var(--step-sub1-size); --sub1-lh: var(--step-sub1-lh);
+  --sub2-size: var(--step-sub2-size); --sub2-lh: var(--step-sub2-lh);
+  --sub3-size: var(--step-sub3-size); --sub3-lh: var(--step-sub3-lh);
+
+  /* Сетка: mobile first (4 колонки) */
+  --canvas-max: 1120px;
+  --cols: 4;
+  --gutter: var(--space-16);
+  --screen-pad: 0px;              /* экран → холст */
+  --content-pad: var(--space-16); /* холст → контент */
+
+  --dash-color: var(--line);
+}
+
+/* Тёмная тема: по системе, если пользователь не выбрал светлую */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #111113;
+    --surface: #1C1D20;
+    --cell: #18191B;
+    --cover: #0C0C0E;
+    --glow: #2A2B2F;
+    --fg: #E6E7EA;
+    --muted: #9A9CA2;
+    --on-accent: #141414;
+    --line: #2F3136;
+    --handle: #E6E7EA;
+    --accent: #8A9BFF;
+    --accent-hover: #A5B2FF;
+    --accent-text: #8A9BFF;
+    --focus: #8A9BFF;
+  }
+}
+
+/* Тёмная тема по выбору пользователя */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #111113;
+  --surface: #1C1D20;
+  --cell: #18191B;
+  --cover: #0C0C0E;
+  --glow: #2A2B2F;
+  --fg: #E6E7EA;
+  --muted: #9A9CA2;
+  --on-accent: #141414;
+  --line: #2F3136;
+  --handle: #E6E7EA;
+  --accent: #8A9BFF;
+  --accent-hover: #A5B2FF;
+  --accent-text: #8A9BFF;
+  --focus: #8A9BFF;
+}
+
+/* Tablet: 8 колонок; H1 → размер H2, H2 → размер H3 */
+@media (min-width: 600px) {
+  :root {
+    --cols: 8;
+    --screen-pad: var(--space-24);
+    --content-pad: var(--space-24);
+    --h1-size: var(--step-h2-size); --h1-lh: var(--step-h2-lh);
+    --h2-size: var(--step-h3-size); --h2-lh: var(--step-h3-lh);
+  }
+}
+
+/* Mobile: все заголовки и подзаголовки на ступень вниз */
+@media (max-width: 599px) {
+  :root {
+    --h1-size: var(--step-h2-size); --h1-lh: var(--step-h2-lh);
+    --h2-size: var(--step-h3-size); --h2-lh: var(--step-h3-lh);
+    --h3-size: var(--step-h4-size); --h3-lh: var(--step-h4-lh); --h3-wt: var(--step-h4-wt); --h3-tr: var(--step-h4-tr);
+    --h4-size: var(--step-h5-size); --h4-lh: var(--step-h5-lh);
+    --sub1-size: var(--step-sub2-size); --sub1-lh: var(--step-sub2-lh);
+    --sub2-size: var(--step-sub3-size); --sub2-lh: var(--step-sub3-lh);
+  }
+}
+
+/* Desktop: 12 колонок */
+@media (min-width: 1024px) {
+  :root {
+    --cols: 12;
+    --gutter: var(--space-24);
+    --screen-pad: var(--space-32);
+    --content-pad: var(--space-32);
+    --h1-size: var(--step-h1-size); --h1-lh: var(--step-h1-lh);
+    --h2-size: var(--step-h2-size); --h2-lh: var(--step-h2-lh);
+  }
+}

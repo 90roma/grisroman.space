@@ -1,0 +1,247 @@
+/* Главная. Раскладка — docs/style/d-holst.md → «Сетка → Главная». Mobile first. */
+
+/* ---------- Шапка: прилипает к верху, залита фоном ---------- */
+html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.site-header.ln { background-color: var(--bg); }
+/* Шапка и футер не упираются в края экрана: поле не меньше поля контента (на mobile холст стоит вплотную, а шапка — нет) */
+.site-header .shell,
+.site-footer .shell { padding-inline: max(var(--screen-pad), var(--content-pad)); }
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding-block: var(--space-16);
+}
+.header__me { display: flex; align-items: center; gap: var(--space-12); }
+.header__avatar {
+  width: var(--avatar);
+  height: var(--avatar);
+  image-rendering: pixelated;
+}
+
+.header__nav { display: flex; align-items: center; gap: var(--space-24); }
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  color: var(--muted);
+  transition: color var(--motion-duration) var(--motion-ease);
+}
+.nav-link:hover, .nav-link:focus-visible { color: var(--fg); }
+
+/* Mobile: аватар, имя и кнопка; ссылки скрыты, от темы остаётся иконка */
+.header__nav > .nav-link:not(.theme-toggle) { display: none; }
+.theme-toggle__text {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+
+/* Кнопка: заливка accent, поля 12/16 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-12) var(--space-16);
+  background: var(--accent);
+  color: var(--on-accent);
+  transition: background-color var(--motion-duration) var(--motion-ease);
+}
+.btn:hover, .btn:focus-visible { background: var(--accent-hover); }
+
+/* Контурная кнопка (ссылки на сторы): поля 12/16 */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-12) var(--space-16);
+  border: var(--line-width) solid var(--fg);
+  color: var(--fg);
+  transition: background-color var(--motion-duration) var(--motion-ease), color var(--motion-duration) var(--motion-ease);
+}
+.btn-outline:hover, .btn-outline:focus-visible { background: var(--fg); color: var(--bg); }
+
+/* ---------- Hero: плашки surface, поля 12/16; текст плашки — по краю контента ---------- */
+.hero { padding-block: var(--space-48); }
+.hero__plates {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-8); /* заголовок → подзаголовок */
+  margin-left: calc(var(--space-16) * -1);
+}
+.plate {
+  background: var(--surface);
+  padding: var(--space-12) var(--space-16);
+}
+
+/* ---------- Опыт и «Обо мне» ---------- */
+.about {
+  padding-block: var(--space-32);
+  row-gap: var(--space-32);
+}
+.jobs, .about__text { grid-column: 1 / -1; }
+.jobs { display: flex; flex-direction: column; gap: var(--space-24); }
+.job, .about__text { display: flex; flex-direction: column; gap: var(--space-8); }
+.about__text .text-l { max-width: 40em; }
+
+/* ---------- Заголовок секции ---------- */
+.section-head {
+  /* до заголовка — граница раздела (64), после — вдвое меньше, заголовок держится за список */
+  padding: var(--space-64) var(--content-pad) var(--space-32);
+  scroll-margin-top: var(--space-16);
+}
+.section-head__title { display: flex; align-items: center; gap: var(--space-8); }
+
+/* ---------- Список кейсов: крестики у контейнера (TL, BR) и у каждого кейса (BL) ---------- */
+.cases { position: relative; }
+.cases__item { position: relative; padding-bottom: var(--space-64); }
+.cases__item:last-child { padding-bottom: 0; }
+
+/* ---------- Карточка кейса ---------- */
+.case {
+  display: block;
+  transition: --dash-color var(--motion-duration) var(--motion-ease);
+}
+.case__cover {
+  overflow: hidden;
+  /* «Углубление» cover со свечением glow под скриншотом */
+  background: radial-gradient(60% 70% at 50% 85%, var(--glow), var(--cover));
+  padding: var(--space-24) var(--content-pad) 0;
+}
+.case__img {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  margin-inline: auto;
+  transform-origin: 50% 100%;
+  transition: transform var(--motion-duration) var(--motion-ease);
+}
+
+.case__tagrow { display: flex; align-items: stretch; }
+.tag {
+  display: flex;
+  align-items: center;
+  flex: none;
+  padding: var(--space-12) var(--space-32);
+  background: var(--fg);
+  color: var(--bg);
+}
+.case__meta {
+  display: flex;
+  align-items: center;
+  padding: var(--space-12) var(--space-16);
+}
+.case__arrow {
+  align-self: center;
+  margin-left: auto;
+  margin-right: var(--content-pad);
+  color: var(--fg);
+  opacity: 0;
+  transition: opacity var(--motion-duration) var(--motion-ease);
+}
+
+.case__body { row-gap: 0; }
+.case__text {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8); /* заголовок → описание */
+  padding-block: var(--space-32);
+}
+
+/* Блок результата «было | стало» с внутренним пунктиром (исключение стиля).
+   Растянут на всю высоту строки, ячейки — тоже, содержимое по центру. */
+.result {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  margin-inline: calc(var(--content-pad) * -1);
+}
+.result.ln { --ln-t: var(--dash-h) top / 100% var(--line-width) no-repeat; }
+.result__head { padding: var(--space-16); text-align: center; }
+.result__cells { flex: 1; display: grid; grid-template-columns: 1fr 1fr; }
+.result__cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-8);
+  padding: var(--space-16);
+}
+/* Подчёркивание «стало»: линия 3 px accent-text, зазор space/4 от текста */
+.result__after {
+  align-self: flex-start;
+  padding-bottom: calc(var(--space-4) + var(--result-line));
+  background: linear-gradient(var(--accent-text), var(--accent-text)) left bottom / 100% var(--result-line) no-repeat;
+}
+
+.case__stores {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  padding-bottom: var(--space-32);
+}
+
+/* Наведение = фокус: пунктир line → fg, стрелка, картинка +3% */
+.case:hover, .case:focus-visible { --dash-color: var(--fg); }
+.case:hover .case__arrow, .case:focus-visible .case__arrow { opacity: 1; }
+.case:hover .case__img, .case:focus-visible .case__img { transform: scale(var(--zoom)); }
+@media (prefers-reduced-motion: reduce) {
+  .case:hover .case__img, .case:focus-visible .case__img { transform: none; }
+}
+
+/* ---------- Футер: 2 × 2 на mobile, 4 ячейки шире ---------- */
+/* Ячейки без боковых полей; между текстами — всё свободное место, но не меньше space/16 */
+.footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  padding-block: var(--space-48);
+}
+.footer__link { transition: color var(--motion-duration) var(--motion-ease); }
+.footer__link:hover, .footer__link:focus-visible { color: var(--accent-text); }
+
+/* ================= Tablet: 8 колонок ================= */
+@media (min-width: 600px) {
+  .header { flex-wrap: wrap; }
+  .header__nav > .nav-link:not(.theme-toggle) { display: inline-flex; }
+  .theme-toggle__text { position: static; width: auto; height: auto; overflow: visible; clip: auto; clip-path: none; }
+
+  .jobs { grid-column: 1 / span 4; }
+  .about__text { grid-column: 5 / -1; }
+
+  .case__cover { padding-top: var(--space-48); }
+
+  .case__text { grid-column: 1 / span 5; }
+  .result {
+    grid-column: 6 / -1;
+    margin-left: 0;
+  }
+  .result.ln { --ln-t: none; --ln-l: var(--dash-v) left / var(--line-width) 100% no-repeat; }
+  .case__stores {
+    grid-column: 6 / -1;
+    justify-content: flex-end;
+    align-self: center;
+    padding-block: var(--space-32);
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+/* ================= Desktop: 12 колонок ================= */
+@media (min-width: 1024px) {
+  .hero__plates { grid-column: 1 / span 10; }
+  .jobs { grid-column: 1 / span 5; }
+  .about__text { grid-column: 6 / -1; }
+  .case__text { grid-column: 1 / span 7; }
+  .result, .case__stores { grid-column: 8 / -1; }
+}
