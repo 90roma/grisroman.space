@@ -124,8 +124,6 @@
 .figure__video { width: 100%; height: auto; vertical-align: top; pointer-events: none; }  /* display задают классы темы */
 .figure__video::-webkit-media-controls-start-playback-button { display: none; }  /* iOS в режиме энергосбережения не рисует кнопку */
 .figure figcaption { color: var(--muted); max-width: 40em; }
-/* Временная заглушка картинки: пропорции скриншота, подпись по центру */
-.figure__placeholder { aspect-ratio: 1923 / 1070; display: grid; place-items: center; padding: var(--space-24); text-align: center; color: var(--muted); }
 
 /* Схема: сцена cover, поля 32, по ширине блока; по клику — на весь экран */
 .figure--diagram .figure__stage { background: var(--cover); padding: var(--space-32); }
