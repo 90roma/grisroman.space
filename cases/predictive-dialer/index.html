@@ -140,7 +140,6 @@
         <p class="text-l">Оба режима звонят одному абоненту за&nbsp;раз. Трубку берут в&nbsp;среднем в&nbsp;20–25% случаев, и&nbsp;оператор ждёт, пока система дозвонится. Для&nbsp;небольших команд это терпимо. Но&nbsp;с&nbsp;ростом базы клиентов и&nbsp;числа операторов пользователи стали спрашивать, как&nbsp;ускорить исходящие кампании.</p>
         <p class="text-l"><strong>Объёмы.</strong> Звонки не&nbsp;успевали обрабатывать. Контакт дорожал, кампании теряли эффективность.</p>
         <p class="text-l"><strong>Паузы между вызовами.</strong> В&nbsp;превью каждый звонок оператор принимал вручную, а&nbsp;в&nbsp;прогрессивном оператор всё равно ждал, пока&nbsp;система дозвонится.</p>
-        <p class="text-l"><strong>Ошибки набора.</strong> В&nbsp;спешке операторы ошибались в&nbsp;номерах или звонили не&nbsp;тем клиентам.</p>
         <p class="text-l"><strong>Цель.</strong> Повысить эффективность операторов и&nbsp;убрать ручную работу между звонками, чтобы&nbsp;большая часть времени уходила на&nbsp;разговоры.</p>
       </div>
     </section>
@@ -215,7 +214,7 @@
       <div class="section__aside"><p class="section__label label-l">Что спроектировал</p></div>
       <div class="section__body">
         <h2 class="h3">Сложный алгоритм спрятан за&nbsp;простыми&nbsp;настройками</h2>
-        <p class="text-l">Алгоритм делали разработчики. На&nbsp;дизайне было то, как&nbsp;режим выглядит для&nbsp;руководителя кампании и&nbsp;для&nbsp;оператора.</p>
+        <p class="text-l">Логику телефонии делали разработчики. Интерфейс режима спроектировал сам, от&nbsp;настройки кампании до&nbsp;рабочего места оператора.</p>
         <p class="text-l"><strong>Подсказки при&nbsp;выборе режима.</strong> Три режима дозвона легко перепутать, а&nbsp;предиктивный в&nbsp;маленькой команде работает плохо и&nbsp;звонит по&nbsp;одному абоненту на&nbsp;оператора. Поэтому в&nbsp;мастере кампании каждый режим показан карточкой с&nbsp;подсказкой, кому он подходит. Превью для&nbsp;небольших команд, прогрессивный для&nbsp;небольших и&nbsp;средних, предиктивный для&nbsp;крупных. Так режим выбирают по&nbsp;размеру команды и&nbsp;не&nbsp;разбираются в&nbsp;алгоритме. А&nbsp;если на&nbsp;следующем шаге в&nbsp;предиктивную кампанию добавлено меньше 5&nbsp;операторов, мастер показывает уведомление и&nbsp;рекомендует добавить ещё.</p>
         <p class="text-l">Параметры выбранного режима выставляются автоматически. Если нужно, пользователь вручную задаёт темп дозвона, паузы между звонками и&nbsp;допустимую долю потерянных вызовов.</p>
       </div>
@@ -259,6 +258,9 @@
           <button class="gallery__btn btn-outline" type="button" data-gallery-prev aria-label="Предыдущий экран"><svg class="px-arrow px-arrow--back" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
           <button class="gallery__btn btn-outline" type="button" data-gallery-next aria-label="Следующий экран"><svg class="px-arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
         </div>
+      </div>
+      <div class="section__body">
+        <p class="text-l"><strong>Аналитика.</strong> Отдельный экран для&nbsp;неё не&nbsp;понадобился. Звонки кампаний попадают в&nbsp;существующий раздел Reports, а&nbsp;в&nbsp;отчёте по&nbsp;кампаниям видна доля потерянных вызовов.</p>
       </div>
     </section>
 
