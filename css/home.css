@@ -35,12 +35,20 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
 }
 .nav-link:hover, .nav-link:focus-visible { color: var(--fg); }
 
-/* Mobile: аватар, имя и кнопка; ссылки скрыты, от темы остаётся иконка */
-.header__nav > .nav-link:not(.theme-toggle) { display: none; }
-.theme-toggle__text {
-  position: absolute; width: 1px; height: 1px; overflow: hidden;
-  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+/* Зона нажатия ссылок шапки — 48 по высоте (как аватар), по бокам +12: при промежутке 24 зоны соседей
+   смыкаются, но не перекрываются. Раскладка шапки не меняется */
+.nav-link { position: relative; }
+.nav-link::before {
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--space-16)) calc(-1 * var(--space-12));
 }
+
+/* Тема — только иконка: солнце в светлой теме, луна в тёмной (Radix Icons) */
+.theme-icon { width: var(--space-16); height: var(--space-16); flex: none; }
+
+/* Mobile: аватар, имя и кнопка; ссылки скрыты, остаётся иконка темы */
+.header__nav > .nav-link:not(.theme-toggle) { display: none; }
 
 
 /* Кнопка: заливка accent, поля 12/16 */
@@ -87,13 +95,16 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
 .ask-ai {
   margin-top: var(--space-8);   /* + gap 8 колонки = 16: кнопки — часть блока «Обо мне», как абзац → абзац */
   display: flex;
+  flex-direction: column;
+  gap: var(--space-8);          /* кнопки → подсказка: основной → вторичный */
+}
+.ask-ai__buttons {
+  display: flex;
   flex-wrap: wrap;
   gap: var(--space-16);         /* между контурными кнопками: 8 слипается рамками */
 }
-.ask-ai__status { flex-basis: 100%; }
 .ask-ai .btn-outline { gap: var(--space-8); }
 .ai-logo { width: var(--space-16); height: var(--space-16); flex: none; }
-.ask-ai__status:empty { display: none; }
 
 /* ---------- Опыт и «Обо мне» ---------- */
 .about { padding-block: var(--space-32); }
@@ -224,7 +235,6 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
 @media (min-width: 600px) {
   .header { flex-wrap: wrap; }
   .header__nav > .nav-link:not(.theme-toggle) { display: inline-flex; }
-  .theme-toggle__text { position: static; width: auto; height: auto; overflow: visible; clip: auto; clip-path: none; }
 
   .about__inner { grid-template-columns: max-content minmax(0, 1fr); }
 
