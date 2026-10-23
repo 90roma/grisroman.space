@@ -113,6 +113,9 @@ ul, ol { list-style: none; padding: 0; }
   padding-inline: var(--content-pad);
 }
 
+/* Колонка чтения: текст по центру контента шириной --reading; картинки и карточки — на всю ширину контента */
+.reading { justify-self: center; width: 100%; max-width: var(--reading); }
+
 /* ---------- Иконки ---------- */
 .icon { width: var(--icon); height: var(--icon); flex: none; }
 

@@ -98,7 +98,8 @@
   --sub3-size: var(--step-sub3-size); --sub3-lh: var(--step-sub3-lh);
 
   /* Сетка: mobile first (4 колонки) */
-  --canvas-max: 1120px;
+  --canvas-max: 1024px;          /* холст; контент на desktop — 960 */
+  --reading: 672px;              /* колонка чтения: весь текст сайта (42 кегля Text/L), по центру контента */
   --cols: 4;
   --gutter: var(--space-16);
   --screen-pad: 0px;              /* экран → холст */
