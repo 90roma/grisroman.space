@@ -15,12 +15,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400&family=Martian+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="../../css/tokens.css?v=20">
+  <link rel="stylesheet" href="../../css/tokens.css?v=21">
   <link rel="stylesheet" href="../../css/base.css?v=20">
   <link rel="stylesheet" href="../../css/home.css?v=20">
-  <link rel="stylesheet" href="../../css/case.css?v=21">
+  <link rel="stylesheet" href="../../css/case.css?v=22">
   <link rel="icon" href="../../img/avatar.png">
-  <script src="../../js/main.js?v=15" defer></script>
+  <script src="../../js/main.js?v=17" defer></script>
 </head>
 <body>
 
@@ -104,7 +104,7 @@
         <img class="video__poster" src="img/video-poster.webp" alt="" width="1280" height="720">
         <button class="video__play btn label-m" type="button">
           <svg class="px-play" viewBox="0 0 5 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 0h1v7H0zM1 1h1v5H1zM2 2h1v3H2zM3 3h1v1H3z" fill="currentColor"/></svg>
-          Смотреть видео<span class="visually-hidden">, предиктивный набор глазами оператора, YouTube</span>
+          Смотреть<span class="visually-hidden"> видео, предиктивный набор глазами оператора, YouTube</span>
         </button>
       </div>
     </div>
@@ -214,21 +214,28 @@
         <p class="text-l">Мы&nbsp;запустили тестовый режим для&nbsp;исходящих кампаний и&nbsp;смотрели, как&nbsp;система ведёт себя в&nbsp;реальных условиях. Следили за&nbsp;тем, удобно ли операторам работать в&nbsp;новом темпе, понятны ли настройки кампании, какой получается загрузка операторов и&nbsp;сколько вызовов теряется.</p>
         <p class="text-l">Звонок из&nbsp;кампании приходит оператору, когда клиент уже на&nbsp;линии, и&nbsp;сразу видно название кампании и&nbsp;данные контакта. После разговора оператор выбирает результат звонка и&nbsp;переходит к&nbsp;следующему.</p>
       </div>
-      <div class="section__wide figures">
-        <figure class="figure">
-          <div class="figure__stage">
-            <img class="theme-light" src="img/on-call.webp" alt="Рабочее место оператора во&nbsp;время звонка из&nbsp;кампании, справа название кампании и&nbsp;данные контакта" width="1923" height="1070" loading="lazy" decoding="async">
-            <img class="theme-dark" src="img/on-call-dark.webp" alt="Рабочее место оператора во&nbsp;время звонка из&nbsp;кампании, справа название кампании и&nbsp;данные контакта" width="1922" height="1069" loading="lazy" decoding="async">
-          </div>
-          <figcaption class="text-s">Звонок из&nbsp;кампании. Клиент уже на&nbsp;линии, справа название кампании и&nbsp;данные&nbsp;контакта</figcaption>
-        </figure>
-        <figure class="figure">
-          <div class="figure__stage">
-            <img class="theme-light" src="img/wrap-up.webp" alt="Рабочее место оператора после звонка с&nbsp;выбором результата звонка и&nbsp;таймер постобработки" width="1923" height="1070" loading="lazy" decoding="async">
-            <img class="theme-dark" src="img/wrap-up-dark.webp" alt="Рабочее место оператора после звонка с&nbsp;выбором результата звонка и&nbsp;таймер постобработки" width="1922" height="1069" loading="lazy" decoding="async">
-          </div>
-          <figcaption class="text-s">После звонка оператор выбирает результат, пока идёт время&nbsp;постобработки</figcaption>
-        </figure>
+      <div class="section__wide gallery" data-gallery>
+        <div class="gallery__track" tabindex="0" role="region" aria-label="Экраны оператора, 2 картинки">
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+              <img class="theme-light" src="img/on-call.webp" alt="Рабочее место оператора во&nbsp;время звонка из&nbsp;кампании, справа название кампании и&nbsp;данные контакта" width="1923" height="1070" loading="lazy" decoding="async">
+              <img class="theme-dark" src="img/on-call-dark.webp" alt="Рабочее место оператора во&nbsp;время звонка из&nbsp;кампании, справа название кампании и&nbsp;данные контакта" width="1922" height="1069" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">Звонок из&nbsp;кампании. Клиент уже на&nbsp;линии, справа название кампании и&nbsp;данные&nbsp;контакта</figcaption>
+          </figure>
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+              <img class="theme-light" src="img/wrap-up.webp" alt="Рабочее место оператора после звонка с&nbsp;выбором результата звонка и&nbsp;таймер постобработки" width="1923" height="1070" loading="lazy" decoding="async">
+              <img class="theme-dark" src="img/wrap-up-dark.webp" alt="Рабочее место оператора после звонка с&nbsp;выбором результата звонка и&nbsp;таймер постобработки" width="1922" height="1069" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">После звонка оператор выбирает результат, пока идёт время&nbsp;постобработки</figcaption>
+          </figure>
+        </div>
+        <div class="gallery__nav" hidden>
+          <p class="gallery__count label-s" aria-live="polite"><span data-gallery-current>01</span> / <span data-gallery-total>02</span></p>
+          <button class="gallery__btn btn-outline" type="button" data-gallery-prev aria-label="Предыдущий экран"><svg class="px-arrow px-arrow--back" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
+          <button class="gallery__btn btn-outline" type="button" data-gallery-next aria-label="Следующий экран"><svg class="px-arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
+        </div>
       </div>
     </section>
 

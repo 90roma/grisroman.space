@@ -53,12 +53,47 @@
     copy.removeAttribute('class');
     copy.loading = 'eager';
     zoom.querySelector('.zoom__scroll').replaceChildren(copy);
+    zoom.classList.toggle('zoom--fit', trigger.dataset.zoom === 'fit');
     zoom.setAttribute('aria-label', trigger.getAttribute('aria-label') || 'Картинка');
     zoom.trigger = trigger;
     zoom.showModal();
   }
   document.querySelectorAll('[data-zoom]').forEach(function (trigger) {
     trigger.addEventListener('click', function () { openZoom(trigger); });
+  });
+
+  // ---------- Галерея: стрелки листают по одной картинке, счётчик следит за прокруткой (свайп работает и без JS) ----------
+  document.querySelectorAll('[data-gallery]').forEach(function (gallery) {
+    var track = gallery.querySelector('.gallery__track');
+    var slides = track.children;
+    var prev = gallery.querySelector('[data-gallery-prev]');
+    var next = gallery.querySelector('[data-gallery-next]');
+    var current = gallery.querySelector('[data-gallery-current]');
+    var pad = function (n) { return String(n).padStart(2, '0'); };
+    var offset = function (i) { return slides[i].offsetLeft - slides[0].offsetLeft; };
+    var index = function () { return Math.round(track.scrollLeft / offset(1)); };
+    function go(i) { track.scrollTo({ left: offset(i) }); }
+    function update() {
+      var i = index();
+      current.textContent = pad(i + 1);
+      prev.disabled = i === 0;
+      next.disabled = i === slides.length - 1;
+    }
+    // Стрелка на краю становится неактивной и теряет фокус — заранее переводим его на соседнюю
+    function step(button, other, i, edge) {
+      go(i);
+      if (i === edge && document.activeElement === button) other.focus();
+    }
+    gallery.querySelector('[data-gallery-total]').textContent = pad(slides.length);
+    prev.addEventListener('click', function () { step(prev, next, Math.max(index() - 1, 0), 0); });
+    next.addEventListener('click', function () { step(next, prev, Math.min(index() + 1, slides.length - 1), slides.length - 1); });
+    track.addEventListener('scroll', update, { passive: true });
+    track.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prev.click(); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); next.click(); }
+    });
+    gallery.querySelector('.gallery__nav').hidden = false;
+    update();
   });
 
   // ---------- Появление: [data-reveal] получает .is-visible, когда попадает в экран ----------
