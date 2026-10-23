@@ -118,7 +118,7 @@
     update();
   });
 
-  // ---------- Оглавление кейса: подсветка текущего раздела ----------
+  // ---------- Оглавление кейса: подсветка текущего раздела, видно только в зоне разделов ----------
   var toc = document.querySelector('.toc');
   if (toc) {
     var tocLinks = Array.prototype.slice.call(toc.querySelectorAll('.toc__link'));
@@ -135,6 +135,11 @@
         if (i === current) link.setAttribute('aria-current', 'true');
         else link.removeAttribute('aria-current');
       });
+      // видно, только когда разделы закрывают оглавление по высоте целиком: выше — обложка, ниже — футер, они шире контента
+      var box = toc.getBoundingClientRect();
+      var first = tocSections[0].getBoundingClientRect();
+      var last = tocSections[tocSections.length - 1].getBoundingClientRect();
+      toc.classList.toggle('toc--visible', first.top <= box.top && last.bottom >= box.bottom);
     }
     window.addEventListener('scroll', function () {
       if (!tocPending) { tocPending = true; requestAnimationFrame(updateToc); }
