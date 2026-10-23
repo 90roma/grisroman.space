@@ -166,9 +166,9 @@
 }
 .gallery__track::-webkit-scrollbar { display: none; }
 .gallery__slide { scroll-snap-align: start; }
-.gallery__nav { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-8); }
+.gallery__nav { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-16); }  /* между контурными кнопками — 16 */
 .gallery__nav[hidden] { display: none; }
-.gallery__count { color: var(--muted); margin-right: var(--space-8); }
+.gallery__count { color: var(--muted); }
 .gallery__btn:disabled { border-color: var(--line); color: var(--muted); background: none; cursor: default; }
 @media (prefers-reduced-motion: reduce) { .gallery__track { scroll-behavior: auto; } }
 
