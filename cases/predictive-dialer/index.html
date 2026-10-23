@@ -18,9 +18,9 @@
   <link rel="stylesheet" href="../../css/tokens.css?v=30">
   <link rel="stylesheet" href="../../css/base.css?v=30">
   <link rel="stylesheet" href="../../css/home.css?v=40">
-  <link rel="stylesheet" href="../../css/case.css?v=40">
+  <link rel="stylesheet" href="../../css/case.css?v=41">
   <link rel="icon" href="../../img/avatar.png">
-  <script src="../../js/main.js?v=21" defer></script>
+  <script src="../../js/main.js?v=22" defer></script>
 </head>
 <body>
 
@@ -47,6 +47,17 @@
   </div>
 </header>
 
+<!-- Оглавление кейса: вне холста, закреплено слева на широком экране, видно всегда -->
+<nav class="toc" aria-label="Разделы кейса">
+  <ol class="toc__list">
+    <li><a class="toc__link label-s" href="#context">Контекст и&nbsp;проблема</a></li>
+    <li><a class="toc__link label-s" href="#research">Исследование</a></li>
+    <li><a class="toc__link label-s" href="#solution">Решение</a></li>
+    <li><a class="toc__link label-s" href="#my-work">Ключевые решения</a></li>
+    <li><a class="toc__link label-s" href="#result">Результат</a></li>
+  </ol>
+</nav>
+
 <div class="shell">
   <main class="canvas longread">
 
@@ -61,7 +72,7 @@
     <section class="case-hero grid" data-reveal>
       <div class="case-hero__text">
         <h1 class="h1">Предиктивный набор</h1>
-        <p class="subtitle-1 muted">Как&nbsp;повысили время активной работы операторов с&nbsp;24&nbsp;минут в&nbsp;час до&nbsp;47</p>
+        <p class="subtitle-1 muted">Как&nbsp;повысили время активной работы операторов с&nbsp;24 до&nbsp;47&nbsp;минут в&nbsp;час</p>
       </div>
     </section>
 
@@ -118,18 +129,6 @@
         </button>
       </div>
     </div>
-
-    <!-- Разделы кейса: оглавление слева от колонки чтения, закреплено при прокрутке (только на широком экране) -->
-    <div class="case-body">
-      <nav class="toc" aria-label="Разделы кейса">
-        <ol class="toc__list">
-          <li><a class="toc__link label-s" href="#context">Контекст и&nbsp;проблема</a></li>
-          <li><a class="toc__link label-s" href="#research">Исследование</a></li>
-          <li><a class="toc__link label-s" href="#solution">Решение</a></li>
-          <li><a class="toc__link label-s" href="#my-work">Что спроектировал</a></li>
-          <li><a class="toc__link label-s" href="#result">Результат</a></li>
-        </ol>
-      </nav>
 
     <!-- 1. Контекст и проблема -->
     <section class="section grid" id="context" data-reveal>
@@ -210,12 +209,13 @@
       </figure>
     </section>
 
-    <!-- 4. Что спроектировал -->
+    <!-- 4. Ключевые решения: проблема → что сделал → почему так -->
     <section class="section grid" id="my-work" data-reveal>
-      <div class="section__aside"><p class="section__label label-l">Что спроектировал</p></div>
+      <div class="section__aside"><p class="section__label label-l">Ключевые решения</p></div>
       <div class="section__body">
         <h2 class="h3">Сложный алгоритм спрятан за&nbsp;простыми&nbsp;настройками</h2>
-        <p class="text-l"><strong>Настройка кампании.</strong> При&nbsp;создании кампании настройки предиктивного режима выставляются автоматически. Если нужно, пользователь вручную задаёт темп дозвона, паузы между звонками и&nbsp;допустимую долю потерянных вызовов.</p>
+        <p class="text-l"><strong>Подсказки при&nbsp;выборе режима.</strong> Три режима дозвона легко перепутать, а&nbsp;предиктивный в&nbsp;маленькой команде работает плохо и&nbsp;звонит по&nbsp;одному абоненту на&nbsp;оператора. Поэтому в&nbsp;мастере кампании каждый режим показан карточкой с&nbsp;подсказкой, кому он подходит. Превью для&nbsp;небольших команд, прогрессивный для&nbsp;небольших и&nbsp;средних, предиктивный для&nbsp;крупных. Так режим выбирают по&nbsp;размеру команды и&nbsp;не&nbsp;разбираются в&nbsp;алгоритме.</p>
+        <p class="text-l">Параметры выбранного режима выставляются автоматически. Если нужно, пользователь вручную задаёт темп дозвона, паузы между звонками и&nbsp;допустимую долю потерянных вызовов.</p>
       </div>
       <figure class="section__wide figure">
         <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
@@ -225,7 +225,8 @@
         <figcaption class="text-s">Настройка предиктивного режима в&nbsp;мастере исходящей кампании</figcaption>
       </figure>
       <div class="section__body">
-        <p class="text-l"><strong>Рабочее место оператора.</strong> Звонок из&nbsp;кампании приходит в&nbsp;веб-фон, который работает во&nbsp;всём продукте. Оператор получает его, когда клиент уже на&nbsp;линии, и&nbsp;сразу видит название кампании и&nbsp;данные контакта. После разговора он&nbsp;выбирает результат звонка и&nbsp;переходит к&nbsp;следующему.</p>
+        <p class="text-l"><strong>Звонок, когда клиент уже на&nbsp;линии.</strong> В&nbsp;предиктивном режиме оператор не&nbsp;выбирает, кому звонить, и&nbsp;у&nbsp;него нет времени подготовиться. Абонент ждёт соединения не&nbsp;дольше 3&nbsp;секунд. Поэтому звонок из&nbsp;кампании приходит в&nbsp;веб-фон сразу с&nbsp;названием и&nbsp;описанием кампании, именем клиента и&nbsp;данными контакта. Оператор за&nbsp;пару секунд понимает, кто на&nbsp;линии и&nbsp;зачем звонок, и&nbsp;не&nbsp;ищет клиента в&nbsp;других вкладках.</p>
+        <p class="text-l"><strong>Результат звонка во&nbsp;время постобработки.</strong> После разговора система почти сразу готовит следующий звонок, а&nbsp;оператору нужно записать результат. Поэтому после звонка веб-фон открывает выбор результата с&nbsp;таймером постобработки. Пауза получается короткой и&nbsp;предсказуемой, а&nbsp;алгоритм учитывает её, когда рассчитывает темп.</p>
       </div>
       <div class="section__wide gallery" data-gallery>
         <div class="gallery__track" tabindex="0" role="region" aria-label="Экраны оператора, 3 картинки">
@@ -285,8 +286,6 @@
         <p class="text-l">Колл-центры ждут предиктивный набор от&nbsp;любого сервиса исходящих звонков. Теперь MightyCall может предлагать исходящие кампании крупным командам наравне с&nbsp;другими сервисами. Продолжаем следить за&nbsp;показателями режима и&nbsp;дорабатываем слабые места.</p>
       </div>
     </section>
-
-    </div>
 
     <!-- Следующий кейс -->
     <nav class="next grid" aria-label="Следующий кейс">
