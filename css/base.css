@@ -3,6 +3,10 @@
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 html { -webkit-text-size-adjust: 100%; }
+/* Плавный переход к якорям («Кейсы», «Все кейсы»); при «уменьшить движение» — мгновенно */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 body {
   min-height: 100vh;
   background: var(--bg);
