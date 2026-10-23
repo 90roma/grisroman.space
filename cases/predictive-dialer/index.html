@@ -18,9 +18,9 @@
   <link rel="stylesheet" href="../../css/tokens.css?v=21">
   <link rel="stylesheet" href="../../css/base.css?v=20">
   <link rel="stylesheet" href="../../css/home.css?v=20">
-  <link rel="stylesheet" href="../../css/case.css?v=24">
+  <link rel="stylesheet" href="../../css/case.css?v=25">
   <link rel="icon" href="../../img/avatar.png">
-  <script src="../../js/main.js?v=17" defer></script>
+  <script src="../../js/main.js?v=19" defer></script>
 </head>
 <body>
 
@@ -100,8 +100,7 @@
         <div class="meta-pair"><dt class="label-s muted">Платформа</dt><dd class="text-m">Web, desktop</dd></div>
         <div class="meta-pair meta-pair--wide">
           <dt class="label-s muted">Что делал</dt>
-          <dd class="text-m">Разобрал статистику, отчёт исследователей и&nbsp;конкурентов. Спроектировал настройку кампании и&nbsp;рабочее место оператора</dd>
-          <dd class="text-m"><a class="link" href="#my-work">Как делал</a></dd>
+          <dd class="text-m">Разобрал статистику и&nbsp;отчёт исследователей, изучил конкурентов. Спроектировал настройку кампании и&nbsp;рабочее место оператора. <a class="link" href="#my-work">Как&nbsp;делал</a></dd>
         </div>
       </dl>
     </section>
@@ -121,21 +120,36 @@
       <div class="section__aside"><p class="section__label label-l">Контекст и&nbsp;проблема</p></div>
       <div class="section__body">
         <h2 class="h3">Обзвон по&nbsp;одному абоненту перестал справляться с&nbsp;ростом клиентов</h2>
-        <p class="text-l">Исходящие кампании в&nbsp;MightyCall работали в&nbsp;двух режимах. В&nbsp;режиме превью оператор сначала видит карточку контакта и&nbsp;сам запускает звонок. В&nbsp;прогрессивном система набирает следующий номер, как&nbsp;только оператор освободился.</p>
-        <p class="text-l">Оба режима звонят одному абоненту за&nbsp;раз. Трубку берут в&nbsp;среднем в&nbsp;20–25% случаев, и&nbsp;оператор подолгу ждёт, пока система дозвонится. Для&nbsp;небольших команд это терпимо. Но&nbsp;с&nbsp;ростом базы клиентов и&nbsp;числа операторов пользователи стали спрашивать, как&nbsp;ускорить исходящие кампании.</p>
+        <p class="text-l">Исходящие кампании работали в&nbsp;двух режимах. В&nbsp;режиме превью оператор сначала видит карточку контакта и&nbsp;сам запускает звонок. В&nbsp;прогрессивном система набирает следующий номер, как&nbsp;только оператор освободился.</p>
+        <p class="text-l">Оба режима звонят одному абоненту за&nbsp;раз. Трубку берут в&nbsp;среднем в&nbsp;20–25% случаев, и&nbsp;оператор ждёт, пока система дозвонится. Для&nbsp;небольших команд это терпимо. Но&nbsp;с&nbsp;ростом базы клиентов и&nbsp;числа операторов пользователи стали спрашивать, как&nbsp;ускорить исходящие кампании.</p>
       </div>
-      <!-- TODO: скриншот «как было» от Романа — режим превью или прогрессивный -->
-      <figure class="section__wide figure">
-        <div class="figure__stage">
-          <div class="figure__placeholder label-s">Здесь будет скриншот режима превью или&nbsp;прогрессивного</div>
+      <!-- TODO: скриншоты «как было» от Романа (превью или прогрессивный): входящий звонок, затем разговор -->
+      <div class="section__wide gallery" data-gallery>
+        <div class="gallery__track" tabindex="0" role="region" aria-label="Как было, 2 картинки">
+          <figure class="figure gallery__slide">
+            <div class="figure__stage">
+              <div class="figure__placeholder label-s">Здесь будет скриншот входящего звонка</div>
+            </div>
+            <figcaption class="text-s">Так было. Входящий звонок из&nbsp;кампании</figcaption>
+          </figure>
+          <figure class="figure gallery__slide">
+            <div class="figure__stage">
+              <div class="figure__placeholder label-s">Здесь будет скриншот разговора</div>
+            </div>
+            <figcaption class="text-s">Так было. Разговор с&nbsp;абонентом</figcaption>
+          </figure>
         </div>
-        <figcaption class="text-s">Так было. Система звонит одному абоненту за&nbsp;раз, и&nbsp;оператор ждёт ответа</figcaption>
-      </figure>
+        <div class="gallery__nav" hidden>
+          <p class="gallery__count label-s" aria-live="polite"><span data-gallery-current>01</span> / <span data-gallery-total>02</span></p>
+          <button class="gallery__btn btn-outline" type="button" data-gallery-prev aria-label="Предыдущий экран"><svg class="px-arrow px-arrow--back" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
+          <button class="gallery__btn btn-outline" type="button" data-gallery-next aria-label="Следующий экран"><svg class="px-arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
+        </div>
+      </div>
       <div class="section__body">
         <p class="text-l"><strong>Объёмы.</strong> Звонки не&nbsp;успевали обрабатывать. Контакт дорожал, кампании теряли эффективность.</p>
         <p class="text-l"><strong>Паузы между вызовами.</strong> В&nbsp;превью каждый переход к&nbsp;следующему клиенту требовал ручных шагов, а&nbsp;в&nbsp;прогрессивном оператор всё равно ждал, пока&nbsp;система дозвонится.</p>
         <p class="text-l"><strong>Ошибки набора.</strong> В&nbsp;спешке операторы ошибались в&nbsp;номерах или звонили не&nbsp;тем клиентам.</p>
-        <p class="text-l"><strong>Цель.</strong> Повысить эффективность операторов и&nbsp;убрать ручную работу между звонками, чтобы&nbsp;большая часть смены уходила на&nbsp;разговоры.</p>
+        <p class="text-l"><strong>Цель.</strong> Повысить эффективность операторов и&nbsp;убрать ручную работу между звонками, чтобы&nbsp;большая часть времени уходила на&nbsp;разговоры.</p>
       </div>
     </section>
 
@@ -146,7 +160,7 @@
         <h2 class="h3">Операторы разговаривали меньше половины рабочего времени</h2>
         <p class="text-l list-intro">Посмотрел на&nbsp;задачу с&nbsp;трёх сторон.</p>
         <ol class="list list--num">
-          <li class="text-l"><span><strong>Статистика.</strong> Средняя занятость операторов была около 40%, это примерно 24&nbsp;минуты разговоров в&nbsp;час. Остальное время уходило на&nbsp;переходы и&nbsp;ожидание. Оператор завершал звонок, открывал следующий контакт, запускал вызов и&nbsp;ждал ответа.</span></li>
+          <li class="text-l"><span><strong>Статистика.</strong> Средняя занятость операторов была около 40%, это примерно 24&nbsp;минуты разговоров в&nbsp;час. Остальное время уходило на&nbsp;переходы и&nbsp;ожидание. В&nbsp;превью оператор открывал следующий контакт и&nbsp;сам запускал вызов. В&nbsp;прогрессивном номер набирала система, но&nbsp;оператор всё равно ждал, пока абонент ответит.</span></li>
           <li class="text-l"><span><strong>Отчёт исследователей.</strong> Исследователи компании поговорили с&nbsp;клиентами, у&nbsp;которых от&nbsp;20&nbsp;операторов. Чаще всего клиенты жаловались на&nbsp;простои, ошибки при&nbsp;ручном наборе, перегрузку в&nbsp;пиковые часы и&nbsp;сложное управление темпом дозвона.</span></li>
           <li class="text-l"><span><strong>Конкуренты.</strong> Большинство решений звонят с&nbsp;фиксированным темпом, который не&nbsp;подстраивается под&nbsp;загрузку операторов. При&nbsp;занятости ниже 70% теряется эффективность, а&nbsp;выше 90% растёт нагрузка и&nbsp;риск выгорания (<a class="link" href="https://techsee.com/blog/call-center-occupancy/" target="_blank" rel="noopener">исследование о&nbsp;занятости операторов</a>).</span></li>
         </ol>
