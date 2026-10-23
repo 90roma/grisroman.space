@@ -239,14 +239,18 @@
 
 /* ================= Wide: 1280+ — оглавление ================= */
 @media (min-width: 1280px) {
-  /* Слева от контента: от края экрана space/24 до контента space/24 (поле холста на странице кейса пустое).
-     Сверху — на уровне подписи раздела, к которому перешли по ссылке. */
+  /* Прижато к контенту: пункты выровнены вправо, за space/24 до картинок (левого края контента), по центру экрана по вертикали.
+     Ширина — по самому длинному пункту, но не шире поля слева (от края экрана тоже space/24). */
   .toc {
     display: block;
     position: fixed;
     z-index: 5;
-    top: calc(var(--avatar) + var(--space-16) * 2 + var(--space-48));
-    left: var(--space-24);
-    width: calc((100vw - var(--canvas-max)) / 2 + var(--content-pad) - var(--space-24) * 2);
+    top: 50%;
+    transform: translateY(-50%);
+    right: calc((100vw + var(--canvas-max)) / 2 - var(--content-pad) + var(--space-24));
+    width: max-content;
+    text-align: right;  /* каждый пункт прижат к контенту */
+    max-width: calc((100vw - var(--canvas-max)) / 2 + var(--content-pad) - var(--space-24) * 2);
   }
 }
+
