@@ -40,21 +40,27 @@
 }
 .case-hero__text .subtitle-1 { margin-top: var(--space-12); max-width: 28em; }
 
-/* Фактоиды: Label/M → H2/H3 → Text/S, внутри space/8 */
-.factoids { padding-block: 0 var(--space-48); row-gap: var(--space-32); }  /* продолжает группу «команда / роль / платформа» */
+/* Результаты — сразу под заголовком, в пунктирной рамке (как блок «было | стало» на главной), поля 24 (угол 1:1).
+   Та же рамка — у цифр «было / стало» в разделе «Результат». Фактоид: Label/M → H2/H3 → Text/S, внутри space/8 */
+.case-results { padding-bottom: var(--space-32); }
 .factoid { display: flex; flex-direction: column; gap: var(--space-8); }
-.factoids .factoid { grid-column: span 2; }
-
-/* О проекте: компания, тип, год, команда, роль, платформа — одной плашкой cell, поля 24 (угол 1:1) */
-.case-meta { padding-bottom: var(--space-32); }
-.project {
+.result-box {
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-24) var(--gutter);
   padding: var(--space-24);
-  background: var(--cell);
 }
+
+/* О проекте: компания, тип, год, команда, платформа — без плашки, справочно; «Что я делал» — на всю строку */
+.case-meta { padding-bottom: var(--space-48); }
+.project {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-24) var(--gutter);
+}
+.meta-pair--wide { grid-column: 1 / -1; }
 .meta-pair { display: flex; flex-direction: column; gap: var(--space-8); }
 
 /* Обложка — во всю ширину холста, «углубление» со свечением; внутри видео или картинка */
@@ -174,8 +180,7 @@
 .cards { display: grid; gap: var(--space-24); }
 .card { display: flex; flex-direction: column; gap: var(--space-8); padding: var(--space-24); background: var(--cell); }
 
-/* Цифры «было / стало» в тексте: два фактоида рядом, без рамки */
-.numbers { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--gutter); }
+/* Цифры «было / стало» в тексте: два фактоида рядом в пунктирной рамке .result-box */
 
 /* ---------- Следующий кейс: плашка cell в колонке чтения, H4 — мельче заголовков разделов ---------- */
 .next { padding-block: var(--space-48) var(--space-64); }
@@ -195,9 +200,9 @@
 
 /* ================= Tablet: 8 колонок ================= */
 @media (min-width: 600px) {
-  .factoids .factoid { grid-column: span 4; }
-  /* Фон плашки выходит за колонку на своё поле, текст стоит на общей левой линии (как плашки hero на главной) */
-  .project { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-inline: calc(var(--space-24) * -1); }
+  /* Рамка выходит за колонку на своё поле, текст стоит на общей левой линии (как плашки hero на главной) */
+  .result-box { margin-inline: calc(var(--space-24) * -1); }
+  .project { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .next-case { margin-inline: calc(var(--space-24) * -1); }
   .cards { grid-template-columns: 1fr 1fr; }
 }
@@ -214,9 +219,7 @@
   }
   .back-link { grid-column: 3 / span 6; justify-self: start; }
   .case-hero__text { grid-column: 3 / span 8; }
-  .project { grid-column: 3 / span 8; }
-  .factoids .factoid:nth-child(odd) { grid-column: 3 / span 4; }
-  .factoids .factoid:nth-child(even) { grid-column: 7 / span 4; }
+  .project, .case-results .result-box { grid-column: 3 / span 8; }
   .section__aside, .section__body { grid-column: 3 / span 8; }
   .section__wide { grid-column: 1 / -1; }
   .cards { grid-template-columns: repeat(3, 1fr); }
