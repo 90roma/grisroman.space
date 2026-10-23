@@ -73,7 +73,12 @@
   top: 50%;
   transform: translate(-50%, -50%);
   gap: var(--space-8);
+  background: var(--poster-btn);
+  color: var(--on-poster-btn);
 }
+/* Постер синий: синяя кнопка и синяя обводка фокуса на нём теряются */
+.video__play:hover, .video__play:focus-visible { background: var(--poster-btn-hover); }
+.video__play:focus-visible { outline-color: var(--on-poster-btn); }
 .px-play { width: var(--space-12); height: var(--space-16); flex: none; }  /* пиксельный треугольник, сетка 5 × 7 */
 
 /* ---------- Раздел: подпись Label/L с номером → H3 → текст, одна колонка ---------- */
@@ -133,10 +138,28 @@
 .zoom::backdrop { background: var(--cover); }
 .zoom__scroll { width: 100%; height: 100%; overflow: auto; cursor: zoom-out; }
 .zoom__scroll img { width: var(--diagram-w); max-width: none; height: auto; margin: var(--space-64) auto; }
+.zoom--fit .zoom__scroll img { width: auto; max-width: calc(100% - var(--space-64)); }  /* скриншот — в ширину экрана, без прокрутки вбок */
 .zoom__close { position: fixed; top: var(--space-16); right: var(--space-16); }
 
-/* Две картинки рядом: на узких экранах — друг под другом */
-.figures { display: grid; gap: var(--space-32); }
+/* Галерея: картинки на всю ширину контента по одной, листаются стрелками или свайпом; по клику — на весь экран */
+.gallery { display: flex; flex-direction: column; gap: var(--space-16); }
+.gallery__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  column-gap: var(--gutter);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.gallery__track::-webkit-scrollbar { display: none; }
+.gallery__slide { scroll-snap-align: start; }
+.gallery__nav { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-8); }
+.gallery__nav[hidden] { display: none; }
+.gallery__count { color: var(--muted); margin-right: var(--space-8); }
+.gallery__btn:disabled { border-color: var(--line); color: var(--muted); background: none; cursor: default; }
+@media (prefers-reduced-motion: reduce) { .gallery__track { scroll-behavior: auto; } }
 
 /* Вставка: Subtitle/2, линия 2 px accent-text, отступ текста 24 */
 .callout {
@@ -176,7 +199,6 @@
   /* Фон плашки выходит за колонку на своё поле, текст стоит на общей левой линии (как плашки hero на главной) */
   .project { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-inline: calc(var(--space-24) * -1); }
   .next-case { margin-inline: calc(var(--space-24) * -1); }
-  .figures { grid-template-columns: 1fr 1fr; }
   .cards { grid-template-columns: 1fr 1fr; }
 }
 
