@@ -1,0 +1,64 @@
+/* Пример: рамка колонки чтения (страницы frame-example.html и cases/predictive-dialer/frame.html).
+   Вместо краёв холста 1024 — две сквозные пунктирные линии по краям рамки колонки:
+   колонка чтения 672 + по 32 с каждой стороны = 736. Широкие блоки (обложки, видео, схемы, галереи) — 960,
+   лежат поверх рамки и перекрывают её. На узких экранах рамка совпадает с краями холста. */
+
+.f-col { --frame: calc(var(--reading) + var(--space-32) * 2); }
+
+/* Сквозные линии рамки */
+.f-col main.canvas { position: relative; --ln-l: none; --ln-r: none; }
+.f-col main.canvas::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: min(100%, var(--frame));
+  transform: translateX(-50%);
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(180deg, var(--line) 0 var(--dash), transparent var(--dash) calc(var(--dash) * 2)) left  / var(--line-width) 100% no-repeat,
+    repeating-linear-gradient(180deg, var(--line) 0 var(--dash), transparent var(--dash) calc(var(--dash) * 2)) right / var(--line-width) 100% no-repeat;
+}
+
+/* Горизонтальные разделители — только между линиями рамки */
+.f-col .hero, .f-col .about { position: relative; --ln-b: none; }
+.f-col .hero::after, .f-col .about::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: min(100%, var(--frame));
+  height: var(--line-width);
+  transform: translateX(-50%);
+  background: repeating-linear-gradient(90deg, var(--line) 0 var(--dash), transparent var(--dash) calc(var(--dash) * 2));
+}
+
+/* ---------- Главная: карточка кейса — обложка 960, строка тега и низ в рамке 736 ---------- */
+.f-col .cases { padding-inline: var(--content-pad); }
+.f-col .cases > .mark { display: none; }
+.f-col .case { position: relative; z-index: 1; background: var(--bg); --ln-l: none; --ln-r: none; }
+.f-col .case__tagrow,
+.f-col .case__body {
+  max-width: var(--frame);
+  margin-inline: auto;
+  --ln-l: var(--dash-v) left  / var(--line-width) 100% no-repeat;
+  --ln-r: var(--dash-v) right / var(--line-width) 100% no-repeat;
+}
+/* крестик ритма — на левой линии рамки, у низа карточки */
+.f-col .cases__item > .mark { display: none; }
+@media (min-width: 1024px) {
+  .f-col .cases__item > .mark { display: block; left: calc(50% - var(--frame) / 2); }
+}
+
+/* ---------- Кейс: широкие блоки перекрывают рамку ---------- */
+.f-col .case-cover,
+.f-col .section__wide { position: relative; z-index: 1; background: var(--bg); }
+
+/* Рамки внутри колонки (результаты, «Следующий кейс») — шириной с рамку колонки, чтобы их бока совпали
+   со сквозными линиями, а не шли параллельно в 8 px от них; текст остаётся на линии колонки (поле 32) */
+@media (min-width: 600px) {
+  .f-col .case-results .result-box,
+  .f-col .next-case { width: calc(min(100%, var(--reading)) + var(--space-32) * 2); padding-inline: var(--space-32); }
+  .f-col .section__body .result-box { margin-inline: calc(var(--space-32) * -1); padding-inline: var(--space-32); }
+}
