@@ -219,6 +219,9 @@
   flex-direction: column;
   gap: var(--space-12);
 }
+/* Видно только в зоне разделов: обложка, hero и футер шире контента — оглавление наезжало бы на них */
+.toc { opacity: 0; visibility: hidden; transition: opacity var(--motion-duration) var(--motion-ease), visibility 0s var(--motion-duration); }
+.toc--visible { opacity: 1; visibility: visible; transition: opacity var(--motion-duration) var(--motion-ease); }
 .toc__link { color: var(--muted); transition: color var(--motion-duration) var(--motion-ease); }
 .toc__link:hover, .toc__link:focus-visible, .toc__link[aria-current="true"] { color: var(--fg); }
 
@@ -240,6 +243,7 @@
 /* ================= Wide: 1280+ — оглавление ================= */
 @media (min-width: 1280px) {
   /* Прижато к контенту: пункты выровнены вправо, за space/24 до картинок (левого края контента), по центру экрана по вертикали.
+     Показывается, только пока середина экрана — в разделах (main.js).
      Ширина — по самому длинному пункту, но не шире поля слева (от края экрана тоже space/24). */
   .toc {
     display: block;
