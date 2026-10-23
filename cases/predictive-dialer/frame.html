@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Пример рамки · Предиктивный набор&nbsp;— кейс Романа Гришина</title>
+  <meta name="description" content="Как предиктивный режим обзвона в MightyCall поднял занятость операторов с 40% до 78%.">
+  <script>
+    (function () {
+      var root = document.documentElement;
+      try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') root.dataset.theme = t; } catch (e) {}
+      root.classList.add('js');
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400&family=Martian+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="../../css/tokens.css?v=30">
+  <link rel="stylesheet" href="../../css/base.css?v=30">
+  <link rel="stylesheet" href="../../css/home.css?v=30">
+  <link rel="stylesheet" href="../../css/case.css?v=30">
+  <link rel="icon" href="../../img/avatar.png">
+  <link rel="stylesheet" href="../../css/frame-example.css?v=2">
+  <script src="../../js/main.js?v=20" defer></script>
+</head>
+<body class="f-col">
+
+<header class="site-header ln ln-b">
+  <div class="shell">
+    <div class="canvas header">
+      <a class="header__me" href="../../" aria-label="Роман Гришин, на главную">
+        <img class="header__avatar" src="../../img/avatar.png" alt="" width="48" height="48">
+        <span class="text-m">Роман Гришин</span>
+      </a>
+      <nav class="header__nav" aria-label="Основная навигация">
+        <a class="nav-link label-s" href="../../#cases">Кейсы</a>
+        <a class="nav-link label-s" href="../../en/" lang="en" hreflang="en">EN</a>
+        <button class="nav-link label-s theme-toggle" type="button" aria-label="Переключить тему">
+          <svg class="icon" viewBox="0 0 12 12" aria-hidden="true">
+            <circle cx="6" cy="6" r="5.5" fill="none" stroke="currentColor"/>
+            <path d="M6 .5a5.5 5.5 0 0 1 0 11z" fill="currentColor"/>
+          </svg>
+          <span class="theme-toggle__text">Тема</span>
+        </button>
+        <a class="btn label-m" href="https://t.me/grisroman" target="_blank" rel="noopener">Написать<span class="visually-hidden"> в&nbsp;Telegram (откроется в&nbsp;новой вкладке)</span></a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <main class="canvas longread">
+
+    <div class="case-top grid-pad">
+      <a class="back-link label-s" href="../../#cases">
+        <svg class="px-arrow px-arrow--back" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg>
+        Все кейсы
+      </a>
+    </div>
+
+    <!-- Hero: результат сразу -->
+    <section class="case-hero grid" data-reveal>
+      <div class="case-hero__text">
+        <h1 class="h1">Предиктивный набор</h1>
+        <p class="subtitle-1 muted">Как&nbsp;повысили время активной работы операторов с&nbsp;24&nbsp;минут в&nbsp;час до&nbsp;47</p>
+      </div>
+    </section>
+
+    <!-- Результаты — первым после заголовка, в пунктирной рамке, как блок «было | стало» на главной -->
+    <section class="case-results grid" aria-label="Результаты" data-reveal>
+      <div class="result-box ln ln-t ln-b ln-l ln-r">
+        <i class="mark mark--cross at-tl" aria-hidden="true"></i>
+        <i class="mark mark--dot at-tr" aria-hidden="true"></i>
+        <i class="mark mark--dot at-bl" aria-hidden="true"></i>
+        <i class="mark mark--cross at-br" aria-hidden="true"></i>
+        <div class="factoid">
+          <p class="label-m muted">Разговоры в&nbsp;час</p>
+          <p class="h2">47&nbsp;мин</p>
+          <p class="text-s muted">было 24&nbsp;мин, занятость выросла с&nbsp;40 до&nbsp;78%</p>
+        </div>
+        <div class="factoid">
+          <p class="label-m muted">Ожидание звонка</p>
+          <p class="h2">≤ 40&nbsp;с</p>
+          <p class="text-s muted">столько оператор ждёт следующего абонента</p>
+        </div>
+        <div class="factoid">
+          <p class="label-m muted">Потерянные вызовы</p>
+          <p class="h2">1–3%</p>
+          <p class="text-s muted">от&nbsp;соединённых звонков, в&nbsp;пределах нормы</p>
+        </div>
+        <div class="factoid">
+          <p class="label-m muted">Ожидание абонента</p>
+          <p class="h2">≤ 3&nbsp;с</p>
+          <p class="text-s muted">от&nbsp;ответа до&nbsp;соединения с&nbsp;оператором</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-meta grid" aria-label="О проекте" data-reveal>
+      <dl class="project">
+        <div class="meta-pair"><dt class="label-s muted">Компания</dt><dd class="text-m">MightyCall</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Тип</dt><dd class="text-m">B2B SaaS</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Год</dt><dd class="text-m">2024</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Команда</dt><dd class="text-m">Продуктовый менеджер, дизайнер, разработчики и&nbsp;тестировщики</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Платформа</dt><dd class="text-m">Веб и&nbsp;десктоп</dd></div>
+        <div class="meta-pair meta-pair--wide">
+          <dt class="label-s muted">Что делал</dt>
+          <dd class="text-m">Разобрал статистику и&nbsp;отчёт исследователей, изучил конкурентов. Спроектировал настройку кампании и&nbsp;рабочее место оператора. <a class="link" href="#my-work">Как&nbsp;делал</a></dd>
+        </div>
+      </dl>
+    </section>
+
+    <div class="case-cover">
+      <div class="video" data-video="yGk4wkB7bvM" data-title="Предиктивный набор: рабочее место оператора">
+        <img class="video__poster" src="img/video-poster.webp" alt="" width="1280" height="720">
+        <button class="video__play btn label-m" type="button">
+          <svg class="px-play" viewBox="0 0 5 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 0h1v7H0zM1 1h1v5H1zM2 2h1v3H2zM3 3h1v1H3z" fill="currentColor"/></svg>
+          Смотреть<span class="visually-hidden"> видео, предиктивный набор глазами оператора, YouTube</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 1. Контекст и проблема -->
+    <section class="section grid" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Контекст и&nbsp;проблема</p></div>
+      <div class="section__body">
+        <h2 class="h3">Обзвон по&nbsp;одному абоненту перестал справляться с&nbsp;ростом клиентов</h2>
+        <p class="text-l">Исходящие кампании работали в&nbsp;двух режимах. В&nbsp;режиме превью кампания присылает оператору в&nbsp;веб-фон звонок с&nbsp;данными контакта. Оператор принимает его, и&nbsp;только после этого система набирает номер. В&nbsp;прогрессивном система набирает следующий номер, как&nbsp;только оператор освободился.</p>
+        <p class="text-l">Оба режима звонят одному абоненту за&nbsp;раз. Трубку берут в&nbsp;среднем в&nbsp;20–25% случаев, и&nbsp;оператор ждёт, пока система дозвонится. Для&nbsp;небольших команд это терпимо. Но&nbsp;с&nbsp;ростом базы клиентов и&nbsp;числа операторов пользователи стали спрашивать, как&nbsp;ускорить исходящие кампании.</p>
+        <p class="text-l"><strong>Объёмы.</strong> Звонки не&nbsp;успевали обрабатывать. Контакт дорожал, кампании теряли эффективность.</p>
+        <p class="text-l"><strong>Паузы между вызовами.</strong> В&nbsp;превью каждый звонок оператор принимал вручную, а&nbsp;в&nbsp;прогрессивном оператор всё равно ждал, пока&nbsp;система дозвонится.</p>
+        <p class="text-l"><strong>Ошибки набора.</strong> В&nbsp;спешке операторы ошибались в&nbsp;номерах или звонили не&nbsp;тем клиентам.</p>
+        <p class="text-l"><strong>Цель.</strong> Повысить эффективность операторов и&nbsp;убрать ручную работу между звонками, чтобы&nbsp;большая часть времени уходила на&nbsp;разговоры.</p>
+      </div>
+    </section>
+
+    <!-- 2. Исследование -->
+    <section class="section grid" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Исследование</p></div>
+      <div class="section__body">
+        <h2 class="h3">Операторы разговаривали меньше половины рабочего времени</h2>
+        <p class="text-l list-intro">Посмотрел на&nbsp;задачу с&nbsp;трёх сторон.</p>
+        <ol class="list list--num">
+          <li class="text-l"><span><strong>Статистика.</strong> Средняя занятость операторов была около 40%, это примерно 24&nbsp;минуты разговоров в&nbsp;час. Остальное время уходило на&nbsp;переходы и&nbsp;ожидание. В&nbsp;превью оператор получал звонок с&nbsp;данными контакта, принимал его и&nbsp;ждал, пока система дозвонится. В&nbsp;прогрессивном номер набирала система, но&nbsp;оператор всё равно ждал, пока абонент ответит.</span></li>
+          <li class="text-l"><span><strong>Отчёт исследователей.</strong> Исследователи компании поговорили с&nbsp;клиентами, у&nbsp;которых от&nbsp;20&nbsp;операторов. Чаще всего клиенты жаловались на&nbsp;простои, ошибки при&nbsp;ручном наборе, перегрузку в&nbsp;пиковые часы и&nbsp;сложное управление темпом дозвона.</span></li>
+          <li class="text-l"><span><strong>Конкуренты.</strong> Большинство решений звонят с&nbsp;фиксированным темпом, который не&nbsp;подстраивается под&nbsp;загрузку операторов. При&nbsp;занятости ниже 70% теряется эффективность, а&nbsp;выше 90% растёт нагрузка и&nbsp;риск выгорания (<a class="link" href="https://techsee.com/blog/call-center-occupancy/" target="_blank" rel="noopener">исследование о&nbsp;занятости операторов</a>).</span></li>
+        </ol>
+      </div>
+      <div class="section__wide">
+        <ul class="cards">
+          <li class="card">
+            <p class="label-m muted">Инсайт 01</p>
+            <h3 class="h5">Нужна динамическая&nbsp;нагрузка</h3>
+            <p class="text-m muted">Загрузка операторов неравномерна, и&nbsp;простои с&nbsp;очередями напрямую влияют на&nbsp;результат кампании.</p>
+          </li>
+          <li class="card">
+            <p class="label-m muted">Инсайт 02</p>
+            <h3 class="h5">Темп нужно настраивать</h3>
+            <p class="text-m muted">Клиенты хотят управлять скоростью дозвона, тайм-аутами и&nbsp;паузами после разговора под&nbsp;задачи кампании.</p>
+          </li>
+          <li class="card">
+            <p class="label-m muted">Инсайт 03</p>
+            <h3 class="h5">Нужна аналитика</h3>
+            <p class="text-m muted">Важно видеть, сколько звонков сделано и&nbsp;нет ли проблем, чтобы быстро поправить кампанию.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3. Решение -->
+    <section class="section grid" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Решение</p></div>
+      <div class="section__body">
+        <h2 class="h3">Абонент уже на&nbsp;линии, когда оператор&nbsp;освобождается</h2>
+        <div class="callout">
+          <p class="label-m muted">Гипотеза</p>
+          <p class="subtitle-2">Если система будет следить за&nbsp;загрузкой команды и&nbsp;подстраивать поток звонков, операторы перестанут простаивать между вызовами</p>
+        </div>
+        <p class="text-l">Так появился третий режим, предиктивный. Превью и&nbsp;прогрессивный ждут, пока оператор освободится, и&nbsp;только потом звонят одному абоненту. Предиктивный начинает звонить заранее и&nbsp;сразу нескольким абонентам на&nbsp;одного оператора, а&nbsp;соединяет с&nbsp;оператором только тех, кто ответил. Сколько звонков нужно, зависит от&nbsp;контактности базы, типа номеров и&nbsp;времени суток.</p>
+      </div>
+      <!-- Зацикленное видео без интерфейса: схема-пример дозвона в предиктивном режиме -->
+      <figure class="section__wide figure">
+        <div class="figure__stage">
+          <video class="figure__video theme-light" src="video/dialer-pattern.mp4" width="1440" height="756" autoplay muted loop playsinline disablepictureinpicture disableremoteplayback preload="auto" aria-label="Анимация, в&nbsp;которой система звонит нескольким абонентам и&nbsp;соединяет ответившего со&nbsp;свободным оператором"></video>
+          <video class="figure__video theme-dark" src="video/dialer-pattern-dark.mp4" width="1440" height="758" autoplay muted loop playsinline disablepictureinpicture disableremoteplayback preload="auto" aria-label="Анимация, в&nbsp;которой система звонит нескольким абонентам и&nbsp;соединяет ответившего со&nbsp;свободным оператором"></video>
+        </div>
+        <figcaption class="text-s">Пример дозвона в&nbsp;предиктивном режиме</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l">Чтобы держать темп и&nbsp;не&nbsp;перегружать операторов, алгоритм учитывает среднюю длительность разговора, время простоя и&nbsp;постобработки, загрузку операторов, контактность базы и&nbsp;долю потерянных вызовов.</p>
+        <p class="text-l">Кампания стартует осторожно. Сначала она звонит как&nbsp;прогрессивная, по&nbsp;одному абоненту на&nbsp;оператора, и&nbsp;собирает статистику, затем увеличивает интенсивность. Если доля потерянных вызовов превышает заданную, темп снижается. Небольшим командам больше подходит прогрессивный режим, потому что&nbsp;для&nbsp;точного прогноза нужно достаточно операторов.</p>
+      </div>
+      <figure class="section__wide figure figure--diagram">
+        <button class="figure__stage figure__zoom" type="button" data-zoom aria-label="Открыть схему на весь экран">
+          <img class="theme-light" src="img/scheme.svg" alt="Схема, в&nbsp;которой система дозванивается по&nbsp;заявке, фиксирует события «контакт не&nbsp;отвечает» и&nbsp;«линия занята», откладывает заявку для повторного звонка и&nbsp;передаёт ответившего абонента свободному оператору" width="2904" height="2021" loading="lazy" decoding="async">
+          <img class="theme-dark" src="img/scheme-dark.svg" alt="Схема, в&nbsp;которой система дозванивается по&nbsp;заявке, фиксирует события «контакт не&nbsp;отвечает» и&nbsp;«линия занята», откладывает заявку для повторного звонка и&nbsp;передаёт ответившего абонента свободному оператору" width="2904" height="2021" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Схема работы предиктивного набора, от&nbsp;дозвона по&nbsp;заявке до&nbsp;соединения с&nbsp;оператором и&nbsp;повторных попыток</figcaption>
+      </figure>
+    </section>
+
+    <!-- 4. Что спроектировал -->
+    <section class="section grid" id="my-work" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Что спроектировал</p></div>
+      <div class="section__body">
+        <h2 class="h3">Сложный алгоритм спрятан за&nbsp;простыми&nbsp;настройками</h2>
+        <p class="text-l"><strong>Настройка кампании.</strong> При&nbsp;создании кампании настройки предиктивного режима выставляются автоматически. Если нужно, пользователь вручную задаёт темп дозвона, паузы между звонками и&nbsp;допустимую долю потерянных вызовов.</p>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+          <img class="theme-light" src="img/wizard.webp" alt="Шаг «Настройки дозвона» в&nbsp;мастере кампании, где выбран предиктивный режим, ниже параметры темпа, попыток и&nbsp;результатов звонков" width="1923" height="1070" loading="lazy" decoding="async">
+          <img class="theme-dark" src="img/wizard-dark.webp" alt="Шаг «Настройки дозвона» в&nbsp;мастере кампании, где выбран предиктивный режим, ниже параметры темпа, попыток и&nbsp;результатов звонков" width="1922" height="1069" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Настройка предиктивного режима в&nbsp;мастере исходящей кампании</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l"><strong>Рабочее место оператора.</strong> Звонок из&nbsp;кампании приходит в&nbsp;веб-фон, который работает во&nbsp;всём продукте. Оператор получает его, когда клиент уже на&nbsp;линии, и&nbsp;сразу видит название кампании и&nbsp;данные контакта. После разговора он&nbsp;выбирает результат звонка и&nbsp;переходит к&nbsp;следующему.</p>
+      </div>
+      <div class="section__wide gallery" data-gallery>
+        <div class="gallery__track" tabindex="0" role="region" aria-label="Экраны оператора, 3 картинки">
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+              <img class="theme-light" src="img/ringing.webp?v=3" alt="Рабочее место оператора с&nbsp;входящим звонком из&nbsp;кампании, справа название кампании, данные контакта и&nbsp;кнопка ответа" width="1926" height="1071" loading="lazy" decoding="async">
+              <img class="theme-dark" src="img/ringing-dark.webp?v=3" alt="Рабочее место оператора с&nbsp;входящим звонком из&nbsp;кампании, справа название кампании, данные контакта и&nbsp;кнопка ответа" width="1926" height="1071" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">Звонок из&nbsp;кампании приходит, когда клиент уже на&nbsp;линии. Справа название кампании и&nbsp;данные&nbsp;контакта</figcaption>
+          </figure>
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+              <img class="theme-light" src="img/on-call.webp?v=4" alt="Рабочее место оператора во&nbsp;время разговора с&nbsp;клиентом из&nbsp;кампании, справа данные контакта и&nbsp;вкладка результата звонка" width="1926" height="1071" loading="lazy" decoding="async">
+              <img class="theme-dark" src="img/on-call-dark.webp?v=4" alt="Рабочее место оператора во&nbsp;время разговора с&nbsp;клиентом из&nbsp;кампании, справа данные контакта и&nbsp;вкладка результата звонка" width="1926" height="1071" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">Во&nbsp;время разговора данные контакта остаются на&nbsp;экране, рядом вкладка с&nbsp;результатом&nbsp;звонка</figcaption>
+          </figure>
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+              <img class="theme-light" src="img/wrap-up.webp?v=3" alt="Рабочее место оператора после звонка с&nbsp;выбором результата звонка и&nbsp;таймер постобработки" width="1926" height="1071" loading="lazy" decoding="async">
+              <img class="theme-dark" src="img/wrap-up-dark.webp?v=3" alt="Рабочее место оператора после звонка с&nbsp;выбором результата звонка и&nbsp;таймер постобработки" width="1926" height="1071" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">После звонка оператор выбирает результат, пока идёт время&nbsp;постобработки</figcaption>
+          </figure>
+        </div>
+        <div class="gallery__nav" hidden>
+          <p class="gallery__count label-s" aria-live="polite"><span data-gallery-current>01</span> / <span data-gallery-total>03</span></p>
+          <button class="gallery__btn btn-outline" type="button" data-gallery-prev aria-label="Предыдущий экран"><svg class="px-arrow px-arrow--back" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
+          <button class="gallery__btn btn-outline" type="button" data-gallery-next aria-label="Следующий экран"><svg class="px-arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Результат -->
+    <section class="section grid" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Результат</p></div>
+      <div class="section__body">
+        <h2 class="h3">Операторы стали разговаривать почти вдвое дольше</h2>
+        <p class="text-l">Сначала запустили режим в&nbsp;тестовом виде на&nbsp;реальных кампаниях. Следили, удобно ли операторам работать в&nbsp;новом темпе, понятны ли настройки и&nbsp;сколько вызовов теряется.</p>
+        <div class="numbers result-box ln ln-t ln-b ln-l ln-r" role="group" aria-label="Занятость операторов">
+          <i class="mark mark--cross at-tl" aria-hidden="true"></i>
+          <i class="mark mark--dot at-tr" aria-hidden="true"></i>
+          <i class="mark mark--dot at-bl" aria-hidden="true"></i>
+          <i class="mark mark--cross at-br" aria-hidden="true"></i>
+          <div class="factoid">
+            <p class="label-m muted">Было</p>
+            <p class="h2">24&nbsp;мин</p>
+            <p class="text-s muted">разговоров в&nbsp;час, занятость 40%</p>
+          </div>
+          <div class="factoid">
+            <p class="label-m muted">Стало</p>
+            <p class="h2">47&nbsp;мин</p>
+            <p class="text-s muted">разговоров в&nbsp;час, занятость 78%</p>
+          </div>
+        </div>
+        <p class="text-l">Большая часть рабочего времени теперь уходит на&nbsp;разговоры, а&nbsp;не&nbsp;на&nbsp;ручные переходы. Новый звонок при&nbsp;массовом обзвоне приходит оператору не&nbsp;позже чем через 40&nbsp;секунд, а&nbsp;доля потерянных вызовов держится в&nbsp;норме, на&nbsp;уровне 1&#8288;–&#8288;3%.</p>
+        <p class="text-l">Колл-центры ждут предиктивный набор от&nbsp;любого сервиса исходящих звонков. Теперь MightyCall может предлагать исходящие кампании крупным командам наравне с&nbsp;другими сервисами. Продолжаем следить за&nbsp;показателями режима и&nbsp;дорабатываем слабые места.</p>
+      </div>
+    </section>
+
+    <!-- Следующий кейс -->
+    <nav class="next grid" aria-label="Следующий кейс">
+      <a class="next-case" href="../firefighter/">
+        <span class="next-case__text">
+          <span class="label-m muted">Следующий кейс</span>
+          <span class="h4">Огнеборец</span>
+        </span>
+        <svg class="px-arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg>
+      </a>
+    </nav>
+
+  </main>
+</div>
+
+<footer class="site-footer ln ln-t">
+  <div class="shell">
+    <div class="canvas footer">
+      <p class="footer__cell label-s muted">©&nbsp;2026</p>
+      <a class="footer__cell footer__link label-s" href="https://t.me/grisroman" target="_blank" rel="noopener">Telegram</a>
+      <a class="footer__cell footer__link label-s" href="https://www.linkedin.com/in/roman-grishin/" target="_blank" rel="noopener">LinkedIn</a>
+      <p class="footer__cell label-s muted">grisroman.space</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
