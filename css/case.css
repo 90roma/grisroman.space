@@ -203,30 +203,25 @@
 /* Наведение = фокус: появляется стрелка «куда ведёт», фон не меняется */
 .next-case:hover .px-arrow, .next-case:focus-visible .px-arrow { opacity: 1; }
 
+/* ---------- Колонка чтения: весь текст кейса шириной --reading по центру контента ---------- */
+.case-top { max-width: calc(var(--reading) + var(--content-pad) * 2); margin-inline: auto; }
+.case-hero__text, .project, .section__aside, .section__body { justify-self: center; width: 100%; max-width: var(--reading); }
+/* Рамка результатов и «Следующий кейс»: текст на линии колонки, рамка выходит за неё на своё поле (tablet+) */
+.case-results .result-box, .next-case { justify-self: center; width: min(100%, var(--reading)); }
+.section__wide { grid-column: 1 / -1; }
+
 /* ================= Tablet: 8 колонок ================= */
 @media (min-width: 600px) {
   /* Рамка выходит за колонку на своё поле, текст стоит на общей левой линии (как плашки hero на главной) */
-  .result-box { margin-inline: calc(var(--space-24) * -1); }
+  .section__body .result-box { margin-inline: calc(var(--space-24) * -1); }
+  .case-results .result-box, .next-case { width: calc(min(100%, var(--reading)) + var(--space-24) * 2); }
   .project { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .next-case { margin-inline: calc(var(--space-24) * -1); }
   .cards { grid-template-columns: 1fr 1fr; }
 }
 
 /* ================= Desktop: 12 колонок =================
-   Колонка чтения — 8 колонок по центру холста (3–10), строка Text/L ≈ 690 px (≈ 41 кегль).
-   «Все кейсы», hero, команда, цифры, разделы и «Следующий кейс» — на одной левой линии (3-я колонка);
-   картинки, видео и схемы — на всю ширину контента. */
+   Холст 1024, контент 960. Текст — в колонке чтения 672 по центру (правила выше), картинки, видео, схемы — 960. */
 @media (min-width: 1024px) {
-  .case-top {
-    display: grid;
-    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
-    column-gap: var(--gutter);
-  }
-  .back-link { grid-column: 3 / span 6; justify-self: start; }
-  .case-hero__text { grid-column: 3 / span 8; }
-  .project, .case-results .result-box { grid-column: 3 / span 8; }
-  .section__aside, .section__body { grid-column: 3 / span 8; }
-  .section__wide { grid-column: 1 / -1; }
   .cards { grid-template-columns: repeat(3, 1fr); }
-  .next-case { grid-column: 3 / span 8; }
+}
 }
