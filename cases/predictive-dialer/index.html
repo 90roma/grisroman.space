@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="../../css/tokens.css?v=21">
   <link rel="stylesheet" href="../../css/base.css?v=20">
   <link rel="stylesheet" href="../../css/home.css?v=20">
-  <link rel="stylesheet" href="../../css/case.css?v=22">
+  <link rel="stylesheet" href="../../css/case.css?v=23">
   <link rel="icon" href="../../img/avatar.png">
   <script src="../../js/main.js?v=17" defer></script>
 </head>
@@ -65,38 +65,45 @@
       </div>
     </section>
 
+    <!-- Результаты — первым после заголовка, в пунктирной рамке, как блок «было | стало» на главной -->
+    <section class="case-results grid" aria-label="Результаты" data-reveal>
+      <div class="result-box ln ln-t ln-b ln-l ln-r">
+        <div class="factoid">
+          <p class="label-m muted">Разговоры в&nbsp;час</p>
+          <p class="h2">47&nbsp;мин</p>
+          <p class="text-s muted">было 24&nbsp;мин, занятость выросла с&nbsp;40 до&nbsp;78%</p>
+        </div>
+        <div class="factoid">
+          <p class="label-m muted">Ожидание звонка</p>
+          <p class="h2">≤ 40&nbsp;с</p>
+          <p class="text-s muted">столько оператор ждёт следующего абонента</p>
+        </div>
+        <div class="factoid">
+          <p class="label-m muted">Потерянные вызовы</p>
+          <p class="h2">1–3%</p>
+          <p class="text-s muted">от&nbsp;соединённых звонков, в&nbsp;пределах нормы</p>
+        </div>
+        <div class="factoid">
+          <p class="label-m muted">Ожидание абонента</p>
+          <p class="h2">≤ 3&nbsp;с</p>
+          <p class="text-s muted">от&nbsp;ответа до&nbsp;соединения с&nbsp;оператором</p>
+        </div>
+      </div>
+    </section>
+
     <section class="case-meta grid" aria-label="О проекте" data-reveal>
       <dl class="project">
         <div class="meta-pair"><dt class="label-s muted">Компания</dt><dd class="text-m">MightyCall</dd></div>
         <div class="meta-pair"><dt class="label-s muted">Тип</dt><dd class="text-m">B2B SaaS</dd></div>
         <div class="meta-pair"><dt class="label-s muted">Год</dt><dd class="text-m">2024</dd></div>
         <div class="meta-pair"><dt class="label-s muted">Команда</dt><dd class="text-m">Продуктовый менеджер, дизайнер, разработчики и&nbsp;QA</dd></div>
-        <div class="meta-pair"><dt class="label-s muted">Моя роль</dt><dd class="text-m">Продуктовый дизайнер</dd></div>
         <div class="meta-pair"><dt class="label-s muted">Платформа</dt><dd class="text-m">Web, desktop</dd></div>
+        <div class="meta-pair meta-pair--wide">
+          <dt class="label-s muted">Что я&nbsp;делал</dt>
+          <dd class="text-m">Исследование, настройка кампании, рабочее место оператора</dd>
+          <dd class="text-m"><a class="link" href="#my-work">Как я&nbsp;это делал</a></dd>
+        </div>
       </dl>
-    </section>
-
-    <section class="factoids grid" aria-label="Результаты" data-reveal>
-      <div class="factoid">
-        <p class="label-m muted">Разговоры в&nbsp;час</p>
-        <p class="h2">47&nbsp;мин</p>
-        <p class="text-s muted">было 24&nbsp;мин, занятость выросла с&nbsp;40 до&nbsp;78%</p>
-      </div>
-      <div class="factoid">
-        <p class="label-m muted">Ожидание звонка</p>
-        <p class="h2">≤ 40&nbsp;с</p>
-        <p class="text-s muted">столько оператор ждёт следующего абонента</p>
-      </div>
-      <div class="factoid">
-        <p class="label-m muted">Потерянные вызовы</p>
-        <p class="h2">1–3%</p>
-        <p class="text-s muted">от&nbsp;соединённых звонков, в&nbsp;пределах нормы</p>
-      </div>
-      <div class="factoid">
-        <p class="label-m muted">Ожидание абонента</p>
-        <p class="h2">≤ 3&nbsp;с</p>
-        <p class="text-s muted">от&nbsp;ответа до&nbsp;соединения с&nbsp;оператором</p>
-      </div>
     </section>
 
     <div class="case-cover">
@@ -109,14 +116,16 @@
       </div>
     </div>
 
-    <!-- 1. Контекст -->
+    <!-- 1. Контекст и проблема -->
     <section class="section grid" data-reveal>
-      <div class="section__aside"><p class="section__label label-l">Контекст</p></div>
+      <div class="section__aside"><p class="section__label label-l">Контекст и&nbsp;проблема</p></div>
       <div class="section__body">
         <h2 class="h3">Ручной обзвон перестал справляться с&nbsp;ростом клиентов</h2>
         <p class="text-l">Исходящие звонки в&nbsp;MightyCall работали вручную. Оператор выбирал клиента из&nbsp;списка, звонил, дожидался соединения и&nbsp;после разговора переходил к&nbsp;следующему.</p>
-        <p class="text-l">Для&nbsp;небольших команд это обычный режим. Но&nbsp;с&nbsp;ростом базы клиентов и&nbsp;числа операторов такой подход перестал масштабироваться. Пользователи спрашивали, как&nbsp;ускорить исходящие кампании, а&nbsp;операторы регулярно простаивали между звонками.</p>
-        <p class="text-l">Мы&nbsp;решили разобраться, с&nbsp;какими проблемами сталкиваются команды при&nbsp;массовом обзвоне.</p>
+        <p class="text-l">Для&nbsp;небольших команд это обычный режим. Но&nbsp;с&nbsp;ростом базы клиентов и&nbsp;числа операторов такой подход перестал масштабироваться, и&nbsp;пользователи спрашивали, как&nbsp;ускорить исходящие кампании.</p>
+        <p class="text-l"><strong>Объёмы.</strong> Звонки не&nbsp;успевали обрабатывать вручную. Контакт дорожал, кампании теряли эффективность.</p>
+        <p class="text-l"><strong>Паузы между вызовами.</strong> Каждый переход к&nbsp;следующему клиенту требовал нескольких ручных шагов, и&nbsp;операторы простаивали между звонками.</p>
+        <p class="text-l"><strong>Ошибки набора.</strong> В&nbsp;спешке операторы ошибались в&nbsp;номерах или звонили не&nbsp;тем клиентам.</p>
       </div>
     </section>
 
@@ -125,11 +134,11 @@
       <div class="section__aside"><p class="section__label label-l">Исследование</p></div>
       <div class="section__body">
         <h2 class="h3">Операторы разговаривали меньше половины рабочего времени</h2>
-        <p class="text-l list-intro">Посмотрели на&nbsp;задачу с&nbsp;трёх сторон.</p>
+        <p class="text-l list-intro">Я&nbsp;посмотрел на&nbsp;задачу с&nbsp;трёх сторон.</p>
         <ol class="list list--num">
           <li class="text-l"><span><strong>Статистика.</strong> Средняя занятость операторов была около 40%, это примерно 24&nbsp;минуты разговоров в&nbsp;час. Остальное время уходило на&nbsp;переходы. Оператор завершал звонок, возвращался к&nbsp;списку, выбирал клиента, нажимал вызов и&nbsp;ждал соединения.</span></li>
-          <li class="text-l"><span><strong>Опрос.</strong> Мы&nbsp;поговорили с&nbsp;клиентами, у&nbsp;которых от&nbsp;20&nbsp;операторов. Чаще всего они жаловались на&nbsp;простои, ошибки при&nbsp;ручном наборе, перегрузку в&nbsp;пиковые часы и&nbsp;сложное управление темпом дозвона.</span></li>
-          <li class="text-l"><span><strong>Рынок.</strong> Большинство решений звонят с&nbsp;фиксированным темпом, который не&nbsp;подстраивается под&nbsp;загрузку операторов. При&nbsp;занятости ниже 70% теряется эффективность, а&nbsp;выше 90% растёт нагрузка и&nbsp;риск выгорания (<a class="link" href="https://techsee.com/blog/call-center-occupancy/" target="_blank" rel="noopener">исследование о&nbsp;занятости операторов</a>).</span></li>
+          <li class="text-l"><span><strong>Отчёт исследователей.</strong> Исследователи компании поговорили с&nbsp;клиентами, у&nbsp;которых от&nbsp;20&nbsp;операторов. Чаще всего клиенты жаловались на&nbsp;простои, ошибки при&nbsp;ручном наборе, перегрузку в&nbsp;пиковые часы и&nbsp;сложное управление темпом дозвона.</span></li>
+          <li class="text-l"><span><strong>Конкуренты.</strong> Большинство решений звонят с&nbsp;фиксированным темпом, который не&nbsp;подстраивается под&nbsp;загрузку операторов. При&nbsp;занятости ниже 70% теряется эффективность, а&nbsp;выше 90% растёт нагрузка и&nbsp;риск выгорания (<a class="link" href="https://techsee.com/blog/call-center-occupancy/" target="_blank" rel="noopener">исследование о&nbsp;занятости операторов</a>).</span></li>
         </ol>
       </div>
       <div class="section__wide">
@@ -153,37 +162,16 @@
       </div>
     </section>
 
-    <!-- 3. Проблемы -->
-    <section class="section grid" data-reveal>
-      <div class="section__aside"><p class="section__label label-l">Проблемы</p></div>
-      <div class="section__body">
-        <h2 class="h3">Почему ручной режим не&nbsp;справлялся</h2>
-        <p class="text-l"><strong>Объёмы.</strong> С&nbsp;ростом числа операторов и&nbsp;базы контактов звонки не&nbsp;успевали обрабатывать вручную. Контакт дорожал, кампании теряли эффективность.</p>
-        <p class="text-l"><strong>Паузы между вызовами.</strong> Каждый переход к&nbsp;следующему клиенту требовал нескольких ручных шагов и&nbsp;замедлял работу при&nbsp;высоком темпе.</p>
-        <p class="text-l"><strong>Ошибки набора.</strong> В&nbsp;спешке операторы ошибались в&nbsp;номерах или звонили не&nbsp;тем клиентам.</p>
-      </div>
-    </section>
-
-    <!-- 4. Идея -->
-    <section class="section grid" data-reveal>
-      <div class="section__aside"><p class="section__label label-l">Идея</p></div>
-      <div class="section__body">
-        <h2 class="h3">Система сама подстраивает темп звонков</h2>
-        <div class="callout">
-          <p class="label-m muted">Гипотеза</p>
-          <p class="subtitle-2">Если система будет следить за&nbsp;загрузкой команды и&nbsp;подстраивать поток звонков, операторы перестанут простаивать между вызовами</p>
-        </div>
-        <p class="text-l">Так появился предиктивный режим. Система звонит нескольким клиентам сразу и&nbsp;держит темп так, чтобы к&nbsp;моменту, когда оператор&nbsp;освобождается, на&nbsp;линии уже был следующий абонент.</p>
-        <p class="text-l">Чтобы не&nbsp;перегрузить команду, заложили ручные настройки интенсивности, а&nbsp;после запуска собирались следить за&nbsp;статистикой кампаний, занятостью операторов и&nbsp;обратной связью.</p>
-      </div>
-    </section>
-
-    <!-- 5. Решение -->
+    <!-- 3. Решение -->
     <section class="section grid" data-reveal>
       <div class="section__aside"><p class="section__label label-l">Решение</p></div>
       <div class="section__body">
         <h2 class="h3">Абонент уже на&nbsp;линии, когда оператор&nbsp;освобождается</h2>
-        <p class="text-l">Не&nbsp;каждый клиент берёт трубку, в&nbsp;среднем дозвониться удаётся до&nbsp;20–25%. Контактность зависит от&nbsp;качества базы, типа номеров и&nbsp;времени суток. Поэтому система звонит нескольким абонентам на&nbsp;одного оператора и&nbsp;соединяет с&nbsp;оператором только тех, кто ответил.</p>
+        <div class="callout">
+          <p class="label-m muted">Гипотеза</p>
+          <p class="subtitle-2">Если система будет следить за&nbsp;загрузкой команды и&nbsp;подстраивать поток звонков, операторы перестанут простаивать между вызовами</p>
+        </div>
+        <p class="text-l">Так появился предиктивный режим. Не&nbsp;каждый клиент берёт трубку, в&nbsp;среднем дозвониться удаётся до&nbsp;20–25%, и&nbsp;это зависит от&nbsp;качества базы, типа номеров и&nbsp;времени суток. Поэтому система звонит нескольким абонентам на&nbsp;одного оператора и&nbsp;соединяет с&nbsp;оператором только тех, кто ответил.</p>
         <p class="text-l">Чтобы держать темп и&nbsp;не&nbsp;перегружать операторов, алгоритм учитывает среднюю длительность разговора, время простоя и&nbsp;постобработки, загрузку операторов, контактность базы и&nbsp;долю потерянных вызовов.</p>
         <p class="text-l">Кампания стартует осторожно. Сначала она звонит в&nbsp;темпе «один абонент на&nbsp;оператора» и&nbsp;собирает статистику, затем увеличивает интенсивность. Если доля потерянных вызовов превышает заданную, темп снижается. Небольшим командам больше подходит прогрессивный режим, потому что&nbsp;для&nbsp;точного прогноза нужно достаточно операторов.</p>
       </div>
@@ -194,8 +182,15 @@
         </button>
         <figcaption class="text-s">Схема работы предиктивного набора, от&nbsp;дозвона по&nbsp;заявке до&nbsp;соединения с&nbsp;оператором и&nbsp;повторных попыток</figcaption>
       </figure>
+    </section>
+
+    <!-- 4. Что я спроектировал -->
+    <section class="section grid" id="my-work" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Что я&nbsp;спроектировал</p></div>
       <div class="section__body">
-        <p class="text-l">При&nbsp;создании кампании настройки предиктивного режима выставляются автоматически. Пользователь может вручную задать темп дозвона, паузы между звонками и&nbsp;допустимую долю потерянных вызовов.</p>
+        <h2 class="h3">Сложный алгоритм спрятан за&nbsp;простыми настройками</h2>
+        <p class="text-l">Предиктивный режим касается двух людей. Руководитель запускает кампанию, оператор принимает звонки. Для&nbsp;каждого я&nbsp;спроектировал свою часть интерфейса.</p>
+        <p class="text-l"><strong>Настройка кампании.</strong> При&nbsp;создании кампании настройки предиктивного режима выставляются автоматически. Если нужно, пользователь вручную задаёт темп дозвона, паузы между звонками и&nbsp;допустимую долю потерянных вызовов.</p>
       </div>
       <figure class="section__wide figure">
         <div class="figure__stage">
@@ -204,15 +199,8 @@
         </div>
         <figcaption class="text-s">Настройка предиктивного режима в&nbsp;мастере исходящей кампании</figcaption>
       </figure>
-    </section>
-
-    <!-- 6. Тестирование -->
-    <section class="section grid" data-reveal>
-      <div class="section__aside"><p class="section__label label-l">Тестирование</p></div>
       <div class="section__body">
-        <h2 class="h3">Проверили новый темп на&nbsp;реальных&nbsp;кампаниях</h2>
-        <p class="text-l">Мы&nbsp;запустили тестовый режим для&nbsp;исходящих кампаний и&nbsp;смотрели, как&nbsp;система ведёт себя в&nbsp;реальных условиях. Следили за&nbsp;тем, удобно ли операторам работать в&nbsp;новом темпе, понятны ли настройки кампании, какой получается загрузка операторов и&nbsp;сколько вызовов теряется.</p>
-        <p class="text-l">Звонок из&nbsp;кампании приходит оператору, когда клиент уже на&nbsp;линии, и&nbsp;сразу видно название кампании и&nbsp;данные контакта. После разговора оператор выбирает результат звонка и&nbsp;переходит к&nbsp;следующему.</p>
+        <p class="text-l"><strong>Рабочее место оператора.</strong> Звонок из&nbsp;кампании приходит в&nbsp;веб-фон, который работает во&nbsp;всём продукте. Оператор получает его, когда клиент уже на&nbsp;линии, и&nbsp;сразу видит название кампании и&nbsp;данные контакта. После разговора он&nbsp;выбирает результат звонка и&nbsp;переходит к&nbsp;следующему.</p>
       </div>
       <div class="section__wide gallery" data-gallery>
         <div class="gallery__track" tabindex="0" role="region" aria-label="Экраны оператора, 2 картинки">
@@ -239,12 +227,13 @@
       </div>
     </section>
 
-    <!-- 7. Результат -->
+    <!-- 5. Результат -->
     <section class="section grid" data-reveal>
       <div class="section__aside"><p class="section__label label-l">Результат</p></div>
       <div class="section__body">
         <h2 class="h3">Операторы стали разговаривать почти вдвое дольше</h2>
-        <div class="numbers" role="group" aria-label="Занятость операторов">
+        <p class="text-l">Сначала мы&nbsp;запустили режим в&nbsp;тестовом виде на&nbsp;реальных кампаниях. Следили, удобно ли операторам работать в&nbsp;новом темпе, понятны ли настройки и&nbsp;сколько вызовов теряется.</p>
+        <div class="numbers result-box ln ln-t ln-b ln-l ln-r" role="group" aria-label="Занятость операторов">
           <div class="factoid">
             <p class="label-m muted">Было</p>
             <p class="h2">24&nbsp;мин</p>
@@ -257,17 +246,7 @@
           </div>
         </div>
         <p class="text-l">Большая часть рабочего времени теперь уходит на&nbsp;разговоры, а&nbsp;не&nbsp;на&nbsp;ручные переходы. Новый звонок при&nbsp;массовом обзвоне приходит оператору не&nbsp;позже чем через 40&nbsp;секунд, а&nbsp;доля потерянных вызовов держится в&nbsp;норме, на&nbsp;уровне 1–3%.</p>
-        <p class="text-l">Исходящие кампании стали быстрее за&nbsp;счёт коротких пауз между вызовами и&nbsp;равномерной нагрузки на&nbsp;операторов.</p>
-      </div>
-    </section>
-
-    <!-- 8. Что дальше -->
-    <section class="section grid" data-reveal>
-      <div class="section__aside"><p class="section__label label-l">Что&nbsp;дальше</p></div>
-      <div class="section__body">
-        <h2 class="h3">Крупные колл-центры стали чаще приходить к&nbsp;нам</h2>
-        <p class="text-l">Предиктивный режим сделал исходящие кампании MightyCall конкурентными, и&nbsp;к&nbsp;нам стали чаще обращаться крупные колл-центры.</p>
-        <p class="text-l">Мы&nbsp;продолжаем следить за&nbsp;показателями режима, собираем обратную связь и&nbsp;дорабатываем слабые места.</p>
+        <p class="text-l">Колл-центры ждут предиктивный набор от&nbsp;любого сервиса исходящих звонков. Теперь MightyCall может предлагать исходящие кампании крупным командам наравне с&nbsp;другими сервисами. Мы&nbsp;продолжаем следить за&nbsp;показателями режима и&nbsp;дорабатываем слабые места.</p>
       </div>
     </section>
 
