@@ -81,6 +81,26 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   padding: var(--space-12) var(--space-16);
 }
 
+/* Сводка под hero: опыт, роль, где сейчас — три пары в строку (на mobile — в столбик).
+   Ниже — ссылки «Открыть в Claude / ChatGPT»: нейросеть читает текстовую версию сайта /llms-full.txt */
+.summary {
+  grid-column: 1 / -1;
+  margin-top: var(--space-32);
+  display: grid;
+  gap: var(--space-16) var(--gutter);
+}
+.meta-pair { display: flex; flex-direction: column; gap: var(--space-8); }
+.ask-ai {
+  grid-column: 1 / -1;
+  margin-top: var(--space-24);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+@media (min-width: 600px) {
+  .summary { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
 /* ---------- Опыт и «Обо мне» ---------- */
 .about { padding-block: var(--space-32); }
 /* В колонке чтения: опыт по ширине самой длинной строки, отступ space/48, «Обо мне» — всё остальное.
