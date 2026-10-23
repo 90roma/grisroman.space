@@ -81,9 +81,8 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   padding: var(--space-12) var(--space-16);
 }
 
-/* «Обо мне»: опыт, роль, где сейчас — пары «подпись → значение» столбиком, как места работы слева.
-   Под ними — ссылки «Открыть в Claude / ChatGPT»: нейросеть читает текстовую версию сайта /llms-full.txt */
-.summary { display: flex; flex-direction: column; gap: var(--space-24); }
+/* «Обо мне»: одна фраза; под ней — ссылки «Открыть в Claude / ChatGPT»: чат открывается пустым,
+   запрос копируется в буфер, нейросеть читает текстовую версию сайта /llms-full.txt */
 .meta-pair { display: flex; flex-direction: column; gap: var(--space-8); }
 .ask-ai {
   margin-top: var(--space-24);  /* + gap 8 колонки = 32 от сводки */
@@ -92,6 +91,8 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   gap: var(--space-8);
 }
 .ask-ai__status { flex-basis: 100%; }
+.ask-ai .btn-outline { gap: var(--space-8); }
+.ai-logo { width: var(--space-16); height: var(--space-16); flex: none; }
 .ask-ai__status:empty { display: none; }
 
 /* ---------- Опыт и «Обо мне» ---------- */
