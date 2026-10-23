@@ -85,10 +85,10 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
    запрос копируется в буфер, нейросеть читает текстовую версию сайта /llms-full.txt */
 .meta-pair { display: flex; flex-direction: column; gap: var(--space-8); }
 .ask-ai {
-  margin-top: var(--space-24);  /* + gap 8 колонки = 32 от сводки */
+  margin-top: var(--space-8);   /* + gap 8 колонки = 16: кнопки — часть блока «Обо мне», как абзац → абзац */
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-8);
+  gap: var(--space-16);         /* между контурными кнопками: 8 слипается рамками */
 }
 .ask-ai__status { flex-basis: 100%; }
 .ask-ai .btn-outline { gap: var(--space-8); }
@@ -97,7 +97,7 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
 
 /* ---------- Опыт и «Обо мне» ---------- */
 .about { padding-block: var(--space-32); }
-/* В колонке чтения: опыт по ширине самой длинной строки, отступ space/48, «Обо мне» — всё остальное.
+/* На всю ширину контента: опыт по ширине самой длинной строки, отступ space/48, «Обо мне» — всё остальное.
    На mobile — друг под другом */
 .about__inner { grid-column: 1 / -1; display: grid; gap: var(--space-32) var(--space-48); }
 .jobs { display: flex; flex-direction: column; gap: var(--space-24); }
