@@ -120,6 +120,9 @@
 .figure { display: flex; flex-direction: column; gap: var(--space-8); }
 .figure__stage { background: var(--cell); padding: var(--space-24); }
 .figure__stage img { width: 100%; height: auto; margin-inline: auto; }
+/* Зацикленное видео на сцене: без интерфейса, как картинка */
+.figure__video { width: 100%; height: auto; vertical-align: top; pointer-events: none; }  /* display задают классы темы */
+.figure__video::-webkit-media-controls-start-playback-button { display: none; }  /* iOS в режиме энергосбережения не рисует кнопку */
 .figure figcaption { color: var(--muted); max-width: 40em; }
 /* Временная заглушка картинки: пропорции скриншота, подпись по центру */
 .figure__placeholder { aspect-ratio: 1923 / 1070; display: grid; place-items: center; padding: var(--space-24); text-align: center; color: var(--muted); }
