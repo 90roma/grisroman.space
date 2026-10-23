@@ -72,6 +72,9 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   transition: background-color var(--motion-duration) var(--motion-ease), color var(--motion-duration) var(--motion-ease);
 }
 .btn-outline:hover, .btn-outline:focus-visible { background: var(--fg); color: var(--bg); }
+/* Логотип в кнопке (нейросети, сторы) — 16, цветом текста, от текста space/8 */
+.btn-outline { gap: var(--space-8); }
+.btn-logo { width: var(--space-16); height: var(--space-16); flex: none; }
 
 /* ---------- Hero: плашки surface, поля 12/16; текст плашки — по краю контента ---------- */
 .hero { padding-block: var(--space-48); }
@@ -103,8 +106,7 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   flex-wrap: wrap;
   gap: var(--space-16);         /* между контурными кнопками: 8 слипается рамками */
 }
-.ask-ai .btn-outline { gap: var(--space-8); }
-.ai-logo { width: var(--space-16); height: var(--space-16); flex: none; }
+
 
 /* ---------- Опыт и «Обо мне» ---------- */
 .about { padding-block: var(--space-32); }
