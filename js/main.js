@@ -103,6 +103,14 @@
     update();
   });
 
+  // ---------- Зацикленные видео без интерфейса: при «уменьшить движение» стоят на первом кадре ----------
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.figure__video').forEach(function (video) {
+      video.removeAttribute('autoplay');
+      video.pause();
+    });
+  }
+
   // ---------- Появление: [data-reveal] получает .is-visible, когда попадает в экран ----------
   var items = document.querySelectorAll('[data-reveal]');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
