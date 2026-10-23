@@ -109,7 +109,7 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   padding: var(--space-64) var(--content-pad) var(--space-32);
   scroll-margin-top: var(--space-16);
 }
-.section-head__title { display: flex; align-items: center; gap: var(--space-8); margin-inline: auto; }
+.section-head__title { display: flex; align-items: center; gap: var(--space-8); }
 
 /* ---------- Список кейсов: крестики у контейнера (TL, BR) и у каждого кейса (BL) ---------- */
 .cases { position: relative; }
