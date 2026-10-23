@@ -164,7 +164,7 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   margin-inline: calc(var(--content-pad) * -1);
 }
 .result.ln { --ln-t: var(--dash-h) top / 100% var(--line-width) no-repeat; }
-.result__head { padding: var(--space-16); text-align: center; }
+.result__head { padding: var(--space-16); }  /* по левому краю, как значения в ячейках */
 .result__cells { flex: 1; display: grid; grid-template-columns: 1fr 1fr; }
 .result__cell {
   display: flex;
@@ -244,4 +244,44 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   .about__text { grid-column: 6 / -1; }
   .case__text { grid-column: 1 / span 7; }
   .result, .case__stores { grid-column: 8 / -1; }
+}
+
+/* ================= Пример: вариант Б главной (variant-b.html) =================
+   Без пунктирной сетки холста и линий карточек. Контент главной — 10 колонок (2–11, ≈ 876 px).
+   Карточка кейса в покое без рамки; при наведении вокруг неё появляется пунктирная рамка с полем space/8 —
+   как контур слоя в Figma. Внутренний пунктир блока «было | стало» остаётся (исключение стиля). */
+.v-b .hero, .v-b .about { --ln-b: none; }
+.v-b .cases { padding-inline: var(--content-pad); }
+.v-b .cases__list { display: flex; flex-direction: column; gap: var(--space-64); }
+.v-b .cases__item { padding-bottom: 0; }
+.v-b .case { position: relative; --ln-l: none; --ln-r: none; }
+.v-b .case__tagrow, .v-b .case__body { --ln-t: none; --ln-b: none; }
+.v-b .case__body { padding-inline: 0; }
+.v-b .result { margin-inline: 0; }
+.v-b .case::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--space-8) * -1);
+  pointer-events: none;
+  --frame-h: repeating-linear-gradient(90deg, var(--fg) 0 var(--dash), transparent var(--dash) calc(var(--dash) * 2));
+  --frame-v: repeating-linear-gradient(180deg, var(--fg) 0 var(--dash), transparent var(--dash) calc(var(--dash) * 2));
+  background:
+    var(--frame-h) top    / 100% var(--line-width) no-repeat,
+    var(--frame-h) bottom / 100% var(--line-width) no-repeat,
+    var(--frame-v) left   / var(--line-width) 100% no-repeat,
+    var(--frame-v) right  / var(--line-width) 100% no-repeat;
+  opacity: 0;
+  transition: opacity var(--motion-duration) var(--motion-ease);
+}
+.v-b .case:hover::after, .v-b .case:focus-visible::after { opacity: 1; }
+.v-b .case:hover, .v-b .case:focus-visible { --dash-color: var(--line); }  /* пунктир внутри «было | стало» не темнеет */
+.v-b .case:focus-visible { outline-offset: calc(var(--space-8) + var(--focus-width)); }
+@media (min-width: 1024px) {
+  .v-b .hero__plates { grid-column: 2 / span 10; }
+  .v-b .jobs { grid-column: 2 / span 4; }
+  .v-b .about__text { grid-column: 6 / span 6; }
+  .v-b .section-head { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--gutter); padding-inline: var(--content-pad); }
+  .v-b .section-head__title { grid-column: 2 / span 10; }
+  .v-b .cases { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--gutter); padding-inline: var(--content-pad); }
+  .v-b .cases__list { grid-column: 2 / span 10; }
 }
