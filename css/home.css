@@ -82,16 +82,17 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
 }
 
 /* «Обо мне»: опыт, роль, где сейчас — пары «подпись → значение» столбиком, как места работы слева.
-   Под блоком — ссылки «Открыть в Claude / ChatGPT»: нейросеть читает текстовую версию сайта /llms-full.txt */
+   Под ними — ссылки «Открыть в Claude / ChatGPT»: нейросеть читает текстовую версию сайта /llms-full.txt */
 .summary { display: flex; flex-direction: column; gap: var(--space-24); }
 .meta-pair { display: flex; flex-direction: column; gap: var(--space-8); }
 .ask-ai {
-  grid-column: 1 / -1;
-  margin-top: var(--space-32);
+  margin-top: var(--space-24);  /* + gap 8 колонки = 32 от сводки */
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-8);
 }
+.ask-ai__status { flex-basis: 100%; }
+.ask-ai__status:empty { display: none; }
 
 /* ---------- Опыт и «Обо мне» ---------- */
 .about { padding-block: var(--space-32); }

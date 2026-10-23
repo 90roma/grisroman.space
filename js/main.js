@@ -18,6 +18,21 @@
     });
   });
 
+  // ---------- «Открыть в Claude / ChatGPT»: чат открывается пустым, запрос копируется в буфер.
+  // Сообщение не отправляется само — человек вставляет запрос и решает, отправлять ли ----------
+  document.querySelectorAll('[data-ai-prompt]').forEach(function (box) {
+    var status = box.querySelector('.ask-ai__status');
+    box.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        var fail = function () { status.textContent = 'Скопируйте запрос и вставьте его в чат: ' + box.dataset.aiPrompt; };
+        if (!navigator.clipboard) { fail(); return; }
+        navigator.clipboard.writeText(box.dataset.aiPrompt).then(function () {
+          status.textContent = 'Запрос скопирован. Вставьте его в чат и отправьте, если хотите.';
+        }, fail);
+      });
+    });
+  });
+
   // ---------- Видео: постер с кнопкой, плеер YouTube (без cookie) грузится только по клику ----------
   document.querySelectorAll('[data-video]').forEach(function (box) {
     var button = box.querySelector('.video__play');
