@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="../../css/home.css?v=30">
   <link rel="stylesheet" href="../../css/case.css?v=30">
   <link rel="icon" href="../../img/avatar.png">
-  <script src="../../js/main.js?v=20" defer></script>
+  <script src="../../js/main.js?v=21" defer></script>
 </head>
 <body>
 
@@ -75,7 +75,7 @@
         <div class="factoid">
           <p class="label-m muted">Разговоры в&nbsp;час</p>
           <p class="h2">47&nbsp;мин</p>
-          <p class="text-s muted">было 24&nbsp;мин, занятость выросла с&nbsp;40 до&nbsp;78%</p>
+          <p class="text-s muted">было 24&nbsp;мин. Занятость 78% при&nbsp;норме 70&#8288;–&#8288;90%</p>
         </div>
         <div class="factoid">
           <p class="label-m muted">Ожидание звонка</p>
@@ -85,7 +85,7 @@
         <div class="factoid">
           <p class="label-m muted">Потерянные вызовы</p>
           <p class="h2">1–3%</p>
-          <p class="text-s muted">от&nbsp;соединённых звонков, в&nbsp;пределах нормы</p>
+          <p class="text-s muted">от&nbsp;соединённых звонков при&nbsp;рекомендуемом пороге 3%</p>
         </div>
         <div class="factoid">
           <p class="label-m muted">Ожидание абонента</p>
@@ -119,8 +119,20 @@
       </div>
     </div>
 
+    <!-- Разделы кейса: оглавление слева от колонки чтения, закреплено при прокрутке (только на широком экране) -->
+    <div class="case-body">
+      <nav class="toc" aria-label="Разделы кейса">
+        <ol class="toc__list">
+          <li><a class="toc__link label-s" href="#context">Контекст и&nbsp;проблема</a></li>
+          <li><a class="toc__link label-s" href="#research">Исследование</a></li>
+          <li><a class="toc__link label-s" href="#solution">Решение</a></li>
+          <li><a class="toc__link label-s" href="#my-work">Что спроектировал</a></li>
+          <li><a class="toc__link label-s" href="#result">Результат</a></li>
+        </ol>
+      </nav>
+
     <!-- 1. Контекст и проблема -->
-    <section class="section grid" data-reveal>
+    <section class="section grid" id="context" data-reveal>
       <div class="section__aside"><p class="section__label label-l">Контекст и&nbsp;проблема</p></div>
       <div class="section__body">
         <h2 class="h3">Обзвон по&nbsp;одному абоненту перестал справляться с&nbsp;ростом клиентов</h2>
@@ -134,7 +146,7 @@
     </section>
 
     <!-- 2. Исследование -->
-    <section class="section grid" data-reveal>
+    <section class="section grid" id="research" data-reveal>
       <div class="section__aside"><p class="section__label label-l">Исследование</p></div>
       <div class="section__body">
         <h2 class="h3">Операторы разговаривали меньше половины рабочего времени</h2>
@@ -167,7 +179,7 @@
     </section>
 
     <!-- 3. Решение -->
-    <section class="section grid" data-reveal>
+    <section class="section grid" id="solution" data-reveal>
       <div class="section__aside"><p class="section__label label-l">Решение</p></div>
       <div class="section__body">
         <h2 class="h3">Абонент уже на&nbsp;линии, когда оператор&nbsp;освобождается</h2>
@@ -248,7 +260,7 @@
     </section>
 
     <!-- 5. Результат -->
-    <section class="section grid" data-reveal>
+    <section class="section grid" id="result" data-reveal>
       <div class="section__aside"><p class="section__label label-l">Результат</p></div>
       <div class="section__body">
         <h2 class="h3">Операторы стали разговаривать почти вдвое дольше</h2>
@@ -266,13 +278,15 @@
           <div class="factoid">
             <p class="label-m muted">Стало</p>
             <p class="h2">47&nbsp;мин</p>
-            <p class="text-s muted">разговоров в&nbsp;час, занятость 78%</p>
+            <p class="text-s muted">разговоров в&nbsp;час, занятость 78% при&nbsp;норме 70&#8288;–&#8288;90%</p>
           </div>
         </div>
         <p class="text-l">Большая часть рабочего времени теперь уходит на&nbsp;разговоры, а&nbsp;не&nbsp;на&nbsp;ручные переходы. Новый звонок при&nbsp;массовом обзвоне приходит оператору не&nbsp;позже чем через 40&nbsp;секунд, а&nbsp;доля потерянных вызовов держится в&nbsp;норме, на&nbsp;уровне 1&#8288;–&#8288;3%.</p>
         <p class="text-l">Колл-центры ждут предиктивный набор от&nbsp;любого сервиса исходящих звонков. Теперь MightyCall может предлагать исходящие кампании крупным командам наравне с&nbsp;другими сервисами. Продолжаем следить за&nbsp;показателями режима и&nbsp;дорабатываем слабые места.</p>
       </div>
     </section>
+
+    </div>
 
     <!-- Следующий кейс -->
     <nav class="next grid" aria-label="Следующий кейс">

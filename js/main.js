@@ -103,6 +103,42 @@
     update();
   });
 
+  // ---------- Оглавление кейса: подсветка текущего раздела, прячется над картинками во всю ширину ----------
+  var toc = document.querySelector('.toc');
+  if (toc) {
+    var tocList = toc.querySelector('.toc__list');
+    var tocLinks = Array.prototype.slice.call(toc.querySelectorAll('.toc__link'));
+    var tocSections = tocLinks.map(function (link) { return document.querySelector(link.getAttribute('href')); });
+    var wides = document.querySelectorAll('.case-body .section__wide');
+    var tocPending = false;
+    function updateToc() {
+      tocPending = false;
+      if (getComputedStyle(toc).display === 'none') return;
+      // текущий — последний раздел, чьё начало поднялось выше трети экрана
+      var current = 0;
+      tocSections.forEach(function (section, i) {
+        if (section.getBoundingClientRect().top <= window.innerHeight / 3) current = i;
+      });
+      tocLinks.forEach(function (link, i) {
+        if (i === current) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
+      // над картинкой, видео или галереей во всю ширину список не виден
+      var box = tocList.getBoundingClientRect();
+      var covered = Array.prototype.some.call(wides, function (el) {
+        var r = el.getBoundingClientRect();
+        return r.top < box.bottom && r.bottom > box.top;
+      });
+      toc.classList.toggle('toc--hidden', covered);
+    }
+    function requestToc() {
+      if (!tocPending) { tocPending = true; requestAnimationFrame(updateToc); }
+    }
+    window.addEventListener('scroll', requestToc, { passive: true });
+    window.addEventListener('resize', requestToc);
+    updateToc();
+  }
+
   // ---------- Зацикленные видео без интерфейса: при «уменьшить движение» стоят на первом кадре ----------
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.querySelectorAll('.figure__video').forEach(function (video) {

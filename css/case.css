@@ -210,6 +210,22 @@
 .case-results .result-box, .next-case { justify-self: center; width: min(100%, var(--reading)); }
 .section__wide { grid-column: 1 / -1; }
 
+/* ---------- Оглавление: слева от колонки чтения, закреплено под шапкой; только на широком экране (1280+) ----------
+   Высота 0 — не сдвигает разделы; список висит в поле слева. Над картинками во всю ширину прячется (класс из main.js). */
+.toc { display: none; }
+.toc__list {
+  list-style: none;
+  padding: var(--space-48) 0 0;  /* на уровне подписи первого раздела */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  transition: opacity var(--motion-duration) var(--motion-ease);
+}
+.toc--hidden .toc__list { opacity: 0; pointer-events: none; }
+.toc--hidden:focus-within .toc__list { opacity: 1; pointer-events: auto; }  /* фокус с клавиатуры не теряется */
+.toc__link { color: var(--muted); transition: color var(--motion-duration) var(--motion-ease); }
+.toc__link:hover, .toc__link:focus-visible, .toc__link[aria-current="true"] { color: var(--fg); }
+
 /* ================= Tablet: 8 колонок ================= */
 @media (min-width: 600px) {
   /* Рамка выходит за колонку на своё поле, текст стоит на общей левой линии (как плашки hero на главной) */
@@ -223,5 +239,18 @@
    Холст 1024, контент 960. Текст — в колонке чтения 672 по центру (правила выше), картинки, видео, схемы — 960. */
 @media (min-width: 1024px) {
   .cards { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ================= Wide: 1280+ — оглавление ================= */
+@media (min-width: 1280px) {
+  .toc {
+    display: block;
+    position: sticky;
+    top: calc(var(--avatar) + var(--space-16) * 2);  /* под липкой шапкой */
+    z-index: 1;
+    height: 0;
+    padding-inline: var(--content-pad);
+  }
+  .toc__list { width: calc((100% - var(--reading)) / 2 - var(--gutter)); }  /* поле слева от колонки чтения минус промежуток */
 }
 }
