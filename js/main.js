@@ -72,7 +72,8 @@
     var pad = function (n) { return String(n).padStart(2, '0'); };
     var offset = function (i) { return slides[i].offsetLeft - slides[0].offsetLeft; };
     var index = function () { return Math.round(track.scrollLeft / offset(1)); };
-    function go(i) { track.scrollTo({ left: offset(i) }); }
+    var target = null;  // куда листаем стрелкой; null — свайп, цель не задана
+    function go(i) { target = i; track.scrollTo({ left: offset(i) }); }
     function update() {
       var i = index();
       current.textContent = pad(i + 1);
@@ -88,6 +89,12 @@
     prev.addEventListener('click', function () { step(prev, next, Math.max(index() - 1, 0), 0); });
     next.addEventListener('click', function () { step(next, prev, Math.min(index() + 1, slides.length - 1), slides.length - 1); });
     track.addEventListener('scroll', update, { passive: true });
+    // перелистывание прервали на полпути (например, прокруткой страницы) — доводим до цели или до ближайшей картинки
+    track.addEventListener('scrollend', function () {
+      var i = target === null ? index() : target;
+      if (Math.abs(track.scrollLeft - offset(i)) > 1) { go(i); return; }
+      target = null;
+    });
     track.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowLeft') { e.preventDefault(); prev.click(); }
       if (e.key === 'ArrowRight') { e.preventDefault(); next.click(); }
