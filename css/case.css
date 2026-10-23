@@ -1,0 +1,202 @@
+/* Страница кейса (лонгрид). Значения — docs/style/d-holst.md → «Лонгрид» и «Сетка → Страница кейса». Mobile first.
+   Шапка, футер, кнопки и блок «было | стало» — из home.css. */
+
+.grid-pad { padding-inline: var(--content-pad); }
+
+/* Ссылка в тексте: accent-text, подчёркивание 1 px со смещением 3 px; наведение — fg */
+.link {
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-decoration-thickness: var(--line-width);
+  text-underline-offset: var(--link-offset);
+  transition: color var(--motion-duration) var(--motion-ease);
+}
+.link:hover, .link:focus-visible { color: var(--fg); }
+
+/* ---------- Назад + мета ---------- */
+.case-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-16);
+  padding-block: var(--space-24);
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  color: var(--muted);
+  transition: color var(--motion-duration) var(--motion-ease);
+}
+.back-link:hover, .back-link:focus-visible { color: var(--fg); }
+.px-arrow--back { transform: rotate(180deg); }
+
+/* ---------- Hero: Label/M → H1 → Subtitle/1 ---------- */
+.case-hero { padding-block: var(--space-48) var(--space-32); }
+.case-hero__text {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+}
+.case-hero__text .subtitle-1 { margin-top: var(--space-12); max-width: 28em; }
+
+/* Фактоиды: Label/M → H2/H3 → Text/S, внутри space/8 */
+.factoids { padding-block: 0 var(--space-48); row-gap: var(--space-32); }  /* продолжает группу «команда / роль / платформа» */
+.factoid { display: flex; flex-direction: column; gap: var(--space-8); }
+.factoids .factoid { grid-column: span 2; }
+
+/* О проекте: компания, тип, год, команда, роль, платформа — одной плашкой cell, поля 24 (угол 1:1) */
+.case-meta { padding-bottom: var(--space-32); }
+.project {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-24) var(--gutter);
+  padding: var(--space-24);
+  background: var(--cell);
+}
+.meta-pair { display: flex; flex-direction: column; gap: var(--space-8); }
+
+/* Обложка — во всю ширину холста, «углубление» со свечением; внутри видео или картинка */
+.case-cover {
+  background: radial-gradient(60% 70% at 50% 85%, var(--glow), var(--cover));
+  padding: var(--space-48) var(--content-pad);
+}
+.case-cover > img { width: 100%; height: auto; }
+
+/* Видео: сначала постер с кнопкой, плеер YouTube грузится только по клику */
+.video { position: relative; aspect-ratio: 16 / 9; background: var(--cell); overflow: hidden; }
+.video__poster, .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; }
+.video__play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  gap: var(--space-8);
+}
+.px-play { width: var(--space-12); height: var(--space-16); flex: none; }  /* пиксельный треугольник, сетка 5 × 7 */
+
+/* ---------- Раздел: подпись Label/L с номером → H3 → текст, одна колонка ---------- */
+.section { padding-block: var(--space-48); }  /* граница раздела: больше любого отступа внутри, без линии */
+.section__aside, .section__body, .section__wide { grid-column: 1 / -1; }
+.section__aside { margin-bottom: var(--space-8); }   /* подпись → заголовок */
+.section__label { color: var(--muted); }
+.section__body > * + * { margin-top: var(--space-16); }                 /* абзац → абзац, до и после списка */
+.section__body > :is(.callout, .numbers) { margin-top: var(--space-32); }  /* текст ↔ вставка, цифры */
+.section__body > :is(.callout, .numbers) + * { margin-top: var(--space-32); }
+.section__body > .list-intro + .list { margin-top: var(--space-12); }      /* вводная фраза ближе к списку */
+.section__body > .h3 + * { margin-top: var(--space-24); }                  /* заголовок → любое содержимое: больше абзаца */
+.section__wide, .section__wide + .section__body { margin-top: var(--space-32); }
+
+/* Списки: маркер «—» в колонке 24 / номер Label/S в колонке 32, перенос — по тексту */
+.list { display: flex; flex-direction: column; gap: var(--space-12); }
+.list > li { display: grid; grid-template-columns: var(--space-24) 1fr; align-items: baseline; }  /* маркер — по базовой линии первой строки */
+.list > li::before { content: '—'; color: var(--muted); }
+.list--num { counter-reset: item; }
+.list--num > li { grid-template-columns: var(--space-32) 1fr; counter-increment: item; }
+.list--num > li::before {
+  content: counter(item, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: var(--label-s-size);
+  line-height: var(--label-lh);
+  letter-spacing: 0.1em;
+}
+.section__body strong { font-weight: 400; color: var(--fg); }  /* вводное слово абзаца — Regular на фоне Light */
+
+/* Картинка на сцене: фон cell, поля 24, подпись Text/S muted через space/8. Картинки — на всю ширину контента */
+.figure { display: flex; flex-direction: column; gap: var(--space-8); }
+.figure__stage { background: var(--cell); padding: var(--space-24); }
+.figure__stage img { width: 100%; height: auto; margin-inline: auto; }
+.figure figcaption { color: var(--muted); max-width: 40em; }
+
+/* Схема: сцена cover, поля 32, по ширине блока; по клику — на весь экран */
+.figure--diagram .figure__stage { background: var(--cover); padding: var(--space-32); }
+.figure__zoom {
+  display: block;
+  width: 100%;
+  cursor: zoom-in;
+  transition: --dash-color var(--motion-duration) var(--motion-ease);
+}
+
+/* Просмотр на весь экран: схема в натуральную величину, прокрутка в обе стороны */
+.zoom {
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--cover);
+  color: var(--fg);
+}
+.zoom::backdrop { background: var(--cover); }
+.zoom__scroll { width: 100%; height: 100%; overflow: auto; cursor: zoom-out; }
+.zoom__scroll img { width: var(--diagram-w); max-width: none; height: auto; margin: var(--space-64) auto; }
+.zoom__close { position: fixed; top: var(--space-16); right: var(--space-16); }
+
+/* Две картинки рядом: на узких экранах — друг под другом */
+.figures { display: grid; gap: var(--space-32); }
+
+/* Вставка: Subtitle/2, линия 2 px accent-text, отступ текста 24 */
+.callout {
+  padding-left: var(--space-24);
+  background: linear-gradient(var(--accent-text), var(--accent-text)) left / var(--accent-line) 100% no-repeat;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+/* Карточки инсайтов */
+.cards { display: grid; gap: var(--space-24); }
+.card { display: flex; flex-direction: column; gap: var(--space-8); padding: var(--space-24); background: var(--cell); }
+
+/* Цифры «было / стало» в тексте: два фактоида рядом, без рамки */
+.numbers { display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--gutter); }
+
+/* ---------- Следующий кейс: плашка cell в колонке чтения, H4 — мельче заголовков разделов ---------- */
+.next { padding-block: var(--space-48) var(--space-64); }
+.next-case {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-16);
+  padding: var(--space-24);
+  background: var(--cell);
+}
+.next-case__text { display: flex; flex-direction: column; gap: var(--space-8); }
+.next-case .px-arrow { opacity: 0; transition: opacity var(--motion-duration) var(--motion-ease); }
+/* Наведение = фокус: появляется стрелка «куда ведёт», фон не меняется */
+.next-case:hover .px-arrow, .next-case:focus-visible .px-arrow { opacity: 1; }
+
+/* ================= Tablet: 8 колонок ================= */
+@media (min-width: 600px) {
+  .factoids .factoid { grid-column: span 4; }
+  /* Фон плашки выходит за колонку на своё поле, текст стоит на общей левой линии (как плашки hero на главной) */
+  .project { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-inline: calc(var(--space-24) * -1); }
+  .next-case { margin-inline: calc(var(--space-24) * -1); }
+  .figures { grid-template-columns: 1fr 1fr; }
+  .cards { grid-template-columns: 1fr 1fr; }
+}
+
+/* ================= Desktop: 12 колонок =================
+   Колонка чтения — 8 колонок по центру холста (3–10), строка Text/L ≈ 690 px (≈ 41 кегль).
+   «Все кейсы», hero, команда, цифры, разделы и «Следующий кейс» — на одной левой линии (3-я колонка);
+   картинки, видео и схемы — на всю ширину контента. */
+@media (min-width: 1024px) {
+  .case-top {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    column-gap: var(--gutter);
+  }
+  .back-link { grid-column: 3 / span 6; justify-self: start; }
+  .case-hero__text { grid-column: 3 / span 8; }
+  .project { grid-column: 3 / span 8; }
+  .factoids .factoid:nth-child(odd) { grid-column: 3 / span 4; }
+  .factoids .factoid:nth-child(even) { grid-column: 7 / span 4; }
+  .section__aside, .section__body { grid-column: 3 / span 8; }
+  .section__wide { grid-column: 1 / -1; }
+  .cards { grid-template-columns: repeat(3, 1fr); }
+  .next-case { grid-column: 3 / span 8; }
+}

@@ -1,0 +1,146 @@
+/* Основа: сброс, стили текста по ролям, линии, маркеры, фокус, сетка, появление. */
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--text-l-size);
+  line-height: var(--text-l-lh);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg, picture { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+ul, ol { list-style: none; padding: 0; }
+
+/* ---------- Стили текста (docs/style/d-holst.md → «Стили текста») ---------- */
+.h1 { font-size: var(--h1-size); line-height: var(--h1-lh); font-weight: var(--h1-wt); letter-spacing: var(--h1-tr); }
+.h2 { font-size: var(--h2-size); line-height: var(--h2-lh); font-weight: var(--h2-wt); letter-spacing: var(--h2-tr); }
+.h3 { font-size: var(--h3-size); line-height: var(--h3-lh); font-weight: var(--h3-wt); letter-spacing: var(--h3-tr); }
+.h4 { font-size: var(--h4-size); line-height: var(--h4-lh); font-weight: var(--h4-wt); letter-spacing: var(--h4-tr); }
+.h5 { font-size: var(--h5-size); line-height: var(--h5-lh); font-weight: var(--h5-wt); letter-spacing: var(--h5-tr); }
+.subtitle-1 { font-size: var(--sub1-size); line-height: var(--sub1-lh); font-weight: 300; }
+.subtitle-2 { font-size: var(--sub2-size); line-height: var(--sub2-lh); font-weight: 300; }
+.subtitle-3 { font-size: var(--sub3-size); line-height: var(--sub3-lh); font-weight: 300; }
+.text-l  { font-size: var(--text-l-size);  line-height: var(--text-l-lh);  font-weight: 300; }
+.text-m  { font-size: var(--text-m-size);  line-height: var(--text-m-lh);  font-weight: 300; }
+.text-s  { font-size: var(--text-s-size);  line-height: var(--text-s-lh);  font-weight: 300; }
+.text-xs { font-size: var(--text-xs-size); line-height: var(--text-xs-lh); font-weight: 300; }
+.label-l, .label-m, .label-s {
+  font-family: var(--font-mono);
+  line-height: var(--label-lh);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.label-l { font-size: var(--label-l-size); font-weight: 500; }
+.label-m { font-size: var(--label-m-size); font-weight: 500; }
+.label-s { font-size: var(--label-s-size); font-weight: 400; }
+
+.h1, .h2, .h3, .h4, .h5 { font-variant-numeric: tabular-nums; }
+
+/* Цвет текста — ролями темы, без прозрачности */
+.fg { color: var(--fg); }
+.muted { color: var(--muted); }
+
+/* ---------- Пунктир: штрих 4/4, цвет --dash-color (line, при наведении fg) ---------- */
+.ln {
+  --dash-h: repeating-linear-gradient(90deg, var(--dash-color) 0 var(--dash), transparent var(--dash) calc(var(--dash) * 2));
+  --dash-v: repeating-linear-gradient(180deg, var(--dash-color) 0 var(--dash), transparent var(--dash) calc(var(--dash) * 2));
+  /* сброс: вложенный .ln не наследует линии родителя */
+  --ln-t: none; --ln-b: none; --ln-l: none; --ln-r: none;
+  background: var(--ln-t), var(--ln-b), var(--ln-l), var(--ln-r);
+}
+.ln-t { --ln-t: var(--dash-h) top    / 100% var(--line-width) no-repeat; }
+.ln-b { --ln-b: var(--dash-h) bottom / 100% var(--line-width) no-repeat; }
+.ln-l { --ln-l: var(--dash-v) left   / var(--line-width) 100% no-repeat; }
+.ln-r { --ln-r: var(--dash-v) right  / var(--line-width) 100% no-repeat; }
+
+/* ---------- Маркеры (цвет handle): крестик 11 px, точка 4 px, центром на углу ---------- */
+.mark {
+  position: absolute;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.mark--cross {
+  width: var(--mark-cross);
+  height: var(--mark-cross);
+  background:
+    linear-gradient(var(--handle), var(--handle)) center / 100% var(--line-width) no-repeat,
+    linear-gradient(var(--handle), var(--handle)) center / var(--line-width) 100% no-repeat;
+}
+.mark--dot {
+  width: var(--mark-dot);
+  height: var(--mark-dot);
+  background: var(--handle);
+}
+.at-tl { left: 0;    top: 0; }
+.at-tr { left: 100%; top: 0; }
+.at-bl { left: 0;    top: 100%; }
+.at-br { left: 100%; top: 100%; }
+
+/* Рамка выделения: пунктир с полем space/8, крестики TL и BR, точки TR и BL */
+.select { position: relative; display: inline-flex; }
+.select__frame {
+  position: absolute;
+  inset: calc(var(--space-8) * -1);
+  pointer-events: none;
+}
+
+/* ---------- Фокус с клавиатуры ---------- */
+:focus-visible {
+  outline: var(--focus-width) solid var(--focus);
+  outline-offset: var(--focus-width);
+}
+
+/* ---------- Сетка ---------- */
+.shell { padding-inline: var(--screen-pad); }
+.canvas { max-width: var(--canvas-max); margin-inline: auto; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  padding-inline: var(--content-pad);
+}
+
+/* ---------- Иконки ---------- */
+.icon { width: var(--icon); height: var(--icon); flex: none; }
+
+/* Пиксельная стрелка «→» (сетка 8 × 7, пиксель 2 px). Повёрнутая — та же стрелка, квадраты становятся ромбами */
+.px-arrow { width: var(--arrow-w); height: var(--arrow-h); flex: none; }
+.px-arrow--down { transform: rotate(45deg); }  /* ↘: указывает на список под заголовком */
+
+/* ---------- Картинки со светлой и тёмной версией: переключает тема ---------- */
+.theme-dark { display: none; }
+:root[data-theme="dark"] .theme-light { display: none; }
+:root[data-theme="dark"] .theme-dark { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-light { display: none; }
+  :root:not([data-theme="light"]) .theme-dark { display: block; }
+}
+
+/* ---------- Появление при прокрутке ----------
+   Только прозрачность (положение и размеры не анимируются).
+   Без JS и при «уменьшить движение» всё видно сразу. */
+.js [data-reveal] {
+  opacity: 0;
+  transition: opacity var(--motion-duration) var(--motion-ease);
+  transition-delay: calc(var(--reveal-order, 0) * var(--motion-duration) / 2);
+}
+.js [data-reveal].is-visible { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transition: none; }
+  *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; }
+}
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
