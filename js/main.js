@@ -27,7 +27,7 @@
         var fail = function () { status.textContent = 'Скопируйте запрос и вставьте его в чат: ' + box.dataset.aiPrompt; };
         if (!navigator.clipboard) { fail(); return; }
         navigator.clipboard.writeText(box.dataset.aiPrompt).then(function () {
-          status.textContent = 'Запрос скопирован. Вставьте его в чат и отправьте, если хотите.';
+          status.textContent = 'Запрос скопирован, вставьте его в чат.';
         }, fail);
       });
     });
