@@ -44,9 +44,8 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   inset: calc(-1 * var(--space-16)) calc(-1 * var(--space-12));
 }
 
-/* Тема — только пиксельная иконка: солнце в светлой теме, луна в тёмной (Pixelarticons).
-   Сетка 12 × 12, пиксель 2 px — как у пиксельной стрелки, поэтому 24, а не 16 */
-.theme-icon { width: var(--space-24); height: var(--space-24); flex: none; }
+/* Тема — только иконка: солнце в светлой теме, луна в тёмной (Radix Icons) */
+.theme-icon { width: var(--space-16); height: var(--space-16); flex: none; }
 
 /* Mobile: аватар, имя и кнопка; ссылки скрыты, остаётся иконка темы */
 .header__nav > .nav-link:not(.theme-toggle) { display: none; }
