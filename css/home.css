@@ -25,7 +25,9 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   image-rendering: pixelated;
 }
 
-.header__nav { display: flex; align-items: center; gap: var(--space-24); }
+/* Mobile: всё в одну строку — имя скрыто (аватар ведёт на главную, имя есть в aria-label), промежуток 16 */
+.header__name { display: none; }
+.header__nav { display: flex; align-items: center; gap: var(--space-16); }
 .nav-link {
   display: inline-flex;
   align-items: center;
@@ -35,20 +37,32 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
 }
 .nav-link:hover, .nav-link:focus-visible { color: var(--fg); }
 
-/* Зона нажатия ссылок шапки — 48 по высоте (как аватар), по бокам +12: при промежутке 24 зоны соседей
-   смыкаются, но не перекрываются. Раскладка шапки не меняется */
+/* Зона нажатия ссылок шапки — 48 по высоте (как аватар), по бокам на половину промежутка (8, с tablet 12):
+   зоны соседей смыкаются, но не перекрываются. Раскладка шапки не меняется */
 .nav-link { position: relative; }
 .nav-link::before {
   content: "";
   position: absolute;
-  inset: calc(-1 * var(--space-16)) calc(-1 * var(--space-12));
+  inset: calc(-1 * var(--space-16)) calc(-1 * var(--space-8));
 }
+
+/* Хинт у кнопок без подписи (по Контур.Гайдам): инверсия как у тега, без стрелки и скруглений.
+   Ставит и показывает main.js — над кнопкой или под ней через space/8 */
+.hint {
+  position: fixed;
+  z-index: 20;
+  max-width: calc(100vw - var(--space-16) * 2);
+  padding: var(--space-8) var(--space-12);
+  background: var(--fg);
+  color: var(--bg);
+  text-align: center;
+  pointer-events: none;
+}
+.hint[hidden] { display: none; }
 
 /* Тема — только иконка: солнце в светлой теме, луна в тёмной (Radix Icons) */
 .theme-icon { width: var(--space-16); height: var(--space-16); flex: none; }
 
-/* Mobile: аватар, имя и кнопка; ссылки скрыты, остаётся иконка темы */
-.header__nav > .nav-link:not(.theme-toggle) { display: none; }
 
 
 /* Кнопка: заливка accent, поля 12/16 */
@@ -236,7 +250,9 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
 /* ================= Tablet: 8 колонок ================= */
 @media (min-width: 600px) {
   .header { flex-wrap: wrap; }
-  .header__nav > .nav-link:not(.theme-toggle) { display: inline-flex; }
+  .header__name { display: inline; }
+  .header__nav { gap: var(--space-24); }
+  .nav-link::before { inset: calc(-1 * var(--space-16)) calc(-1 * var(--space-12)); }
 
   .about__inner { grid-template-columns: max-content minmax(0, 1fr); }
 

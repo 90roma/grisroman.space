@@ -8,15 +8,70 @@
     return root.dataset.theme || (darkQuery.matches ? 'dark' : 'light');
   }
 
+  function themeHint() {
+    return currentTheme() === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему';
+  }
+
   document.querySelectorAll('.theme-toggle').forEach(function (button) {
     button.setAttribute('aria-pressed', String(currentTheme() === 'dark'));
+    button.dataset.hint = themeHint();
     button.addEventListener('click', function () {
       var next = currentTheme() === 'dark' ? 'light' : 'dark';
       root.dataset.theme = next;
       try { localStorage.setItem('theme', next); } catch (e) {}
       button.setAttribute('aria-pressed', String(next === 'dark'));
+      button.dataset.hint = themeHint();
     });
   });
+
+  // ---------- Хинт у кнопок без подписи (атрибут data-hint), по Контур.Гайдам: при наведении мышью
+  // через 400 мс, при фокусе с клавиатуры сразу; исчезает, когда курсор ушёл, при прокрутке и по Esc.
+  // На сенсорных экранах наведения нет — хинт не показывается, название кнопки есть в aria-label ----------
+  var hint = document.createElement('div');
+  hint.className = 'hint text-s';
+  hint.id = 'hint';
+  hint.setAttribute('role', 'tooltip');
+  hint.hidden = true;
+  document.body.appendChild(hint);
+  var hintTimer, hintTarget;
+
+  function cssMs(name) { return parseFloat(getComputedStyle(root).getPropertyValue(name)) || 0; }
+
+  function showHint(el) {
+    hintTarget = el;
+    hint.textContent = el.dataset.hint;
+    hint.hidden = false;
+    el.setAttribute('aria-describedby', 'hint');
+    // Над кнопкой; если сверху нет места — под ней. По горизонтали по центру, не ближе 16 к краям экрана
+    var gap = cssMs('--space-8'), edge = cssMs('--space-16');
+    var r = el.getBoundingClientRect(), w = hint.offsetWidth, h = hint.offsetHeight;
+    var top = r.top - gap - h;
+    if (top < edge) top = r.bottom + gap;
+    var left = Math.min(Math.max(r.left + r.width / 2 - w / 2, edge), window.innerWidth - edge - w);
+    hint.style.top = top + 'px';
+    hint.style.left = left + 'px';
+  }
+
+  function hideHint() {
+    clearTimeout(hintTimer);
+    if (hintTarget) hintTarget.removeAttribute('aria-describedby');
+    hintTarget = null;
+    hint.hidden = true;
+  }
+
+  document.querySelectorAll('[data-hint]').forEach(function (el) {
+    el.addEventListener('pointerenter', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      clearTimeout(hintTimer);
+      hintTimer = setTimeout(function () { showHint(el); }, cssMs('--hint-delay'));
+    });
+    el.addEventListener('pointerleave', hideHint);
+    el.addEventListener('focus', function () { if (el.matches(':focus-visible')) showHint(el); });
+    el.addEventListener('blur', hideHint);
+    el.addEventListener('click', function () { if (hintTarget === el) showHint(el); });
+  });
+  window.addEventListener('scroll', hideHint, { passive: true });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hideHint(); });
 
   // ---------- «Открыть в Claude / ChatGPT»: чат открывается пустым, запрос копируется в буфер.
   // Сообщение не отправляется само — человек вставляет запрос и решает, отправлять ли ----------
