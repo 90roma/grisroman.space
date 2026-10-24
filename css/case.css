@@ -265,7 +265,12 @@
 .case-cover > .cover-phones { width: var(--phone-w); max-width: calc(var(--reading) / 2); margin-inline: auto; }
 
 /* Скриншот телефона на сцене: доля ширины сцены, по центру */
-.figure--phone .figure__stage img { width: var(--phone-w); }
+.figure--phone .figure__stage { text-align: center; }  /* видео строчное: центрируем текстом, display задают классы темы */
+.figure--phone .figure__stage :is(img, video) { width: var(--phone-w); margin-inline: auto; }
+
+/* Три записи экрана телефона в ряд: 3 × 4 колонки на desktop, на телефоне друг под другом */
+.trio { display: grid; gap: var(--space-32); }
+.trio .figure__stage :is(img, video) { width: calc(var(--phone-w) * 1.6); }
 
 /* Сравнение двух состояний: подпись Label/M над сценой (space/8); на desktop — 6 + 6 с вертикальным пунктиром */
 .compare { display: grid; gap: var(--space-32); }
@@ -324,19 +329,32 @@
 
 @media (min-width: 1024px) {
   .steps { grid-template-columns: repeat(3, 1fr); }
+  .trio { grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
   .step { aspect-ratio: 1; }
   .compare { grid-template-columns: 1fr 1fr; gap: 0; }
   .compare__item:first-child { padding-right: var(--gutter); }
   .compare__item + .compare__item { padding-left: var(--gutter); --ln-l: var(--dash-v) left / var(--line-width) 100% no-repeat; }
 
   /* Таблица: вопрос — первая колонка, ответы — три колонки; имена — в шапке, у ответов скрыты (остаются для скринридера) */
-  /* У <details> содержимое лежит в отдельном слоте, сеткой его не разложить: вопрос — слева обтеканием, ответы — сеткой справа */
-  .interview { --interview-col: calc((100% - var(--gutter) * 3) / 4); }
-  .interview__head { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); padding-left: calc(var(--interview-col) + var(--gutter)); padding-bottom: var(--space-16); }
-  .interview__row { padding-block: var(--space-24); display: flow-root; }
-  .interview__q { float: left; width: var(--interview-col); cursor: default; }
+  /* Таблица с полной сеткой пунктиром (исключение, как блок «было | стало»): 4 равные колонки, поля ячейки 24 / 16.
+     У <details> содержимое лежит в отдельном слоте, сеткой его не разложить: вопрос — слева обтеканием, ответы — сеткой справа */
+  .interview {
+    --ln-l: var(--dash-v) left / var(--line-width) 100% no-repeat;
+    --ln-r: var(--dash-v) right / var(--line-width) 100% no-repeat;
+  }
+  .interview__head {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-left: 25%;
+    --ln-t: var(--dash-h) top / 100% var(--line-width) no-repeat;
+  }
+  .interview__head > *, .interview__answer { --ln-l: var(--dash-v) left / var(--line-width) 100% no-repeat; }
+  .interview__head > * { padding: var(--space-16); }
+  .interview__row { padding-block: 0; display: flow-root; }
+  .interview__q { float: left; width: 25%; padding: var(--space-24) var(--space-16); cursor: default; }
   .px-toggle { display: none; }
-  .interview__a { margin-left: calc(var(--interview-col) + var(--gutter)); grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); padding-top: 0; }
+  .interview__a { margin-left: 25%; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; padding-top: 0; }
+  .interview__answer { padding: var(--space-24) var(--space-16); }
   .interview__answer > .label-s { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }
 
