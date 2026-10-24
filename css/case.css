@@ -258,3 +258,87 @@
   }
 }
 
+
+/* ================= Элементы кейса «Огнеборец» ================= */
+
+/* Обложка-картинка узкая (телефоны): по центру сцены обложки, вдвое меньше файла */
+.case-cover > .cover-phones { width: var(--phone-w); max-width: calc(var(--reading) / 2); margin-inline: auto; }
+
+/* Скриншот телефона на сцене: доля ширины сцены, по центру */
+.figure--phone .figure__stage img { width: var(--phone-w); }
+
+/* Сравнение двух состояний: подпись Label/M над сценой (space/8); на desktop — 6 + 6 с вертикальным пунктиром */
+.compare { display: grid; gap: var(--space-32); }
+.compare__item { display: flex; flex-direction: column; gap: var(--space-8); }
+.compare__item > .label-m { color: var(--muted); }
+
+/* Шаги постового: карточки cell, крупная контурная цифра линией line — декор, порядок задаёт <ol> */
+.steps { display: grid; gap: var(--space-24); list-style: none; padding: 0; counter-reset: step; }
+.step {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;  /* пропорции плашки: 16 : 9 на телефоне, 4 : 3 на планшете, 1 : 1 на desktop */
+  padding: var(--space-24);
+  background: var(--cell);
+  counter-increment: step;
+}
+.step > p { position: relative; z-index: 1; max-width: 16em; }
+.step::after {
+  content: counter(step);
+  position: absolute;
+  right: var(--space-24);
+  bottom: calc(var(--step-num-size) * -0.2);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: var(--step-num-size);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: var(--line-width) var(--line);
+}
+
+/* Интервью: на телефоне и планшете — аккордеон (каждый вопрос раскрывается сам), на desktop — таблица «вопрос + три ответа» */
+.interview__head { display: none; }
+.interview__row { padding-block: var(--space-16); }
+.interview__row:last-child { --ln-b: var(--dash-h) bottom / 100% var(--line-width) no-repeat; }  /* пунктир и под последним вопросом */
+.interview__q {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-16);
+  cursor: pointer;
+  list-style: none;
+  font-weight: 400;
+}
+.interview__q::-webkit-details-marker { display: none; }
+.px-toggle { width: var(--px-icon); height: var(--px-icon); flex: none; color: var(--muted); align-self: center; }
+.interview__row[open] .px-toggle__v { display: none; }  /* «+» → «−» */
+.interview__q:hover .px-toggle, .interview__q:focus-visible .px-toggle { color: var(--fg); }
+.interview__a { display: grid; gap: var(--space-16); padding-top: var(--space-16); }
+.interview__answer { display: flex; flex-direction: column; gap: var(--space-4); }
+.interview__answer > .label-s { color: var(--muted); }
+
+@media (min-width: 600px) {
+  .steps { grid-template-columns: 1fr 1fr; }
+  .step { aspect-ratio: 4 / 3; }
+}
+
+@media (min-width: 1024px) {
+  .steps { grid-template-columns: repeat(3, 1fr); }
+  .step { aspect-ratio: 1; }
+  .compare { grid-template-columns: 1fr 1fr; gap: 0; }
+  .compare__item:first-child { padding-right: var(--gutter); }
+  .compare__item + .compare__item { padding-left: var(--gutter); --ln-l: var(--dash-v) left / var(--line-width) 100% no-repeat; }
+
+  /* Таблица: вопрос — первая колонка, ответы — три колонки; имена — в шапке, у ответов скрыты (остаются для скринридера) */
+  /* У <details> содержимое лежит в отдельном слоте, сеткой его не разложить: вопрос — слева обтеканием, ответы — сеткой справа */
+  .interview { --interview-col: calc((100% - var(--gutter) * 3) / 4); }
+  .interview__head { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); padding-left: calc(var(--interview-col) + var(--gutter)); padding-bottom: var(--space-16); }
+  .interview__row { padding-block: var(--space-24); display: flow-root; }
+  .interview__q { float: left; width: var(--interview-col); cursor: default; }
+  .px-toggle { display: none; }
+  .interview__a { margin-left: calc(var(--interview-col) + var(--gutter)); grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); padding-top: 0; }
+  .interview__answer > .label-s { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+
+/* Скринфлоу на весь экран — в натуральную величину файла, прокрутка по обеим осям */
+.zoom--natural .zoom__scroll img { width: auto; max-width: none; margin: var(--space-64); }

@@ -122,8 +122,22 @@
     var copy = img.cloneNode();
     copy.removeAttribute('class');
     copy.loading = 'eager';
+    // крупная версия схемы (data-zoom-src) грузится только при открытии
+    if (img.dataset.zoomSrc) {
+      copy.src = img.dataset.zoomSrc;
+      copy.removeAttribute('width');
+      copy.removeAttribute('height');
+    }
     zoom.querySelector('.zoom__scroll').replaceChildren(copy);
     zoom.classList.toggle('zoom--fit', trigger.dataset.zoom === 'fit');
+    zoom.classList.toggle('zoom--natural', trigger.dataset.zoom === 'natural');
+    // большая схема начинается слева: открываем её у левого края, по середине высоты
+    if (trigger.dataset.zoom === 'natural') {
+      copy.addEventListener('load', function () {
+        var box = zoom.querySelector('.zoom__scroll');
+        box.scrollTop = (box.scrollHeight - box.clientHeight) / 2;
+      }, { once: true });
+    }
     zoom.setAttribute('aria-label', trigger.getAttribute('aria-label') || 'Картинка');
     zoom.trigger = trigger;
     zoom.showModal();
@@ -171,6 +185,18 @@
     });
     gallery.querySelector('.gallery__nav').hidden = false;
     update();
+  });
+
+  // ---------- Аккордеон [data-accordion]: на телефоне и планшете вопросы свёрнуты, на desktop — таблица, всё раскрыто ----------
+  var wideTable = window.matchMedia('(min-width: 1024px)');
+  document.querySelectorAll('[data-accordion]').forEach(function (box) {
+    var rows = box.querySelectorAll('details');
+    function sync() { rows.forEach(function (row) { row.open = wideTable.matches; }); }
+    rows.forEach(function (row) {
+      row.querySelector('summary').addEventListener('click', function (e) { if (wideTable.matches) e.preventDefault(); });
+    });
+    wideTable.addEventListener('change', sync);
+    sync();
   });
 
   // ---------- Оглавление кейса: подсветка текущего раздела, видно только в зоне разделов ----------

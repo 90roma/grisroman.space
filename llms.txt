@@ -5,3 +5,4 @@
 - [Полный текст портфолио](https://grisroman.space/llms-full.txt): опыт, все кейсы с результатами, контакты
 - [Главная](https://grisroman.space/)
 - [Кейс «Предиктивный набор»](https://grisroman.space/cases/predictive-dialer/): занятость операторов с 40% до 78%
+- [Кейс «Огнеборец»](https://grisroman.space/cases/firefighter/): расчёт времени возврата пожарных за 47 секунд вместо 6 минут
