@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Огнеборец&nbsp;— кейс Романа Гришина</title>
+  <meta name="description" content="Мобильное приложение для пожарных: расчёт времени возврата звена за 47 секунд вместо 6 минут вручную.">
+  <script>
+    (function () {
+      var root = document.documentElement;
+      try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') root.dataset.theme = t; } catch (e) {}
+      root.classList.add('js');
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400&family=Martian+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="../../css/tokens.css?v=32">
+  <link rel="stylesheet" href="../../css/base.css?v=30">
+  <link rel="stylesheet" href="../../css/home.css?v=43">
+  <link rel="stylesheet" href="../../css/case.css?v=47">
+  <link rel="icon" href="../../img/avatar.png">
+  <script src="../../js/main.js?v=38" defer></script>
+</head>
+<body>
+
+<header class="site-header ln ln-b">
+  <div class="shell">
+    <div class="canvas header">
+      <a class="header__me" href="../../" aria-label="Роман Гришин, на главную">
+        <img class="header__avatar" src="../../img/avatar.png" alt="" width="48" height="48">
+        <span class="header__name text-m">Роман Гришин</span>
+      </a>
+      <nav class="header__nav" aria-label="Основная навигация">
+        <a class="nav-link label-s" href="../../#cases">Кейсы</a>
+        <a class="nav-link label-s" href="../../en/" lang="en" hreflang="en">EN</a>
+        <button class="nav-link label-s theme-toggle" type="button" aria-label="Переключить тему">
+          <!-- Иконки Radix Icons (MIT): солнце в светлой теме, луна в тёмной -->
+          <svg class="theme-icon theme-light" viewBox="0 0 15 15" aria-hidden="true"><path d="M7.5 0C7.77614 0 8 0.223858 8 0.5V2.5C8 2.77614 7.77614 3 7.5 3C7.22386 3 7 2.77614 7 2.5V0.5C7 0.223858 7.22386 0 7.5 0ZM2.1967 2.1967C2.39196 2.00144 2.70854 2.00144 2.90381 2.1967L4.31802 3.61091C4.51328 3.80617 4.51328 4.12276 4.31802 4.31802C4.12276 4.51328 3.80617 4.51328 3.61091 4.31802L2.1967 2.90381C2.00144 2.70854 2.00144 2.39196 2.1967 2.1967ZM0.5 7C0.223858 7 0 7.22386 0 7.5C0 7.77614 0.223858 8 0.5 8H2.5C2.77614 8 3 7.77614 3 7.5C3 7.22386 2.77614 7 2.5 7H0.5ZM2.1967 12.8033C2.00144 12.608 2.00144 12.2915 2.1967 12.0962L3.61091 10.682C3.80617 10.4867 4.12276 10.4867 4.31802 10.682C4.51328 10.8772 4.51328 11.1938 4.31802 11.3891L2.90381 12.8033C2.70854 12.9986 2.39196 12.9986 2.1967 12.8033ZM12.5 7C12.2239 7 12 7.22386 12 7.5C12 7.77614 12.2239 8 12.5 8H14.5C14.7761 8 15 7.77614 15 7.5C15 7.22386 14.7761 7 14.5 7H12.5ZM10.682 4.31802C10.4867 4.12276 10.4867 3.80617 10.682 3.61091L12.0962 2.1967C12.2915 2.00144 12.608 2.00144 12.8033 2.1967C12.9986 2.39196 12.9986 2.70854 12.8033 2.90381L11.3891 4.31802C11.1938 4.51328 10.8772 4.51328 10.682 4.31802ZM8 12.5C8 12.2239 7.77614 12 7.5 12C7.22386 12 7 12.2239 7 12.5V14.5C7 14.7761 7.22386 15 7.5 15C7.77614 15 8 14.7761 8 14.5V12.5ZM10.682 10.682C10.8772 10.4867 11.1938 10.4867 11.3891 10.682L12.8033 12.0962C12.9986 12.2915 12.9986 12.608 12.8033 12.8033C12.608 12.9986 12.2915 12.9986 12.0962 12.8033L10.682 11.3891C10.4867 11.1938 10.4867 10.8772 10.682 10.682ZM5.5 7.5C5.5 6.39543 6.39543 5.5 7.5 5.5C8.60457 5.5 9.5 6.39543 9.5 7.5C9.5 8.60457 8.60457 9.5 7.5 9.5C6.39543 9.5 5.5 8.60457 5.5 7.5ZM7.5 4.5C5.84315 4.5 4.5 5.84315 4.5 7.5C4.5 9.15685 5.84315 10.5 7.5 10.5C9.15685 10.5 10.5 9.15685 10.5 7.5C10.5 5.84315 9.15685 4.5 7.5 4.5Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+          <svg class="theme-icon theme-dark" viewBox="0 0 15 15" aria-hidden="true"><path d="M2.89998 0.499976C2.89998 0.279062 2.72089 0.0999756 2.49998 0.0999756C2.27906 0.0999756 2.09998 0.279062 2.09998 0.499976V1.09998H1.49998C1.27906 1.09998 1.09998 1.27906 1.09998 1.49998C1.09998 1.72089 1.27906 1.89998 1.49998 1.89998H2.09998V2.49998C2.09998 2.72089 2.27906 2.89998 2.49998 2.89998C2.72089 2.89998 2.89998 2.72089 2.89998 2.49998V1.89998H3.49998C3.72089 1.89998 3.89998 1.72089 3.89998 1.49998C3.89998 1.27906 3.72089 1.09998 3.49998 1.09998H2.89998V0.499976ZM5.89998 3.49998C5.89998 3.27906 5.72089 3.09998 5.49998 3.09998C5.27906 3.09998 5.09998 3.27906 5.09998 3.49998V4.09998H4.49998C4.27906 4.09998 4.09998 4.27906 4.09998 4.49998C4.09998 4.72089 4.27906 4.89998 4.49998 4.89998H5.09998V5.49998C5.09998 5.72089 5.27906 5.89998 5.49998 5.89998C5.72089 5.89998 5.89998 5.72089 5.89998 5.49998V4.89998H6.49998C6.72089 4.89998 6.89998 4.72089 6.89998 4.49998C6.89998 4.27906 6.72089 4.09998 6.49998 4.09998H5.89998V3.49998ZM1.89998 6.49998C1.89998 6.27906 1.72089 6.09998 1.49998 6.09998C1.27906 6.09998 1.09998 6.27906 1.09998 6.49998V7.09998H0.499976C0.279062 7.09998 0.0999756 7.27906 0.0999756 7.49998C0.0999756 7.72089 0.279062 7.89998 0.499976 7.89998H1.09998V8.49998C1.09998 8.72089 1.27906 8.89997 1.49998 8.89997C1.72089 8.89997 1.89998 8.72089 1.89998 8.49998V7.89998H2.49998C2.72089 7.89998 2.89998 7.72089 2.89998 7.49998C2.89998 7.27906 2.72089 7.09998 2.49998 7.09998H1.89998V6.49998ZM8.54406 0.98184L8.24618 0.941586C8.03275 0.917676 7.90692 1.1655 8.02936 1.34194C8.17013 1.54479 8.29981 1.75592 8.41754 1.97445C8.91878 2.90485 9.20322 3.96932 9.20322 5.10022C9.20322 8.37201 6.82247 11.0878 3.69887 11.6097C3.45736 11.65 3.20988 11.6772 2.96008 11.6906C2.74563 11.702 2.62729 11.9535 2.77721 12.1072C2.84551 12.1773 2.91535 12.2458 2.98667 12.3128L3.05883 12.3795L3.31883 12.6045L3.50684 12.7532L3.62796 12.8433L3.81491 12.9742L3.99079 13.089C4.11175 13.1651 4.23536 13.2375 4.36157 13.3059L4.62496 13.4412L4.88553 13.5607L5.18837 13.6828L5.43169 13.7686C5.56564 13.8128 5.70149 13.8529 5.83857 13.8885C5.94262 13.9155 6.04767 13.9401 6.15405 13.9622C6.27993 13.9883 6.40713 14.0109 6.53544 14.0298L6.85241 14.0685L7.11934 14.0892C7.24637 14.0965 7.37436 14.1002 7.50322 14.1002C11.1483 14.1002 14.1032 11.1453 14.1032 7.50023C14.1032 7.25044 14.0893 7.00389 14.0623 6.76131L14.0255 6.48407C13.991 6.26083 13.9453 6.04129 13.8891 5.82642C13.8213 5.56709 13.7382 5.31398 13.6409 5.06881L13.5279 4.80132L13.4507 4.63542L13.3766 4.48666C13.2178 4.17773 13.0353 3.88295 12.8312 3.60423L12.6782 3.40352L12.4793 3.16432L12.3157 2.98361L12.1961 2.85951L12.0355 2.70246L11.8134 2.50184L11.4925 2.24191L11.2483 2.06498L10.9562 1.87446L10.6346 1.68894L10.3073 1.52378L10.1938 1.47176L9.95488 1.3706L9.67791 1.2669L9.42566 1.1846L9.10075 1.09489L8.83599 1.03486L8.54406 0.98184ZM10.4032 5.30023C10.4032 4.27588 10.2002 3.29829 9.83244 2.40604C11.7623 3.28995 13.1032 5.23862 13.1032 7.50023C13.1032 10.593 10.596 13.1002 7.50322 13.1002C6.63646 13.1002 5.81597 12.9036 5.08355 12.5522C6.5419 12.0941 7.81081 11.2082 8.74322 10.0416C8.87963 10.2284 9.10028 10.3497 9.34928 10.3497C9.76349 10.3497 10.0993 10.0139 10.0993 9.59971C10.0993 9.24256 9.84965 8.94373 9.51535 8.86816C9.57741 8.75165 9.63653 8.63334 9.6926 8.51332C9.88358 8.63163 10.1088 8.69993 10.35 8.69993C11.0403 8.69993 11.6 8.14028 11.6 7.44993C11.6 6.75976 11.0406 6.20024 10.3505 6.19993C10.3853 5.90487 10.4032 5.60464 10.4032 5.30023Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+        </button>
+        <a class="btn label-m" href="https://t.me/grisroman" target="_blank" rel="noopener">Написать<span class="visually-hidden"> в&nbsp;Telegram (откроется в&nbsp;новой вкладке)</span></a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- Оглавление кейса: вне холста, закреплено слева на широком экране, видно в зоне разделов -->
+<nav class="toc" aria-label="Разделы кейса">
+  <ol class="toc__list">
+    <li><a class="toc__link label-s" href="#context">Контекст и&nbsp;проблема</a></li>
+    <li><a class="toc__link label-s" href="#research">Исследование</a></li>
+    <li><a class="toc__link label-s" href="#design">Проектирование</a></li>
+    <li><a class="toc__link label-s" href="#testing">Тестирование</a></li>
+    <li><a class="toc__link label-s" href="#final">Финальный вариант</a></li>
+    <li><a class="toc__link label-s" href="#result">Результат</a></li>
+  </ol>
+</nav>
+
+<div class="shell">
+  <main class="canvas longread">
+
+    <div class="case-top grid-pad">
+      <a class="back-link label-s" href="../../#cases">
+        <svg class="px-arrow px-arrow--back" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg>
+        Все кейсы
+      </a>
+    </div>
+
+    <!-- Hero: результат сразу -->
+    <section class="case-hero grid" data-reveal>
+      <div class="case-hero__text">
+        <h1 class="h1">Огнеборец</h1>
+        <p class="subtitle-1 muted">Мобильное приложение для&nbsp;пожарных, которое отслеживает давление в&nbsp;баллонах и&nbsp;время, когда нужно вернуться в&nbsp;безопасное место</p>
+      </div>
+    </section>
+
+    <!-- Главный результат — один якорь: время расчёта -->
+    <section class="case-results grid" aria-label="Результат" data-reveal>
+      <div class="result-box ln ln-t ln-b ln-l ln-r">
+        <i class="mark mark--cross at-tl" aria-hidden="true"></i>
+        <i class="mark mark--dot at-tr" aria-hidden="true"></i>
+        <i class="mark mark--dot at-bl" aria-hidden="true"></i>
+        <i class="mark mark--cross at-br" aria-hidden="true"></i>
+        <div class="factoid">
+          <p class="label-m muted">Расчёт вручную</p>
+          <p class="h2">6&nbsp;мин</p>
+          <p class="text-s muted">на&nbsp;планшете и&nbsp;калькуляторе</p>
+        </div>
+        <div class="factoid">
+          <p class="label-m muted">Расчёт в&nbsp;приложении</p>
+          <p class="h2">47&nbsp;с</p>
+          <p class="text-s muted">почти в&nbsp;8&nbsp;раз быстрее</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-meta grid" aria-label="О проекте" data-reveal>
+      <dl class="project">
+        <div class="meta-pair"><dt class="label-s muted">Тип</dt><dd class="text-m">Благотворительный</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Годы</dt><dd class="text-m">2022–2023</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Платформа</dt><dd class="text-m">Android</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Команда</dt><dd class="text-m">Юрий Коновалов, идея. Роман Гришин, дизайн. Дмитрий Жгун, разработка</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Инструменты</dt><dd class="text-m">Figma, Adobe Illustrator</dd></div>
+        <div class="meta-pair meta-pair--wide">
+          <dt class="label-s muted">Что делал</dt>
+          <dd class="text-m">Провёл интервью с&nbsp;постовыми, спроектировал логику и&nbsp;интерфейс приложения, собирал обратную связь после учений. <a class="link" href="#design">Как&nbsp;делал</a></dd>
+        </div>
+      </dl>
+    </section>
+
+    <div class="case-cover">
+      <img class="cover-phones theme-light" src="img/cover.webp" alt="Экраны приложения Огнеборец: заставка и&nbsp;таймер работы звена" width="756" height="1140">
+      <img class="cover-phones theme-dark" src="img/cover-dark.webp" alt="Экраны приложения Огнеборец: заставка и&nbsp;таймер работы звена" width="756" height="1140">
+    </div>
+
+    <!-- 1. Контекст и проблема -->
+    <section class="section grid" id="context" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Контекст и&nbsp;проблема</p></div>
+      <div class="section__body">
+        <h2 class="h3">Ручные вычисления занимают время и&nbsp;повышают риск ошибок</h2>
+        <p class="text-l">Идея создать приложение появилась у&nbsp;начальника караула Юрия Коновалова. Юрий сам участвует в&nbsp;тушении пожаров, координирует работу звена и&nbsp;знает, с&nbsp;какими сложностями приходится сталкиваться.</p>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть фото на весь экран">
+          <img src="img/yura.webp" alt="Юрий Коновалов в&nbsp;форме пожарного" width="1680" height="1119" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Начальник караула пожарной части Санкт-Петербурга Юрий Коновалов</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l"><strong>Кто такие постовые.</strong> Постовой отвечает за&nbsp;безопасность пожарных. Он контролирует давление в&nbsp;баллонах, рассчитывает время возврата и&nbsp;следит за&nbsp;общей обстановкой.</p>
+        <p class="text-l">Для&nbsp;вычислений используется картонный планшет с&nbsp;таблицей. Данные записываются и&nbsp;сравниваются вручную.</p>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+          <img class="theme-light" src="img/plan.webp" alt="Раскрытый планшет постового с&nbsp;таблицей и&nbsp;маркерами" width="2411" height="1029" loading="lazy" decoding="async">
+          <img class="theme-dark" src="img/plan-dark.webp" alt="Раскрытый планшет постового с&nbsp;таблицей и&nbsp;маркерами" width="2334" height="996" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Планшет постового с&nbsp;таблицей для&nbsp;расчётов</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l">При изменении условий, например при&nbsp;повышенном задымлении, постовой корректирует расчёты с&nbsp;помощью формул. В&nbsp;экстренной ситуации ошибка может стать критической. Если пожарные вовремя не&nbsp;выйдут из&nbsp;опасной зоны, запаса в&nbsp;баллонах не&nbsp;хватит на&nbsp;обратный путь.</p>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+          <img src="img/formula.webp" alt="Рукописные расчёты времени работы и&nbsp;давления в&nbsp;баллонах" width="1600" height="592" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Пример формул для&nbsp;расчёта показателей времени и&nbsp;давления</figcaption>
+      </figure>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть фото на весь экран">
+          <img src="img/gdzs.webp" alt="Пожарные в&nbsp;снаряжении задумчиво смотрят вверх" width="1680" height="947" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Когда представил, что надо считать всё вручную</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l"><strong>Цель.</strong> Автоматизировать расчёты, чтобы снизить нагрузку на&nbsp;постового и&nbsp;исключить ошибки. Приложение рассчитывает безопасное время выхода пожарных из&nbsp;опасной зоны с&nbsp;учётом текущего давления в&nbsp;баллонах и&nbsp;изменения условий пожаротушения.</p>
+      </div>
+    </section>
+
+    <!-- 2. Исследование -->
+    <section class="section grid" id="research" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Исследование</p></div>
+      <div class="section__body">
+        <h2 class="h3">Как ведутся расчёты и&nbsp;какие проблемы возникают</h2>
+        <p class="text-l">На&nbsp;момент исследования не&nbsp;было мобильного приложения, которое рассчитывало бы время возврата и&nbsp;автоматически фиксировало данные о&nbsp;каждом включении.</p>
+        <p class="text-l">Чтобы понять, как ведутся расчёты и&nbsp;какие проблемы возникают, провёл интервью с&nbsp;постовыми со&nbsp;стажем 8, 11 и&nbsp;12&nbsp;лет. Это помогло выявить общие проблемы и&nbsp;особенности работы в&nbsp;зависимости от&nbsp;опыта.</p>
+      </div>
+      <figure class="section__wide figure">
+        <div class="interview" data-accordion>
+          <div class="interview__head" aria-hidden="true">
+            <p class="label-s muted">Андрей, стаж 12&nbsp;лет</p>
+            <p class="label-s muted">Игорь, стаж 8&nbsp;лет</p>
+            <p class="label-s muted">Сергей, стаж 11&nbsp;лет</p>
+          </div>
+          <details class="interview__row ln ln-t" open>
+            <summary class="interview__q text-m">1. Опишите процесс начала работы <svg class="px-toggle" viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h7v1H0z" fill="currentColor"/><path class="px-toggle__v" d="M3 0h1v3H3zM3 4h1v3H3z" fill="currentColor"/></svg></summary>
+            <div class="interview__a">
+              <div class="interview__answer"><p class="label-s">Андрей, стаж 12&nbsp;лет</p><p class="text-m">По&nbsp;приезде выдвигаемся к&nbsp;месту пожара, затем фиксирую давление в&nbsp;баллонах у&nbsp;пожарных и&nbsp;сообщаю командиру, какой запас можно израсходовать</p></div>
+              <div class="interview__answer"><p class="label-s">Игорь, стаж 8&nbsp;лет</p><p class="text-m">У&nbsp;границы НДС (непригодной для&nbsp;дыхания среды) записываю стартовое давление в&nbsp;баллонах и&nbsp;передаю данные командиру звена</p></div>
+              <div class="interview__answer"><p class="label-s">Сергей, стаж 11&nbsp;лет</p><p class="text-m">Перед началом пожаротушения фиксирую давление в&nbsp;баллонах, рассчитываю, когда звену нужно покинуть опасную зону, и&nbsp;передаю данные командиру звена</p></div>
+            </div>
+          </details>
+          <details class="interview__row ln ln-t" open>
+            <summary class="interview__q text-m">2. Как&nbsp;рассчитываете время работы звена? <svg class="px-toggle" viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h7v1H0z" fill="currentColor"/><path class="px-toggle__v" d="M3 0h1v3H3zM3 4h1v3H3z" fill="currentColor"/></svg></summary>
+            <div class="interview__a">
+              <div class="interview__answer"><p class="label-s">Андрей, стаж 12&nbsp;лет</p><p class="text-m">Исходя из&nbsp;начального давления, рассчитываю время возврата перед входом в&nbsp;непригодную для&nbsp;дыхания среду. Во&nbsp;время пожаротушения пересчитываю давление в&nbsp;баллоне и&nbsp;время возврата. После выхода записываю остаточное давление и&nbsp;время выхода</p></div>
+              <div class="interview__answer"><p class="label-s">Игорь, стаж 8&nbsp;лет</p><p class="text-m">С&nbsp;помощью формул перед включением. Во&nbsp;время работы пересчитываю оставшееся время по&nbsp;расходу</p></div>
+              <div class="interview__answer"><p class="label-s">Сергей, стаж 11&nbsp;лет</p><p class="text-m">Использую стандартные формулы перед началом пожаротушения и&nbsp;далее в&nbsp;зависимости от&nbsp;условий пересчитываю время</p></div>
+            </div>
+          </details>
+          <details class="interview__row ln ln-t" open>
+            <summary class="interview__q text-m">3. Чем именно пользуетесь для&nbsp;расчётов и&nbsp;записи данных? <svg class="px-toggle" viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h7v1H0z" fill="currentColor"/><path class="px-toggle__v" d="M3 0h1v3H3zM3 4h1v3H3z" fill="currentColor"/></svg></summary>
+            <div class="interview__a">
+              <div class="interview__answer"><p class="label-s">Андрей, стаж 12&nbsp;лет</p><p class="text-m">Планшет. Данные считаю на&nbsp;калькуляторе</p></div>
+              <div class="interview__answer"><p class="label-s">Игорь, стаж 8&nbsp;лет</p><p class="text-m">Планшет. Иногда делаю пометки в&nbsp;телефоне, если не&nbsp;успеваю записать сразу</p></div>
+              <div class="interview__answer"><p class="label-s">Сергей, стаж 11&nbsp;лет</p><p class="text-m">Планшет или&nbsp;блокнот</p></div>
+            </div>
+          </details>
+          <details class="interview__row ln ln-t" open>
+            <summary class="interview__q text-m">4. Почему выбрали именно этот способ? <svg class="px-toggle" viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h7v1H0z" fill="currentColor"/><path class="px-toggle__v" d="M3 0h1v3H3zM3 4h1v3H3z" fill="currentColor"/></svg></summary>
+            <div class="interview__a">
+              <div class="interview__answer"><p class="label-s">Андрей, стаж 12&nbsp;лет</p><p class="text-m">Планшет всегда под&nbsp;рукой</p></div>
+              <div class="interview__answer"><p class="label-s">Игорь, стаж 8&nbsp;лет</p><p class="text-m">Привычка. И&nbsp;можно быстро посмотреть старые записи</p></div>
+              <div class="interview__answer"><p class="label-s">Сергей, стаж 11&nbsp;лет</p><p class="text-m">Так всегда делалось, никто не&nbsp;пытался это поменять</p></div>
+            </div>
+          </details>
+          <details class="interview__row ln ln-t" open>
+            <summary class="interview__q text-m">5. Что вам нравится в&nbsp;текущем способе работы? <svg class="px-toggle" viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h7v1H0z" fill="currentColor"/><path class="px-toggle__v" d="M3 0h1v3H3zM3 4h1v3H3z" fill="currentColor"/></svg></summary>
+            <div class="interview__a">
+              <div class="interview__answer"><p class="label-s">Андрей, стаж 12&nbsp;лет</p><p class="text-m">Сложно сказать, уже привык использовать планшет</p></div>
+              <div class="interview__answer"><p class="label-s">Игорь, стаж 8&nbsp;лет</p><p class="text-m">Можно быстро внести исправления в&nbsp;заметках телефона, если что-то не&nbsp;так записал</p></div>
+              <div class="interview__answer"><p class="label-s">Сергей, стаж 11&nbsp;лет</p><p class="text-m">Не&nbsp;завишу от&nbsp;зарядки и&nbsp;интернета</p></div>
+            </div>
+          </details>
+          <details class="interview__row ln ln-t" open>
+            <summary class="interview__q text-m">6. Какие недостатки? <svg class="px-toggle" viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h7v1H0z" fill="currentColor"/><path class="px-toggle__v" d="M3 0h1v3H3zM3 4h1v3H3z" fill="currentColor"/></svg></summary>
+            <div class="interview__a">
+              <div class="interview__answer"><p class="label-s">Андрей, стаж 12&nbsp;лет</p><p class="text-m">Можно ошибиться, особенно в&nbsp;спешке и&nbsp;когда данные нужно быстро пересчитать. Приходится заполнять всё заново или&nbsp;вносить правки</p></div>
+              <div class="interview__answer"><p class="label-s">Игорь, стаж 8&nbsp;лет</p><p class="text-m">Считать вручную. Всё в&nbsp;разных местах, переписывание занимает время</p></div>
+              <div class="interview__answer"><p class="label-s">Сергей, стаж 11&nbsp;лет</p><p class="text-m">Иногда блокнот теряется или&nbsp;пачкается, потом надо вспоминать данные. Если нужно перепроверить, это занимает время</p></div>
+            </div>
+          </details>
+          <details class="interview__row ln ln-t" open>
+            <summary class="interview__q text-m">7. Пробовали&nbsp;ли другие способы фиксации данных? <svg class="px-toggle" viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h7v1H0z" fill="currentColor"/><path class="px-toggle__v" d="M3 0h1v3H3zM3 4h1v3H3z" fill="currentColor"/></svg></summary>
+            <div class="interview__a">
+              <div class="interview__answer"><p class="label-s">Андрей, стаж 12&nbsp;лет</p><p class="text-m">Когда-то думали попробовать цифровой планшет, но&nbsp;у&nbsp;нас нет единой системы</p></div>
+              <div class="interview__answer"><p class="label-s">Игорь, стаж 8&nbsp;лет</p><p class="text-m">Использую блокнот в&nbsp;телефоне</p></div>
+              <div class="interview__answer"><p class="label-s">Сергей, стаж 11&nbsp;лет</p><p class="text-m">Только черновик, обычный блокнот</p></div>
+            </div>
+          </details>
+          <details class="interview__row ln ln-t" open>
+            <summary class="interview__q text-m">8. Какие сложности с&nbsp;расчётами во&nbsp;время включения? <svg class="px-toggle" viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h7v1H0z" fill="currentColor"/><path class="px-toggle__v" d="M3 0h1v3H3zM3 4h1v3H3z" fill="currentColor"/></svg></summary>
+            <div class="interview__a">
+              <div class="interview__answer"><p class="label-s">Андрей, стаж 12&nbsp;лет</p><p class="text-m">Когда условия меняются, приходится пересчитывать данные «на&nbsp;ходу». Считаю с&nbsp;помощью калькулятора вручную, получается не&nbsp;так быстро, как&nbsp;хотелось&nbsp;бы</p></div>
+              <div class="interview__answer"><p class="label-s">Игорь, стаж 8&nbsp;лет</p><p class="text-m">Если ошибся в&nbsp;расчётах, это может сказаться на&nbsp;безопасности звена. Например, ошибка в&nbsp;расчёте остаточного времени работы</p></div>
+              <div class="interview__answer"><p class="label-s">Сергей, стаж 11&nbsp;лет</p><p class="text-m">Бывает, что расход увеличился, но&nbsp;вовремя этого не&nbsp;заметили, и&nbsp;оперативно посчитать довольно сложно</p></div>
+            </div>
+          </details>
+          <details class="interview__row ln ln-t" open>
+            <summary class="interview__q text-m">9. Как&nbsp;часто приходится пересчитывать показатели? <svg class="px-toggle" viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h7v1H0z" fill="currentColor"/><path class="px-toggle__v" d="M3 0h1v3H3zM3 4h1v3H3z" fill="currentColor"/></svg></summary>
+            <div class="interview__a">
+              <div class="interview__answer"><p class="label-s">Андрей, стаж 12&nbsp;лет</p><p class="text-m">Если пожар сложный, то&nbsp;почти на&nbsp;каждом вызове</p></div>
+              <div class="interview__answer"><p class="label-s">Игорь, стаж 8&nbsp;лет</p><p class="text-m">В&nbsp;среднем каждые 10&#8288;–&#8288;15&nbsp;минут, если условия меняются</p></div>
+              <div class="interview__answer"><p class="label-s">Сергей, стаж 11&nbsp;лет</p><p class="text-m">Иногда за&nbsp;одно включение приходится делать 2&#8288;–&#8288;3&nbsp;пересчёта</p></div>
+            </div>
+          </details>
+          <details class="interview__row ln ln-t" open>
+            <summary class="interview__q text-m">10. Сколько времени уходит на&nbsp;расчёт и&nbsp;запись данных? <svg class="px-toggle" viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h7v1H0z" fill="currentColor"/><path class="px-toggle__v" d="M3 0h1v3H3zM3 4h1v3H3z" fill="currentColor"/></svg></summary>
+            <div class="interview__a">
+              <div class="interview__answer"><p class="label-s">Андрей, стаж 12&nbsp;лет</p><p class="text-m">Если условия не&nbsp;меняются, минут 5&#8288;–&#8288;7</p></div>
+              <div class="interview__answer"><p class="label-s">Игорь, стаж 8&nbsp;лет</p><p class="text-m">Если что-то пересчитываю, до&nbsp;10&nbsp;минут</p></div>
+              <div class="interview__answer"><p class="label-s">Сергей, стаж 11&nbsp;лет</p><p class="text-m">Когда в&nbsp;журнале путаница, исправления могут занять 10&#8288;–&#8288;15&nbsp;минут</p></div>
+            </div>
+          </details>
+          <details class="interview__row ln ln-t" open>
+            <summary class="interview__q text-m">11. Есть&nbsp;ли нюансы в&nbsp;использовании планшета? <svg class="px-toggle" viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h7v1H0z" fill="currentColor"/><path class="px-toggle__v" d="M3 0h1v3H3zM3 4h1v3H3z" fill="currentColor"/></svg></summary>
+            <div class="interview__a">
+              <div class="interview__answer"><p class="label-s">Андрей, стаж 12&nbsp;лет</p><p class="text-m">Ручное заполнение, но&nbsp;в&nbsp;принципе уже привык. При&nbsp;сдаче отчётности могут потребоваться корректировки данных, оперативно в&nbsp;планшете этого не&nbsp;сделать, приходится переписывать</p></div>
+              <div class="interview__answer"><p class="label-s">Игорь, стаж 8&nbsp;лет</p><p class="text-m">Неудобно считать и&nbsp;заполнять вручную</p></div>
+              <div class="interview__answer"><p class="label-s">Сергей, стаж 11&nbsp;лет</p><p class="text-m">Ручное заполнение, долго считать</p></div>
+            </div>
+          </details>
+        </div>
+        <figcaption class="text-s">Вопросы и&nbsp;ответы из&nbsp;интервью с&nbsp;постовыми</figcaption>
+      </figure>
+      <figure class="section__wide figure">
+        <ol class="steps" aria-label="Последовательность действий постового">
+          <li class="step"><p class="text-l">Постовой выдвигается к&nbsp;границе зоны непригодной для&nbsp;дыхания среды (НДС)</p></li>
+          <li class="step"><p class="text-l">Фиксирует стартовые показатели давления в&nbsp;баллонах</p></li>
+          <li class="step"><p class="text-l">Рассчитывает время возврата, общее защитное время и&nbsp;общее время работы</p></li>
+          <li class="step"><p class="text-l">Передаёт командиру звена расчётные данные</p></li>
+          <li class="step"><p class="text-l">Контролирует давление в&nbsp;баллонах и&nbsp;при&nbsp;достижении критических значений даёт команду «На&nbsp;выход»</p></li>
+          <li class="step"><p class="text-l">Фиксирует результаты в&nbsp;журнале учёта работы</p></li>
+        </ol>
+        <figcaption class="text-s">Последовательность действий постового</figcaption>
+      </figure>
+      <div class="section__wide">
+        <ul class="cards" aria-label="Инсайты">
+          <li class="card">
+            <p class="label-m muted">Инсайт 01</p>
+            <p class="text-l">Расчёты требуют частого пересчёта и&nbsp;могут содержать ошибки</p>
+          </li>
+          <li class="card">
+            <p class="label-m muted">Инсайт 02</p>
+            <p class="text-l">Разные способы записи данных приводят к&nbsp;путанице и&nbsp;потере информации</p>
+          </li>
+          <li class="card">
+            <p class="label-m muted">Инсайт 03</p>
+            <p class="text-l">Ручное заполнение занимает время и&nbsp;неудобно в&nbsp;полевых условиях</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3. Проектирование -->
+    <section class="section grid" id="design" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Проектирование</p></div>
+      <div class="section__body">
+        <h2 class="h3">Быстро вносить данные и&nbsp;видеть время без&nbsp;лишних действий</h2>
+        <p class="text-l">При проектировании интерфейса важно было учесть условия работы постового. Ему нужно быстро вносить данные и&nbsp;видеть информацию о&nbsp;времени без&nbsp;лишних действий.</p>
+        <p class="text-l list-intro">На&nbsp;основе инсайтов выделил сценарии использования и&nbsp;собрал предварительный путь пользователя.</p>
+        <ol class="list list--num">
+          <li class="text-l"><span><strong>Начало работы.</strong> Ввод данных о&nbsp;баллонах и&nbsp;фиксация стартовых показателей.</span></li>
+          <li class="text-l"><span><strong>Мониторинг.</strong> Приложение автоматически рассчитывает время возврата и&nbsp;отслеживает давление в&nbsp;баллонах.</span></li>
+          <li class="text-l"><span><strong>Экстренный выход.</strong> При&nbsp;критическом снижении давления в&nbsp;баллонах постовой получает предупреждение и&nbsp;сообщает команде о&nbsp;срочной эвакуации.</span></li>
+        </ol>
+      </div>
+      <figure class="section__wide figure figure--diagram">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="natural" aria-label="Открыть схему на весь экран">
+          <img class="theme-light" src="img/userflow.svg" alt="Схема предварительного пути пользователя: начало включения, мониторинг давления и&nbsp;времени, экстренный выход и&nbsp;завершение" width="4074" height="1411" loading="lazy" decoding="async">
+          <img class="theme-dark" src="img/userflow-dark.svg" alt="Схема предварительного пути пользователя: начало включения, мониторинг давления и&nbsp;времени, экстренный выход и&nbsp;завершение" width="4074" height="1411" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Предварительный путь пользователя для&nbsp;тестовой версии</figcaption>
+      </figure>
+    </section>
+
+    <!-- 4. Тестирование -->
+    <section class="section grid" id="testing" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Тестирование</p></div>
+      <div class="section__body">
+        <h2 class="h3">Как проверяли решение и&nbsp;вносили улучшения</h2>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+          <img src="img/chat-team.webp" alt="Сообщения в&nbsp;чате: пожарная часть готова дать тестовое устройство для&nbsp;отладки и&nbsp;презентации руководству МЧС" width="1492" height="544" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Обсуждение с&nbsp;Юрием и&nbsp;командой</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l">Промежуточную версию приложения передали в&nbsp;пожарную часть. Тестировали сами пожарные в&nbsp;полевых условиях, во&nbsp;время учебных выездов, а&nbsp;я&nbsp;собирал обратную связь. Так стало видно, какие элементы интерфейса и&nbsp;функции требуют доработки.</p>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+          <img src="img/test-version.webp" alt="Три экрана тестовой версии: новое включение, история включения с&nbsp;картой и&nbsp;список включений" width="1680" height="1246" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Экраны тестовых версий приложения</figcaption>
+      </figure>
+      <div class="section__wide gallery" data-gallery>
+        <div class="gallery__track" tabindex="0" role="region" aria-label="Фото с&nbsp;учений, 2 фотографии">
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть фото на весь экран">
+              <img src="img/drill-1.webp" alt="Пожарные на&nbsp;учениях" width="1600" height="720" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">Учения</figcaption>
+          </figure>
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть фото на весь экран">
+              <img src="img/drill-2.webp" alt="Пожарные на&nbsp;учениях" width="1600" height="739" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">Учения</figcaption>
+          </figure>
+        </div>
+        <div class="gallery__nav" hidden>
+          <p class="gallery__count label-s" aria-live="polite"><span data-gallery-current>01</span> / <span data-gallery-total>02</span></p>
+          <button class="gallery__btn btn-outline" type="button" data-gallery-prev aria-label="Предыдущее фото"><svg class="px-arrow px-arrow--back" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
+          <button class="gallery__btn btn-outline" type="button" data-gallery-next aria-label="Следующее фото"><svg class="px-arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
+        </div>
+      </div>
+      <div class="section__body">
+        <p class="text-l">Пожарные отметили удобство и&nbsp;скорость автоматических расчётов. Остальное пошло в&nbsp;доработку.</p>
+        <p class="text-l"><strong>Ввод участников.</strong> Вводить ФИО вручную оказалось неудобно при&nbsp;частом использовании. Добавили сохранение и&nbsp;выбор смены, чтобы каждый раз не&nbsp;добавлять участников заново.</p>
+        <p class="text-l"><strong>Формулы.</strong> Некоторые формулы требовали доработки, их доработали.</p>
+        <p class="text-l"><strong>Таймер.</strong> Постовому важнее всего время возврата, оно должно быть всё время перед глазами. Таймер переработали и&nbsp;увеличили, акцент сделан на&nbsp;общем времени.</p>
+        <p class="text-l"><strong>Отчёты.</strong> Отчёт о&nbsp;тушении заполняет постовой или&nbsp;кто-то из&nbsp;звена. Без&nbsp;приложения пришлось бы сверяться с&nbsp;телефоном и&nbsp;переписывать данные в&nbsp;таблицу вручную. Все данные уже есть в&nbsp;приложении, поэтому отчёт формируется автоматически по&nbsp;стандартизированной форме.</p>
+        <p class="text-l">Ещё сократили шаги перед запуском включения.</p>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+          <img src="img/chat-dev.webp" alt="Сообщения рабочего чата: состав звена, показатели, формула расчёта и&nbsp;новая сборка приложения" width="1600" height="974" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Рабочий чат по&nbsp;ходу разработки</figcaption>
+      </figure>
+    </section>
+
+    <!-- 5. Финальный вариант -->
+    <section class="section grid" id="final" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Финальный вариант</p></div>
+      <div class="section__body">
+        <h2 class="h3">Задуманное как&nbsp;калькулятор, приложение расширили по&nbsp;обратной связи</h2>
+        <p class="text-l">Таймер общего времени занимает большую часть экрана, чтобы его было видно сразу. Если время вышло, приложение подаёт звуковой сигнал и&nbsp;меняет цвет интерфейса.</p>
+      </div>
+      <div class="section__wide compare">
+        <figure class="compare__item figure figure--phone ln">
+          <p class="label-m">Работа звена</p>
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть экран на весь экран">
+              <img class="theme-light" src="img/timer.webp" alt="Экран включения: таймер 13:46 до&nbsp;возврата, время возврата и&nbsp;команды на&nbsp;возврат" width="815" height="1728" loading="lazy" decoding="async">
+              <img class="theme-dark" src="img/timer-dark.webp" alt="Экран включения: таймер 13:46 до&nbsp;возврата, время возврата и&nbsp;команды на&nbsp;возврат" width="815" height="1728" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">Таймер занимает большую часть экрана</figcaption>
+        </figure>
+        <figure class="compare__item figure figure--phone ln">
+          <p class="label-m">Время вышло</p>
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть экран на весь экран">
+              <img class="theme-light" src="img/alarm.webp" alt="Экран включения окрашен в&nbsp;оранжевый, таймер показывает −01:35" width="815" height="1728" loading="lazy" decoding="async">
+              <img class="theme-dark" src="img/alarm-dark.webp" alt="Экран включения окрашен в&nbsp;оранжевый, таймер показывает −01:35" width="815" height="1728" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">Когда время вышло, интерфейс меняет цвет и&nbsp;звучит сигнал</figcaption>
+        </figure>
+      </div>
+      <div class="section__body">
+        <p class="text-l"><strong>Включение.</strong> Смены можно сохранять заранее, чтобы перед началом тушения не&nbsp;тратить время на&nbsp;заполнение.</p>
+        <p class="text-l"><strong>События.</strong> Во&nbsp;время пожара можно отмечать критические события. Время возврата пересчитывается мгновенно.</p>
+        <p class="text-l"><strong>Отчёт.</strong> По&nbsp;завершении пожаротушения формируется отчёт о&nbsp;включении с&nbsp;выгрузкой показаний. Доступна история по&nbsp;каждому включению.</p>
+      </div>
+      <figure class="section__wide figure figure--diagram">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="natural" aria-label="Открыть схему на весь экран">
+          <img src="img/screen-flow-preview.webp" data-zoom-src="img/screen-flow.webp" alt="Схема пути пользователя на&nbsp;итоговых экранах: около шестидесяти экранов приложения, связанных переходами и&nbsp;развилками" width="1920" height="641" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Путь пользователя на&nbsp;итоговых экранах. Откройте схему, чтобы рассмотреть экраны</figcaption>
+      </figure>
+    </section>
+
+    <!-- 6. Результат -->
+    <section class="section grid" id="result" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Результат</p></div>
+      <div class="section__body">
+        <h2 class="h3">Время расчёта сократилось с&nbsp;6&nbsp;минут до&nbsp;47&nbsp;секунд</h2>
+        <div class="numbers result-box ln ln-t ln-b ln-l ln-r" role="group" aria-label="Время расчёта">
+          <i class="mark mark--cross at-tl" aria-hidden="true"></i>
+          <i class="mark mark--dot at-tr" aria-hidden="true"></i>
+          <i class="mark mark--dot at-bl" aria-hidden="true"></i>
+          <i class="mark mark--cross at-br" aria-hidden="true"></i>
+          <div class="factoid">
+            <p class="label-m muted">Было</p>
+            <p class="h2">6&nbsp;мин</p>
+            <p class="text-s muted">расчёт вручную</p>
+          </div>
+          <div class="factoid">
+            <p class="label-m muted">Стало</p>
+            <p class="h2">47&nbsp;с</p>
+            <p class="text-s muted">расчёт в&nbsp;приложении</p>
+          </div>
+        </div>
+        <p class="text-l">Теперь постовой не&nbsp;считает вручную, а&nbsp;получает расчёт в&nbsp;приложении. В&nbsp;реальной эксплуатации снизился риск ошибок при&nbsp;расчётах. Оформление документов стало менее трудоёмким, отчёт выгружается с&nbsp;заполненными данными.</p>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть фото на весь экран">
+          <img src="img/drill-exit.webp" alt="Звено пожарных в&nbsp;снаряжении у&nbsp;здания" width="1055" height="754" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Учебный выезд, Санкт-Петербург</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l"><strong>Что дальше.</strong> Квартальные отчёты в&nbsp;электронном виде, учёт аппаратов, которые стоят на&nbsp;вооружении в&nbsp;подразделениях, и&nbsp;карта с&nbsp;расположением пожарных гидрантов.</p>
+      </div>
+    </section>
+
+    <!-- Следующий кейс -->
+    <nav class="next grid" aria-label="Следующий кейс">
+      <a class="next-case" href="../predictive-dialer/">
+        <span class="next-case__text">
+          <span class="label-m muted">Следующий кейс</span>
+          <span class="h4">Предиктивный набор</span>
+        </span>
+        <svg class="px-arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg>
+      </a>
+    </nav>
+
+  </main>
+</div>
+
+<footer class="site-footer ln ln-t">
+  <div class="shell">
+    <div class="canvas footer">
+      <p class="footer__cell label-s muted">©&nbsp;2026</p>
+      <a class="footer__cell footer__link label-s" href="https://t.me/grisroman" target="_blank" rel="noopener">Telegram</a>
+      <a class="footer__cell footer__link label-s" href="https://www.linkedin.com/in/roman-grishin/" target="_blank" rel="noopener">LinkedIn</a>
+      <p class="footer__cell label-s muted">grisroman.space</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
