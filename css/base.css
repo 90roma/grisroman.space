@@ -48,6 +48,21 @@ ul, ol { list-style: none; padding: 0; }
 
 .h1, .h2, .h3, .h4, .h5 { font-variant-numeric: tabular-nums; }
 
+/* Значение — всё, что измеряется (фактоиды, «было | стало»): размер роли H2 / H3, шрифт подписей Martian Mono.
+   Единица — подписью Label/M рядом с числом: пробел в моноширинном шрифте слишком широкий */
+.value { font-family: var(--font-mono); font-weight: var(--value-wt); font-stretch: var(--value-stretch); letter-spacing: 0; }
+.value__unit { margin-left: var(--space-4); }
+
+/* ---------- Шаговая шкала: сегменты по ширине. В результате кейса синим — «стало», тёмной меткой — «было»;
+   в прогрессе чтения заполненное — серым ---------- */
+.scale { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--scale-gap); height: var(--scale-h); }
+.scale > i { background: var(--line); }
+.scale > i.is-base { background: var(--fg); }
+.scale > i.is-change { background: var(--accent-text); }
+.scale > i.is-muted { background: var(--muted); }
+.scale-row { display: flex; flex-direction: column; gap: var(--space-8); }
+.scale-ends { display: flex; justify-content: space-between; }
+
 /* Цвет текста — ролями темы, без прозрачности */
 .fg { color: var(--fg); }
 .muted { color: var(--muted); }

@@ -240,6 +240,61 @@
     });
   }
 
+  // ---------- Шаговые шкалы: число сегментов — по ширине (сегмент и промежуток из токенов) ----------
+  var scaleNoMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function fillScale(bar, paint) {
+    var seg = cssMs('--scale-seg'), gap = cssMs('--scale-gap');
+    var n = Math.max(1, Math.floor((bar.clientWidth + gap) / (seg + gap)));
+    if (bar.children.length !== n) {
+      bar.textContent = '';
+      for (var i = 0; i < n; i++) bar.appendChild(document.createElement('i'));
+    }
+    for (var k = 0; k < n; k++) bar.children[k].className = paint(k, n);
+  }
+
+  // Шкала результата [data-scale]: синим — «стало» (заполнено от нуля), тёмной меткой в один сегмент — «было».
+  // Синее заполняется по сегменту, когда шкала появляется на экране; при «уменьшить движение» — сразу
+  document.querySelectorAll('[data-scale]').forEach(function (bar) {
+    var max = +bar.dataset.max, before = +bar.dataset.before, after = +bar.dataset.after;
+    var shown = 0, end = 0, done = false;
+    function paint(i, n) {
+      end = Math.round(after / max * n);
+      if (i === Math.min(n - 1, Math.floor(before / max * n))) return 'is-base';
+      return i < Math.min(shown, end) ? 'is-change' : '';
+    }
+    function run() {
+      fillScale(bar, paint);
+      if (scaleNoMotion) { shown = end; done = true; fillScale(bar, paint); return; }
+      var t = setInterval(function () {
+        shown++;
+        fillScale(bar, paint);
+        if (shown >= end) { clearInterval(t); done = true; }
+      }, cssMs('--scale-step'));
+    }
+    fillScale(bar, paint);
+    if (scaleNoMotion || !('IntersectionObserver' in window)) { run(); return; }
+    new IntersectionObserver(function (entries, obs) {
+      if (entries[0].isIntersecting) { run(); obs.disconnect(); }
+    }, { threshold: 1 }).observe(bar);
+    window.addEventListener('resize', function () { if (done) { shown = Infinity; fillScale(bar, paint); } });
+  });
+
+  // Прогресс чтения [data-read-progress] (страницы кейсов): нижняя линия шапки заполняется серым по доле прокрутки,
+  // шагами по сегменту. Только на странице длиннее двух экранов
+  document.querySelectorAll('[data-read-progress]').forEach(function (bar) {
+    function update() {
+      var doc = document.documentElement, max = doc.scrollHeight - window.innerHeight;
+      bar.hidden = doc.scrollHeight < window.innerHeight * 2;
+      if (bar.hidden) return;
+      var part = max > 0 ? window.scrollY / max : 0;
+      fillScale(bar, function (i, n) { return i < Math.round(part * n) ? 'is-muted' : ''; });
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    window.addEventListener('load', update);
+    update();
+  });
+
   // ---------- Появление: [data-reveal] получает .is-visible, когда попадает в экран ----------
   var items = document.querySelectorAll('[data-reveal]');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -14,13 +14,13 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400&family=Martian+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="../../css/tokens.css?v=33">
-  <link rel="stylesheet" href="../../css/base.css?v=30">
-  <link rel="stylesheet" href="../../css/home.css?v=43">
-  <link rel="stylesheet" href="../../css/case.css?v=49">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400&family=Martian+Mono:wdth,wght@87.5..100,300..500&display=swap">
+  <link rel="stylesheet" href="../../css/tokens.css?v=35">
+  <link rel="stylesheet" href="../../css/base.css?v=32">
+  <link rel="stylesheet" href="../../css/home.css?v=45">
+  <link rel="stylesheet" href="../../css/case.css?v=50">
   <link rel="icon" href="../../img/avatar.png">
-  <script src="../../js/main.js?v=39" defer></script>
+  <script src="../../js/main.js?v=41" defer></script>
 </head>
 <body>
 
@@ -43,6 +43,7 @@
       </nav>
     </div>
   </div>
+<div class="read-progress scale" data-read-progress aria-hidden="true" hidden></div>
 </header>
 
 <!-- Оглавление кейса: вне холста, закреплено слева на широком экране, видно в зоне разделов -->
@@ -84,12 +85,12 @@
         <i class="mark mark--cross at-br" aria-hidden="true"></i>
         <div class="factoid">
           <p class="label-m muted">Расчёт вручную</p>
-          <p class="h2">6&nbsp;мин</p>
+          <p class="h2 value">6<span class="value__unit label-m muted">мин</span></p>
           <p class="text-s muted">на&nbsp;планшете и&nbsp;калькуляторе</p>
         </div>
         <div class="factoid">
           <p class="label-m muted">Расчёт в&nbsp;приложении</p>
-          <p class="h2">47&nbsp;сек</p>
+          <p class="h2 value">47<span class="value__unit label-m muted">сек</span></p>
           <p class="text-s muted">почти в&nbsp;8&nbsp;раз быстрее</p>
         </div>
       </div>
@@ -453,13 +454,17 @@
           <i class="mark mark--cross at-br" aria-hidden="true"></i>
           <div class="factoid">
             <p class="label-m muted">Было</p>
-            <p class="h2">6&nbsp;мин</p>
+            <p class="h2 value">6<span class="value__unit label-m muted">мин</span></p>
             <p class="text-s muted">расчёт вручную</p>
           </div>
           <div class="factoid">
             <p class="label-m muted">Стало</p>
-            <p class="h2">47&nbsp;сек</p>
+            <p class="h2 value">47<span class="value__unit label-m muted">сек</span></p>
             <p class="text-s muted">расчёт в&nbsp;приложении</p>
+          </div>
+          <div class="scale-row">
+            <div class="scale" data-scale data-before="360" data-after="47" data-max="360"></div>
+            <div class="scale-ends"><span class="label-s muted">0</span><span class="label-s muted">6&nbsp;мин</span></div>
           </div>
         </div>
         <p class="text-l">Теперь постовой не&nbsp;считает вручную, а&nbsp;получает расчёт в&nbsp;приложении. В&nbsp;реальной эксплуатации снизился риск ошибок при&nbsp;расчётах. Оформление документов стало менее трудоёмким, отчёт выгружается с&nbsp;заполненными данными.</p>
