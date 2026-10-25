@@ -147,7 +147,8 @@
   color: var(--fg);
 }
 .zoom::backdrop { background: var(--cover); }
-.zoom__scroll { width: 100%; height: 100%; overflow: auto; cursor: zoom-out; }
+.zoom__scroll { width: 100%; height: 100%; overflow: auto; overscroll-behavior: contain; cursor: zoom-out; }
+:root.is-zoomed { overflow: hidden; }  /* пока открыт просмотр, страница под ним не прокручивается */
 .zoom__scroll img { width: var(--diagram-w); max-width: none; height: auto; margin: var(--space-64) auto; }
 .zoom--fit .zoom__scroll img { width: auto; max-width: calc(100% - var(--space-64)); }  /* скриншот — в ширину экрана, без прокрутки вбок */
 .zoom__close { position: fixed; top: var(--space-16); right: var(--space-16); }
@@ -267,10 +268,11 @@
 /* Скриншот телефона на сцене: доля ширины сцены, по центру */
 .figure--phone .figure__stage { text-align: center; }  /* видео строчное: центрируем текстом, display задают классы темы */
 .figure--phone .figure__stage :is(img, video) { width: var(--phone-w); margin-inline: auto; }
+.figure--phone .figure__video { border-radius: var(--phone-radius); }  /* углы записи экрана — по рамке телефона (исключение из «без скруглений»: у записи чёрные углы) */
 
 /* Три записи экрана телефона в ряд: 3 × 4 колонки на desktop, на телефоне друг под другом */
 .trio { display: grid; gap: var(--space-32); }
-.trio .figure__stage :is(img, video) { width: calc(var(--phone-w) * 1.6); }
+/* телефон того же размера, что в «Работа звена / Время вышло»: в стопке — доля сцены, в ряд по 4 колонки — крупнее, сцена уже */
 
 /* Сравнение двух состояний: подпись Label/M над сценой (space/8); на desktop — 6 + 6 с вертикальным пунктиром */
 .compare { display: grid; gap: var(--space-32); }
@@ -330,10 +332,9 @@
 @media (min-width: 1024px) {
   .steps { grid-template-columns: repeat(3, 1fr); }
   .trio { grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
+  .trio .figure__stage :is(img, video) { width: calc(var(--phone-w) * 1.6); }
   .step { aspect-ratio: 1; }
-  .compare { grid-template-columns: 1fr 1fr; gap: 0; }
-  .compare__item:first-child { padding-right: var(--gutter); }
-  .compare__item + .compare__item { padding-left: var(--gutter); --ln-l: var(--dash-v) left / var(--line-width) 100% no-repeat; }
+  .compare { grid-template-columns: 1fr 1fr; gap: var(--gutter); }
 
   /* Таблица: вопрос — первая колонка, ответы — три колонки; имена — в шапке, у ответов скрыты (остаются для скринридера) */
   /* Таблица с полной сеткой пунктиром (исключение, как блок «было | стало»): 4 равные колонки, поля ячейки 24 / 16.
@@ -345,7 +346,7 @@
   .interview__head {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    margin-left: 25%;
+    padding-left: 25%;  /* верхняя линия — на всю ширину, и над пустой ячейкой вопроса */
     --ln-t: var(--dash-h) top / 100% var(--line-width) no-repeat;
   }
   .interview__head > *, .interview__answer { --ln-l: var(--dash-v) left / var(--line-width) 100% no-repeat; }

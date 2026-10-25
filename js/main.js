@@ -117,7 +117,10 @@
       document.body.appendChild(zoom);
       zoom.querySelector('.zoom__close').addEventListener('click', function () { zoom.close(); });
       zoom.querySelector('.zoom__scroll').addEventListener('click', function () { zoom.close(); });
-      zoom.addEventListener('close', function () { if (zoom.trigger) zoom.trigger.focus(); });
+      zoom.addEventListener('close', function () {
+        root.classList.remove('is-zoomed');
+        if (zoom.trigger) zoom.trigger.focus();
+      });
     }
     var copy = img.cloneNode();
     copy.removeAttribute('class');
@@ -140,6 +143,7 @@
     }
     zoom.setAttribute('aria-label', trigger.getAttribute('aria-label') || 'Картинка');
     zoom.trigger = trigger;
+    root.classList.add('is-zoomed');
     zoom.showModal();
   }
   document.querySelectorAll('[data-zoom]').forEach(function (trigger) {
