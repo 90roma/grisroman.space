@@ -279,15 +279,16 @@
     window.addEventListener('resize', function () { if (done) { shown = Infinity; fillScale(bar, paint); } });
   });
 
-  // Прогресс чтения [data-read-progress] (страницы кейсов): нижняя линия шапки заполняется серым по доле прокрутки,
-  // шагами по сегменту. Только на странице длиннее двух экранов
+  // Прогресс чтения [data-read-progress] (страницы кейсов): штрихи пунктира шапки по одному становятся цветом текста (fg)
+  // по доле прокрутки — ширина кратна шагу пунктира (штрих + пробел). Только на странице длиннее двух экранов
   document.querySelectorAll('[data-read-progress]').forEach(function (bar) {
     function update() {
       var doc = document.documentElement, max = doc.scrollHeight - window.innerHeight;
       bar.hidden = doc.scrollHeight < window.innerHeight * 2;
       if (bar.hidden) return;
       var part = max > 0 ? window.scrollY / max : 0;
-      fillScale(bar, function (i, n) { return i < Math.round(part * n) ? 'is-muted' : ''; });
+      var step = cssMs('--dash') * 2;
+      bar.style.width = Math.round(part * bar.parentElement.clientWidth / step) * step + 'px';
     }
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);

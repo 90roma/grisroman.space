@@ -8,9 +8,14 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   z-index: 10;
 }
 .site-header.ln { background-color: var(--bg); }
-/* Прогресс чтения на страницах кейсов: нижняя линия шапки становится шкалой и заполняется при прокрутке.
+/* Прогресс чтения на страницах кейсов: штрихи нижней линии шапки темнеют при прокрутке.
    На главной не ставится — там лишний шум */
-.read-progress { position: absolute; left: 0; right: 0; bottom: 0; height: var(--progress-h); }
+.read-progress {
+  position: absolute; left: 0; bottom: 0;
+  width: 0; height: var(--line-width);
+  /* тот же пунктир 4/4 и с той же точки, что линия шапки, — штрихи совпадают; цвет fg, как пунктир при наведении */
+  background: repeating-linear-gradient(90deg, var(--fg) 0 var(--dash), transparent var(--dash) calc(var(--dash) * 2));
+}
 .read-progress[hidden] { display: none; }
 /* Шапка и футер не упираются в края экрана: поле не меньше поля контента (на mobile холст стоит вплотную, а шапка — нет) */
 .site-header .shell,
