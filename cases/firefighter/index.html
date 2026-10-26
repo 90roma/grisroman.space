@@ -17,8 +17,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400&family=Martian+Mono:wdth,wght@87.5..100,300..500&display=swap">
   <link rel="stylesheet" href="../../css/tokens.css?v=36">
   <link rel="stylesheet" href="../../css/base.css?v=33">
-  <link rel="stylesheet" href="../../css/home.css?v=47">
-  <link rel="stylesheet" href="../../css/case.css?v=50">
+  <link rel="stylesheet" href="../../css/home.css?v=48">
+  <link rel="stylesheet" href="../../css/case.css?v=51">
   <link rel="icon" href="../../img/avatar.png">
   <script src="../../js/main.js?v=43" defer></script>
 </head>
@@ -68,13 +68,18 @@
       </a>
     </div>
 
-    <!-- Hero: результат сразу -->
+    <!-- Hero: заголовок → обложка → результаты → о проекте -->
     <section class="case-hero grid" data-reveal>
       <div class="case-hero__text">
         <h1 class="h1">Огнеборец</h1>
         <p class="subtitle-1 muted">Мобильное приложение для&nbsp;пожарных, которое отслеживает давление в&nbsp;баллонах и&nbsp;время, когда нужно вернуться в&nbsp;безопасное место</p>
       </div>
     </section>
+
+    <div class="case-cover">
+      <img class="cover-phones theme-light" src="img/cover.webp" alt="Экраны приложения Огнеборец: заставка и&nbsp;таймер работы звена" width="756" height="1140">
+      <img class="cover-phones theme-dark" src="img/cover-dark.webp" alt="Экраны приложения Огнеборец: заставка и&nbsp;таймер работы звена" width="756" height="1140">
+    </div>
 
     <!-- Главный результат — один якорь: время расчёта -->
     <section class="case-results grid" aria-label="Результат" data-reveal>
@@ -109,11 +114,6 @@
         </div>
       </dl>
     </section>
-
-    <div class="case-cover">
-      <img class="cover-phones theme-light" src="img/cover.webp" alt="Экраны приложения Огнеборец: заставка и&nbsp;таймер работы звена" width="756" height="1140">
-      <img class="cover-phones theme-dark" src="img/cover-dark.webp" alt="Экраны приложения Огнеборец: заставка и&nbsp;таймер работы звена" width="756" height="1140">
-    </div>
 
     <!-- 1. Контекст и проблема -->
     <section class="section grid" id="context" data-reveal>
@@ -453,12 +453,12 @@
           <i class="mark mark--dot at-bl" aria-hidden="true"></i>
           <i class="mark mark--cross at-br" aria-hidden="true"></i>
           <div class="factoid">
-            <p class="label-m muted">Было</p>
+            <p class="label-m muted legend legend--before">Было</p>
             <p class="h2 value">6<span class="value__unit label-m muted">мин</span></p>
             <p class="text-s muted">расчёт вручную</p>
           </div>
           <div class="factoid">
-            <p class="label-m muted">Стало</p>
+            <p class="label-m muted legend legend--after">Стало</p>
             <p class="h2 value">47<span class="value__unit label-m muted">сек</span></p>
             <p class="text-s muted">расчёт в&nbsp;приложении</p>
           </div>
