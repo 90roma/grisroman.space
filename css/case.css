@@ -30,6 +30,7 @@
 }
 .back-link:hover, .back-link:focus-visible { color: var(--fg); }
 .px-arrow--back { transform: rotate(180deg); }
+/* «← Все кейсы» — навигация сайта: у левого края контента, на одной линии с текстом главной (не в колонке чтения) */
 
 /* ---------- Hero: Label/M → H1 → Subtitle/1 ---------- */
 .case-hero { padding-block: var(--space-48) var(--space-32); }
@@ -42,7 +43,7 @@
 
 /* Результаты — сразу под заголовком, в пунктирной рамке (как блок «было | стало» на главной), поля 24 (угол 1:1).
    Та же рамка — у цифр «было / стало» в разделе «Результат». Фактоид: Label/M → H2/H3 → Text/S, внутри space/8 */
-.case-results { padding-bottom: var(--space-32); }
+.case-results { padding-block: var(--space-48) var(--space-32); }  /* после обложки — 48, как граница крупного блока */
 .factoid { display: flex; flex-direction: column; gap: var(--space-8); }
 /* Рамка выделения (смысл): главный результат кейса — крестики TL и BR, точки TR и BL на углах пунктира */
 .result-box {
@@ -65,8 +66,10 @@
 .meta-pair--wide { grid-column: 1 / -1; }
 .meta-pair { display: flex; flex-direction: column; gap: var(--space-8); }
 
-/* Обложка — во всю ширину холста, «углубление» со свечением; внутри видео или картинка */
+/* Обложка — сразу под заголовком, в ширину контента (как картинки разделов), «углубление» со свечением;
+   внутри видео или картинка */
 .case-cover {
+  margin-inline: var(--content-pad);
   background: radial-gradient(60% 70% at 50% 85%, var(--glow), var(--cover));
   padding: var(--space-48) var(--content-pad);
 }
@@ -188,6 +191,11 @@
 
 /* Цифры «было / стало» в тексте: два фактоида рядом в пунктирной рамке .result-box */
 .result-box > .scale-row { grid-column: 1 / -1; }  /* шкала изменения под обоими фактоидами */
+/* Легенда шкалы: перед «Было» — тёмный сегмент, перед «Стало» — синий, как в шкале */
+.legend { display: flex; align-items: center; gap: var(--space-8); }
+.legend::before { content: ""; flex: none; width: var(--scale-seg); height: var(--scale-h); }
+.legend--before::before { background: var(--fg); }
+.legend--after::before { background: var(--accent-text); }
 
 /* ---------- Следующий кейс: плашка cell в колонке чтения, H4 — мельче заголовков разделов ---------- */
 .next { padding-block: var(--space-48) var(--space-64); }
@@ -206,7 +214,6 @@
 .next-case:hover .px-arrow, .next-case:focus-visible .px-arrow { opacity: 1; }
 
 /* ---------- Колонка чтения: весь текст кейса шириной --reading по центру контента ---------- */
-.case-top { max-width: calc(var(--reading) + var(--content-pad) * 2); margin-inline: auto; }
 .case-hero__text, .project, .section__aside, .section__body { justify-self: center; width: 100%; max-width: var(--reading); }
 /* Рамка результатов и «Следующий кейс»: текст на линии колонки, рамка выходит за неё на своё поле (tablet+) */
 .case-results .result-box, .next-case { justify-self: center; width: min(100%, var(--reading)); }

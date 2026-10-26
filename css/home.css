@@ -100,7 +100,8 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
 .btn-logo { width: var(--space-16); height: var(--space-16); flex: none; }
 
 /* ---------- Hero: плашки surface, поля 12/16; текст плашки — по краю контента ---------- */
-.hero { padding-block: var(--space-48); }
+/* Hero и опыт — один блок: заголовок → описание (8), ниже строка «опыт | кнопки нейросетей» через 48 */
+.hero { padding-block: var(--space-48); row-gap: var(--space-48); }
 .hero__plates {
   grid-column: 1 / -1;
   display: flex;
@@ -115,11 +116,10 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   padding: var(--space-12) var(--space-16);
 }
 
-/* «Обо мне»: одна фраза; под ней — ссылки «Открыть в Claude / ChatGPT»: чат открывается пустым,
+/* Кнопки «Открыть в Claude / ChatGPT» справа от опыта: чат открывается пустым,
    запрос копируется в буфер, нейросеть читает текстовую версию сайта /llms-full.txt */
 .meta-pair { display: flex; flex-direction: column; gap: var(--space-8); }
 .ask-ai {
-  margin-top: var(--space-8);   /* + gap 8 колонки = 16: кнопки — часть блока «Обо мне», как абзац → абзац */
   display: flex;
   flex-direction: column;
   gap: var(--space-8);          /* кнопки → подсказка: основной → вторичный */
@@ -132,9 +132,8 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
 
 
 /* ---------- Опыт и «Обо мне» ---------- */
-.about { padding-block: var(--space-32); }
-/* На всю ширину контента: опыт по ширине самой длинной строки, отступ space/48, «Обо мне» — всё остальное.
-   На mobile — друг под другом */
+/* Строка под описанием на всю ширину контента: опыт по ширине самой длинной строки, отступ space/48,
+   кнопки нейросетей — всё остальное. На mobile — друг под другом */
 .about__inner { grid-column: 1 / -1; display: grid; gap: var(--space-32) var(--space-48); }
 .jobs { display: flex; flex-direction: column; gap: var(--space-24); }
 .job, .about__text { display: flex; flex-direction: column; gap: var(--space-8); }
