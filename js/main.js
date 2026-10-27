@@ -296,6 +296,19 @@
     update();
   });
 
+  // ---------- Аналитика: событие «дочитал до раздела «Результат»» в кейсе, один раз за просмотр.
+  // Клики по кнопкам считает сам GoatCounter по атрибуту data-goatcounter-click ----------
+  var resultSection = document.getElementById('result');
+  if (resultSection && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries, obs) {
+      if (!entries[0].isIntersecting) return;
+      obs.disconnect();
+      if (window.goatcounter && window.goatcounter.count) {
+        window.goatcounter.count({ path: 'read-result' + location.pathname, title: 'Дочитал до «Результата»', event: true });
+      }
+    }).observe(resultSection);
+  }
+
   // ---------- Появление: [data-reveal] получает .is-visible, когда попадает в экран ----------
   var items = document.querySelectorAll('[data-reveal]');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
