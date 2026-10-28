@@ -93,7 +93,6 @@
 
   /* Текст и подписи (на узких экранах не сдвигаются) */
   --text-l-size: 16px;  --text-l-lh: 24px;
-  --text-m-size: 15px;  --text-m-lh: 24px;
   --text-s-size: 14px;  --text-s-lh: 20px;
   --text-xs-size: 12px; --text-xs-lh: 16px;
   --label-l-size: 13px; --label-m-size: 11px; --label-s-size: 11px; --label-lh: 16px;

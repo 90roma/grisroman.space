@@ -33,7 +33,6 @@ ul, ol { list-style: none; padding: 0; }
 .subtitle-2 { font-size: var(--sub2-size); line-height: var(--sub2-lh); font-weight: 300; }
 .subtitle-3 { font-size: var(--sub3-size); line-height: var(--sub3-lh); font-weight: 300; }
 .text-l  { font-size: var(--text-l-size);  line-height: var(--text-l-lh);  font-weight: 300; }
-.text-m  { font-size: var(--text-m-size);  line-height: var(--text-m-lh);  font-weight: 300; }
 .text-s  { font-size: var(--text-s-size);  line-height: var(--text-s-lh);  font-weight: 300; }
 .text-xs { font-size: var(--text-xs-size); line-height: var(--text-xs-lh); font-weight: 300; }
 .label-l, .label-m, .label-s {
