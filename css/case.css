@@ -277,6 +277,7 @@
 .figure--phone .figure__stage { text-align: center; }  /* видео строчное: центрируем текстом, display задают классы темы */
 .figure--phone .figure__stage :is(img, video) { width: var(--phone-w); margin-inline: auto; }
 .figure--phone .figure__video { border-radius: var(--phone-radius); }  /* углы записи экрана — по рамке телефона (исключение из «без скруглений»: у записи чёрные углы) */
+.figure--screen .figure__stage img { box-shadow: 0 0 0 2px var(--screen-frame); border-radius: var(--screen-radius); }  /* скриншот экрана без корпуса: рамка как корпус телефона на обложке (4 px на 355 в Figma → 2 px на 205–256), углы скруглены по фрейму телефона, как на обложке (исключение из «без скруглений») */
 
 /* Три записи экрана телефона в ряд: 3 × 4 колонки на desktop, на телефоне друг под другом */
 .trio { display: grid; gap: var(--space-32); }
@@ -340,7 +341,7 @@
 @media (min-width: 1024px) {
   .steps { grid-template-columns: repeat(3, 1fr); }
   .trio { grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
-  .trio .figure__stage :is(img, video) { width: calc(var(--phone-w) * 1.6); }
+  .trio .figure--phone .figure__stage :is(img, video) { width: calc(var(--phone-w) * 1.6); }  /* только телефоны: фото в ряду — на всю сцену */
   .step { aspect-ratio: 1; }
   .compare { grid-template-columns: 1fr 1fr; gap: var(--gutter); }
 

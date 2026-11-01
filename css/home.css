@@ -239,6 +239,7 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
 /* Наведение = фокус: пунктир line → fg, стрелка, картинка +3% */
 .case:hover, .case:focus-visible { --dash-color: var(--fg); }
 .case:hover .case__arrow, .case:focus-visible .case__arrow { opacity: 1; }
+.case__img--wide { max-width: var(--cover-wide); }
 .case:hover .case__img, .case:focus-visible .case__img { transform: scale(var(--zoom)); }
 @media (prefers-reduced-motion: reduce) {
   .case:hover .case__img, .case:focus-visible .case__img { transform: none; }

@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Butler&nbsp;— кейс Романа Гришина</title>
+  <meta name="description" content="Butler: домофон, приложение жильца и админ-панель УК, которые собирают удобства жилого комплекса в одном месте. Как интерфейс дорабатывали по обратной связи жильцов.">
+  <script>
+    (function () {
+      var root = document.documentElement;
+      try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') root.dataset.theme = t; } catch (e) {}
+      root.classList.add('js');
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400&family=Martian+Mono:wdth,wght@87.5..100,300..500&display=swap">
+  <link rel="stylesheet" href="../../css/tokens.css?v=41">
+  <link rel="stylesheet" href="../../css/base.css?v=34">
+  <link rel="stylesheet" href="../../css/home.css?v=49">
+  <link rel="stylesheet" href="../../css/case.css?v=55">
+  <link rel="icon" href="../../img/avatar.png">
+  <script src="../../js/main.js?v=44" defer></script>
+  <!-- Аналитика GoatCounter: без cookies, баннер не нужен. Локальный просмотр (localhost) не считается -->
+  <script data-goatcounter="https://grisroman.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<header class="site-header ln ln-b">
+  <div class="shell">
+    <div class="canvas header">
+      <a class="header__me" href="../../" aria-label="Роман Гришин, на главную">
+        <img class="header__avatar" src="../../img/avatar.png" alt="" width="48" height="48">
+        <span class="header__name text-l">Роман Гришин</span>
+      </a>
+      <nav class="header__nav" aria-label="Основная навигация">
+        <a class="nav-link label-s" href="../../#cases">Кейсы</a>
+        <!-- EN скрыт до готовности английской версии: <a class="nav-link label-s" href="../../en/" lang="en" hreflang="en">EN</a> -->
+        <button class="nav-link label-s theme-toggle" type="button" aria-label="Переключить тему">
+          <!-- Иконки Radix Icons (MIT): солнце в светлой теме, луна в тёмной -->
+          <svg class="theme-icon theme-light" viewBox="0 0 15 15" aria-hidden="true"><path d="M7.5 0C7.77614 0 8 0.223858 8 0.5V2.5C8 2.77614 7.77614 3 7.5 3C7.22386 3 7 2.77614 7 2.5V0.5C7 0.223858 7.22386 0 7.5 0ZM2.1967 2.1967C2.39196 2.00144 2.70854 2.00144 2.90381 2.1967L4.31802 3.61091C4.51328 3.80617 4.51328 4.12276 4.31802 4.31802C4.12276 4.51328 3.80617 4.51328 3.61091 4.31802L2.1967 2.90381C2.00144 2.70854 2.00144 2.39196 2.1967 2.1967ZM0.5 7C0.223858 7 0 7.22386 0 7.5C0 7.77614 0.223858 8 0.5 8H2.5C2.77614 8 3 7.77614 3 7.5C3 7.22386 2.77614 7 2.5 7H0.5ZM2.1967 12.8033C2.00144 12.608 2.00144 12.2915 2.1967 12.0962L3.61091 10.682C3.80617 10.4867 4.12276 10.4867 4.31802 10.682C4.51328 10.8772 4.51328 11.1938 4.31802 11.3891L2.90381 12.8033C2.70854 12.9986 2.39196 12.9986 2.1967 12.8033ZM12.5 7C12.2239 7 12 7.22386 12 7.5C12 7.77614 12.2239 8 12.5 8H14.5C14.7761 8 15 7.77614 15 7.5C15 7.22386 14.7761 7 14.5 7H12.5ZM10.682 4.31802C10.4867 4.12276 10.4867 3.80617 10.682 3.61091L12.0962 2.1967C12.2915 2.00144 12.608 2.00144 12.8033 2.1967C12.9986 2.39196 12.9986 2.70854 12.8033 2.90381L11.3891 4.31802C11.1938 4.51328 10.8772 4.51328 10.682 4.31802ZM8 12.5C8 12.2239 7.77614 12 7.5 12C7.22386 12 7 12.2239 7 12.5V14.5C7 14.7761 7.22386 15 7.5 15C7.77614 15 8 14.7761 8 14.5V12.5ZM10.682 10.682C10.8772 10.4867 11.1938 10.4867 11.3891 10.682L12.8033 12.0962C12.9986 12.2915 12.9986 12.608 12.8033 12.8033C12.608 12.9986 12.2915 12.9986 12.0962 12.8033L10.682 11.3891C10.4867 11.1938 10.4867 10.8772 10.682 10.682ZM5.5 7.5C5.5 6.39543 6.39543 5.5 7.5 5.5C8.60457 5.5 9.5 6.39543 9.5 7.5C9.5 8.60457 8.60457 9.5 7.5 9.5C6.39543 9.5 5.5 8.60457 5.5 7.5ZM7.5 4.5C5.84315 4.5 4.5 5.84315 4.5 7.5C4.5 9.15685 5.84315 10.5 7.5 10.5C9.15685 10.5 10.5 9.15685 10.5 7.5C10.5 5.84315 9.15685 4.5 7.5 4.5Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+          <svg class="theme-icon theme-dark" viewBox="0 0 15 15" aria-hidden="true"><path d="M2.89998 0.499976C2.89998 0.279062 2.72089 0.0999756 2.49998 0.0999756C2.27906 0.0999756 2.09998 0.279062 2.09998 0.499976V1.09998H1.49998C1.27906 1.09998 1.09998 1.27906 1.09998 1.49998C1.09998 1.72089 1.27906 1.89998 1.49998 1.89998H2.09998V2.49998C2.09998 2.72089 2.27906 2.89998 2.49998 2.89998C2.72089 2.89998 2.89998 2.72089 2.89998 2.49998V1.89998H3.49998C3.72089 1.89998 3.89998 1.72089 3.89998 1.49998C3.89998 1.27906 3.72089 1.09998 3.49998 1.09998H2.89998V0.499976ZM5.89998 3.49998C5.89998 3.27906 5.72089 3.09998 5.49998 3.09998C5.27906 3.09998 5.09998 3.27906 5.09998 3.49998V4.09998H4.49998C4.27906 4.09998 4.09998 4.27906 4.09998 4.49998C4.09998 4.72089 4.27906 4.89998 4.49998 4.89998H5.09998V5.49998C5.09998 5.72089 5.27906 5.89998 5.49998 5.89998C5.72089 5.89998 5.89998 5.72089 5.89998 5.49998V4.89998H6.49998C6.72089 4.89998 6.89998 4.72089 6.89998 4.49998C6.89998 4.27906 6.72089 4.09998 6.49998 4.09998H5.89998V3.49998ZM1.89998 6.49998C1.89998 6.27906 1.72089 6.09998 1.49998 6.09998C1.27906 6.09998 1.09998 6.27906 1.09998 6.49998V7.09998H0.499976C0.279062 7.09998 0.0999756 7.27906 0.0999756 7.49998C0.0999756 7.72089 0.279062 7.89998 0.499976 7.89998H1.09998V8.49998C1.09998 8.72089 1.27906 8.89997 1.49998 8.89997C1.72089 8.89997 1.89998 8.72089 1.89998 8.49998V7.89998H2.49998C2.72089 7.89998 2.89998 7.72089 2.89998 7.49998C2.89998 7.27906 2.72089 7.09998 2.49998 7.09998H1.89998V6.49998ZM8.54406 0.98184L8.24618 0.941586C8.03275 0.917676 7.90692 1.1655 8.02936 1.34194C8.17013 1.54479 8.29981 1.75592 8.41754 1.97445C8.91878 2.90485 9.20322 3.96932 9.20322 5.10022C9.20322 8.37201 6.82247 11.0878 3.69887 11.6097C3.45736 11.65 3.20988 11.6772 2.96008 11.6906C2.74563 11.702 2.62729 11.9535 2.77721 12.1072C2.84551 12.1773 2.91535 12.2458 2.98667 12.3128L3.05883 12.3795L3.31883 12.6045L3.50684 12.7532L3.62796 12.8433L3.81491 12.9742L3.99079 13.089C4.11175 13.1651 4.23536 13.2375 4.36157 13.3059L4.62496 13.4412L4.88553 13.5607L5.18837 13.6828L5.43169 13.7686C5.56564 13.8128 5.70149 13.8529 5.83857 13.8885C5.94262 13.9155 6.04767 13.9401 6.15405 13.9622C6.27993 13.9883 6.40713 14.0109 6.53544 14.0298L6.85241 14.0685L7.11934 14.0892C7.24637 14.0965 7.37436 14.1002 7.50322 14.1002C11.1483 14.1002 14.1032 11.1453 14.1032 7.50023C14.1032 7.25044 14.0893 7.00389 14.0623 6.76131L14.0255 6.48407C13.991 6.26083 13.9453 6.04129 13.8891 5.82642C13.8213 5.56709 13.7382 5.31398 13.6409 5.06881L13.5279 4.80132L13.4507 4.63542L13.3766 4.48666C13.2178 4.17773 13.0353 3.88295 12.8312 3.60423L12.6782 3.40352L12.4793 3.16432L12.3157 2.98361L12.1961 2.85951L12.0355 2.70246L11.8134 2.50184L11.4925 2.24191L11.2483 2.06498L10.9562 1.87446L10.6346 1.68894L10.3073 1.52378L10.1938 1.47176L9.95488 1.3706L9.67791 1.2669L9.42566 1.1846L9.10075 1.09489L8.83599 1.03486L8.54406 0.98184ZM10.4032 5.30023C10.4032 4.27588 10.2002 3.29829 9.83244 2.40604C11.7623 3.28995 13.1032 5.23862 13.1032 7.50023C13.1032 10.593 10.596 13.1002 7.50322 13.1002C6.63646 13.1002 5.81597 12.9036 5.08355 12.5522C6.5419 12.0941 7.81081 11.2082 8.74322 10.0416C8.87963 10.2284 9.10028 10.3497 9.34928 10.3497C9.76349 10.3497 10.0993 10.0139 10.0993 9.59971C10.0993 9.24256 9.84965 8.94373 9.51535 8.86816C9.57741 8.75165 9.63653 8.63334 9.6926 8.51332C9.88358 8.63163 10.1088 8.69993 10.35 8.69993C11.0403 8.69993 11.6 8.14028 11.6 7.44993C11.6 6.75976 11.0406 6.20024 10.3505 6.19993C10.3853 5.90487 10.4032 5.60464 10.4032 5.30023Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+        </button>
+        <a class="btn label-m" data-goatcounter-click="write-header" href="https://t.me/grisroman" target="_blank" rel="noopener">Написать<span class="visually-hidden"> в&nbsp;Telegram (откроется в&nbsp;новой вкладке)</span></a>
+      </nav>
+    </div>
+  </div>
+<div class="read-progress" data-read-progress aria-hidden="true" hidden></div>
+</header>
+
+<!-- Оглавление кейса: вне холста, закреплено слева на широком экране, видно в зоне разделов -->
+<nav class="toc" aria-label="Разделы кейса">
+  <ol class="toc__list">
+    <li><a class="toc__link label-s" href="#context">Контекст и задача</a></li>
+    <li><a class="toc__link label-s" href="#design">Что спроектировал</a></li>
+    <li><a class="toc__link label-s" href="#feedback">Обратная связь</a></li>
+    <li><a class="toc__link label-s" href="#changes">Доработки</a></li>
+    <li><a class="toc__link label-s" href="#launch">Запуск и результат</a></li>
+  </ol>
+</nav>
+
+<div class="shell">
+  <main class="canvas longread">
+
+    <div class="case-top grid-pad">
+      <a class="back-link label-s" href="../../#cases">
+        <svg class="px-arrow px-arrow--back" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg>
+        Все кейсы
+      </a>
+    </div>
+
+    <!-- Hero: заголовок → обложка → результаты → о проекте -->
+    <section class="case-hero grid" data-reveal>
+      <div class="case-hero__text">
+        <h1 class="h1">Butler</h1>
+        <p class="subtitle-1 muted">Облачная экосистема для&nbsp;управления домом в&nbsp;современных жилых комплексах</p>
+      </div>
+    </section>
+
+    <div class="case-cover">
+      <img class="theme-light" src="img/cover.webp?v=7" alt="Главный экран домофона с&nbsp;часами, сообщением управляющей компании и&nbsp;расходом воды, рядом телефон со&nbsp;списком камер" width="1920" height="1207">
+      <img class="theme-dark" src="img/cover-dark.webp?v=7" alt="Главный экран домофона с&nbsp;часами, сообщением управляющей компании и&nbsp;расходом воды, рядом телефон со&nbsp;списком камер" width="1920" height="1207">
+    </div>
+
+    <!-- Результаты — масштаб продукта, сразу под обложкой -->
+    <section class="case-results grid" aria-label="Масштаб" data-reveal>
+      <div class="result-box ln ln-t ln-b ln-l ln-r">
+        <i class="mark mark--cross at-tl" aria-hidden="true"></i>
+        <i class="mark mark--dot at-tr" aria-hidden="true"></i>
+        <i class="mark mark--dot at-bl" aria-hidden="true"></i>
+        <i class="mark mark--cross at-br" aria-hidden="true"></i>
+        <div class="factoid">
+          <p class="label-m muted">Квартиры</p>
+          <p class="h2 value">17&#8239;011</p>
+          <p class="text-s muted">с&nbsp;домофонами Butler в&nbsp;27&nbsp;ЖК</p>
+        </div>
+        <div class="factoid">
+          <p class="label-m muted">Пользователи</p>
+          <p class="h2 value">≈25&#8239;000</p>
+          <p class="text-s muted">активных в&nbsp;месяц во&nbsp;всех&nbsp;ЖК</p>
+        </div>
+        <div class="factoid">
+          <p class="label-m muted">Застройщики</p>
+          <p class="h2 value">8</p>
+          <p class="text-s muted">ставили Butler в&nbsp;свои&nbsp;ЖК</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-meta grid" aria-label="О проекте" data-reveal>
+      <dl class="project">
+        <div class="meta-pair"><dt class="label-s muted">Компания</dt><dd class="text-l">ITFrog</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Годы</dt><dd class="text-l">2019–2022</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Команда</dt><dd class="text-l">Продуктовый менеджер, разработчики и&nbsp;дизайнер</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Платформа</dt><dd class="text-l">Домофон, iOS, Android и&nbsp;веб</dd></div>
+        <div class="meta-pair meta-pair--wide">
+          <dt class="label-s muted">Что делал</dt>
+          <dd class="text-l">Спроектировал все интерфейсы системы с&nbsp;первой версии. Общался с&nbsp;жильцами и&nbsp;управляющими компаниями, готовил опросы. Тестировал функции на&nbsp;стендах и&nbsp;в&nbsp;ЖК.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- 1. Контекст и задача -->
+    <section class="section grid" id="context" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Контекст и задача</p></div>
+      <div class="section__body">
+        <h2 class="h3">Управление домом в&nbsp;одном месте</h2>
+        <p class="text-l">ITFrog делает облачные решения для&nbsp;IP-домофонии. Её экосистема Butler для&nbsp;новостроек объединяет домофон с&nbsp;экраном в&nbsp;каждой квартире, мобильное приложение жильца, админ-панель управляющей компании и&nbsp;информационные панели в&nbsp;парадных. Застройщик покупает Butler для&nbsp;своего ЖК и&nbsp;передаёт его жильцам вместе с&nbsp;квартирой. Это white-label продукт, в&nbsp;приложении и&nbsp;на&nbsp;домофоне стоит бренд застройщика.</p>
+        <p class="text-l">Застройщики стремятся сделать свои жилые комплексы более современными, удобными и&nbsp;безопасными для&nbsp;жильцов. Закрытая охраняемая территория, двор без&nbsp;машин, быстрый вызов мастера через управляющую компанию. Чтобы выделиться среди конкурентов, они постоянно ищут новые решения.</p>
+        <p class="text-l">Для&nbsp;этого в&nbsp;ЖК ставят системы разных производителей. Контроль доступа, видеонаблюдение, учёт счётчиков и&nbsp;умный дом друг с&nbsp;другом не&nbsp;связаны, и&nbsp;у&nbsp;каждой своё приложение. В&nbsp;итоге свет, датчики и&nbsp;звонок диспетчеру у&nbsp;жильца в&nbsp;разных приложениях.</p>
+        <p class="text-l">Задачей Butler было связать эти системы, чтобы всеми удобствами ЖК жилец пользовался с&nbsp;домофона в&nbsp;квартире или из&nbsp;одного приложения в&nbsp;телефоне. При&nbsp;этом все ЖК разные, у&nbsp;каждого свой набор функций.</p>
+      </div>
+    </section>
+
+    <!-- 2. Что спроектировал -->
+    <section class="section grid" id="design" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Что спроектировал</p></div>
+      <div class="section__body">
+        <h2 class="h3">Одна система для&nbsp;жильца и&nbsp;управляющей компании</h2>
+        <p class="text-l">Пришёл в&nbsp;ITFrog в&nbsp;2019&nbsp;году, когда Butler только складывался в&nbsp;нынешнем виде, и&nbsp;спроектировал все его интерфейсы. Первыми были домофон и&nbsp;админ-панель, чуть позже появилось приложение. Структура у&nbsp;всех устройств одна, отличается только набор функций.</p>
+        <p class="text-l"><strong>Домофон</strong> стоит в&nbsp;каждой квартире. С&nbsp;него отвечают на&nbsp;звонки с&nbsp;вызывной панели и&nbsp;открывают дверь, на&nbsp;нём читают сообщения УК и&nbsp;смотрят счётчики, если они подключены.</p>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+          <img class="theme-light" src="img/call.webp?v=5" alt="Входящий звонок с&nbsp;вызывной панели «Главный вход»: на&nbsp;домофоне и&nbsp;в&nbsp;телефоне видео с&nbsp;курьером и&nbsp;кнопки «Отклонить», «Открыть» и&nbsp;«Ответить»" width="1920" height="1207" loading="lazy" decoding="async">
+          <img class="theme-dark" src="img/call-dark.webp?v=5" alt="Входящий звонок с&nbsp;вызывной панели «Главный вход»: на&nbsp;домофоне и&nbsp;в&nbsp;телефоне видео с&nbsp;курьером и&nbsp;кнопки «Отклонить», «Открыть» и&nbsp;«Ответить»" width="1920" height="1207" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Звонок с&nbsp;вызывной панели приходит на&nbsp;домофон и&nbsp;в&nbsp;телефон</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l"><strong>Телефон</strong> повторяет домофон, где бы жилец ни&nbsp;был, дома или в&nbsp;отъезде. Звонок с&nbsp;вызывной панели приходит в&nbsp;приложение, и&nbsp;жилец открывает дверь гостю или курьеру. Открыть дверь можно и&nbsp;без&nbsp;звонка. Вместо ключа или карты собственник квартиры может включить в&nbsp;приложении Bluetooth-ключ, и&nbsp;дверь откроется сама, когда он подойдёт к&nbsp;ней.</p>
+        <p class="text-l">Гостю можно заранее отправить временный код в&nbsp;СМС или мессенджере. Тот наберёт его на&nbsp;вызывной панели и&nbsp;дойдёт до&nbsp;квартиры без&nbsp;звонка. Срок действия кода жилец выбирает в&nbsp;приложении в&nbsp;пределах, которые задал застройщик. Гостя можно выбрать из&nbsp;контактов, а&nbsp;код подписать, чтобы помнить, кому он выдан.</p>
+      </div>
+      <div class="section__wide trio">
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть экран на весь экран">
+            <img class="theme-light" src="img/access.webp?v=1" alt="Экран «Доступ»: Bluetooth-ключ и&nbsp;список гостевых кодов с&nbsp;именами гостей и&nbsp;сроками, у&nbsp;одного кода чип «Истёк»" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="img/access-dark.webp?v=1" alt="Экран «Доступ»: Bluetooth-ключ и&nbsp;список гостевых кодов с&nbsp;именами гостей и&nbsp;сроками, у&nbsp;одного кода чип «Истёк»" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">Гостевые коды в&nbsp;разделе «Доступ», кнопка «+» создаёт новый</figcaption>
+        </figure>
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть экран на весь экран">
+            <img class="theme-light" src="img/code-new.webp?v=6" alt="Экран «Новый код»: поле «Гость» с&nbsp;иконкой контактов и&nbsp;срок действия кода" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="img/code-new-dark.webp?v=6" alt="Экран «Новый код»: поле «Гость» с&nbsp;иконкой контактов и&nbsp;срок действия кода" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">Жилец указывает гостя и&nbsp;срок действия</figcaption>
+        </figure>
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть экран на весь экран">
+            <img class="theme-light" src="img/code-created.webp?v=6" alt="Экран «Код гостя»: код 4821 с&nbsp;кнопкой копирования, гость, срок действия и&nbsp;кнопка «Отправить код»" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="img/code-created-dark.webp?v=6" alt="Экран «Код гостя»: код 4821 с&nbsp;кнопкой копирования, гость, срок действия и&nbsp;кнопка «Отправить код»" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">Код отправляют в&nbsp;СМС или мессенджере</figcaption>
+        </figure>
+      </div>
+      <div class="section__body">
+        <p class="text-l">Счётчики и&nbsp;датчики жилец добавляет в&nbsp;приложение сам. Если датчик сработал, приложение сразу пришлёт уведомление.</p>
+      </div>
+      <div class="section__wide trio">
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть экран на весь экран">
+            <img class="theme-light" src="img/meters.webp?v=1" alt="Экран «Показания»: расход электроэнергии за&nbsp;неделю по&nbsp;дням и&nbsp;по&nbsp;тарифам день и&nbsp;ночь" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="img/meters-dark.webp?v=1" alt="Экран «Показания»: расход электроэнергии за&nbsp;неделю по&nbsp;дням и&nbsp;по&nbsp;тарифам день и&nbsp;ночь" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">Расход электроэнергии и&nbsp;воды по&nbsp;дням и&nbsp;тарифам</figcaption>
+        </figure>
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть экран на весь экран">
+            <img class="theme-light" src="img/sensors-list.webp?v=3" alt="Экран «Датчики»: тревога «Протечка в&nbsp;ванной, вода перекрыта автоматически», переключатель «Состояния / История» и&nbsp;датчики по&nbsp;группам: протечка, дым, двери, свет" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="img/sensors-list-dark.webp?v=3" alt="Экран «Датчики»: тревога «Протечка в&nbsp;ванной, вода перекрыта автоматически», переключатель «Состояния / История» и&nbsp;датчики по&nbsp;группам: протечка, дым, двери, свет" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">Датчик протечки сработал, и&nbsp;вода перекрылась</figcaption>
+        </figure>
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть экран на весь экран">
+            <img class="theme-light" src="img/sensors-leak.webp?v=3" alt="Карточка датчика протечки «Ванная»: название, серийный номер, переключатели уведомлений и&nbsp;подачи воды, история срабатываний" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="img/sensors-leak-dark.webp?v=3" alt="Карточка датчика протечки «Ванная»: название, серийный номер, переключатели уведомлений и&nbsp;подачи воды, история срабатываний" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">В&nbsp;карточке видна история срабатываний</figcaption>
+        </figure>
+      </div>
+      <div class="section__body">
+        <p class="text-l"><strong>Управляющая компания</strong> работает в&nbsp;админ-панели. Через неё диспетчеры и&nbsp;консьержи принимают заявки и&nbsp;пропуска жильцов, отвечают на&nbsp;них, рассылают уведомления в&nbsp;приложение и&nbsp;на&nbsp;панели в&nbsp;парадных. Там&nbsp;же УК распределяет роли сотрудников, а&nbsp;застройщик может вести в&nbsp;одной панели несколько своих ЖК.</p>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+          <img class="theme-light" src="img/admin-requests.webp?v=9" alt="Админ-панель управляющей компании: список заявок со&nbsp;статусами, справа открыта заявка на&nbsp;пропуск машины с&nbsp;гостем, временем въезда, комментарием жильца и&nbsp;кнопками «Отклонить» и&nbsp;«Принять»" width="1920" height="1158" loading="lazy" decoding="async">
+          <img class="theme-dark" src="img/admin-requests-dark.webp?v=9" alt="Админ-панель управляющей компании: список заявок со&nbsp;статусами, справа открыта заявка на&nbsp;пропуск машины с&nbsp;гостем, временем въезда, комментарием жильца и&nbsp;кнопками «Отклонить» и&nbsp;«Принять»" width="1920" height="1158" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Заявки жильцов приходят в&nbsp;админ-панель УК</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l">Жилец видит в&nbsp;приложении только то, что есть в&nbsp;его доме. Экраны в&nbsp;кейсе пересобраны под&nbsp;нейтральный бренд.</p>
+      </div>
+    </section>
+
+    <!-- 3. Обратная связь -->
+    <section class="section grid" id="feedback" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Обратная связь</p></div>
+      <div class="section__body">
+        <h2 class="h3">Жильцам важнее всего отвечать на&nbsp;звонки и&nbsp;смотреть камеры</h2>
+        <p class="text-l list-intro">Первые ЖК получили интерфейс, собранный вокруг функций, которые заказал застройщик. Пока дом не&nbsp;сдан, жильцов в&nbsp;нём нет, поэтому обратную связь собирал в&nbsp;заселённых ЖК.</p>
+        <ol class="list list--num">
+          <li class="text-l"><span>Логи домофонов.</span></li>
+          <li class="text-l"><span>Аналитика приложения.</span></li>
+          <li class="text-l"><span>Заявки жильцов в&nbsp;УК.</span></li>
+          <li class="text-l"><span>Опросы в&nbsp;группах ЖК в&nbsp;соцсетях.</span></li>
+          <li class="text-l"><span>Разговоры с&nbsp;жильцами и&nbsp;УК в&nbsp;ЖК, около 20&nbsp;за&nbsp;всё время.</span></li>
+        </ol>
+        <p class="text-l">Главные выводы давали логи и&nbsp;аналитика. По&nbsp;ним видно, что жильцы чаще всего отвечали на&nbsp;звонки с&nbsp;вызывной панели и&nbsp;смотрели камеры, остальное шло дополнением.</p>
+        <p class="text-l">Жалобы были в&nbsp;основном на&nbsp;техническую часть. Камера не&nbsp;показывала, дверь не&nbsp;открывалась. Интерфейс жильцы ругали редко, поэтому его не&nbsp;перестраивали целиком, а&nbsp;дорабатывали точечно, там, где данные и&nbsp;жалобы показывали неудобство.</p>
+        <p class="text-l">Управляющие компании просили разгрузить диспетчеров. Много звонков было про&nbsp;вызов специалистов и&nbsp;пропуска на&nbsp;машину.</p>
+      </div>
+    </section>
+
+    <!-- 4. Доработки -->
+    <section class="section grid" id="changes" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Доработки</p></div>
+      <div class="section__body">
+        <h2 class="h3">Интерфейс дорабатывали под&nbsp;то, чем жильцы пользуются</h2>
+        <p class="text-l">Эти решения выросли из&nbsp;обратной связи, и&nbsp;каждое потом переносили в&nbsp;следующие ЖК.</p>
+        <p class="text-l"><strong>Камеры в&nbsp;панели навигации.</strong> В&nbsp;первой версии камеры домофона были спрятаны в&nbsp;меню, хотя по&nbsp;статистике их смотрели очень часто. Камеры стоят у&nbsp;каждой вызывной панели, на&nbsp;паркинге, на&nbsp;детской площадке и&nbsp;во&nbsp;дворе. Вынес их в&nbsp;панель навигации домофона, в&nbsp;приложении они тоже стали отдельным пунктом.</p>
+      </div>
+      <div class="section__wide compare">
+        <figure class="compare__item figure figure--phone figure--screen">
+          <p class="label-m">Камеры</p>
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть экран на весь экран">
+            <img class="theme-light" src="img/cameras-list.webp?v=3" alt="Экран «Камеры»: плитки с&nbsp;кадрами внутреннего двора, домов, детской площадки, паркинга, въезда во&nbsp;двор и&nbsp;подъездов" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="img/cameras-list-dark.webp?v=3" alt="Экран «Камеры»: плитки с&nbsp;кадрами внутреннего двора, домов, детской площадки, паркинга, въезда во&nbsp;двор и&nbsp;подъездов" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">В&nbsp;приложении у&nbsp;камер свой пункт навигации</figcaption>
+        </figure>
+        <figure class="compare__item figure figure--phone figure--screen">
+          <p class="label-m">Просмотр</p>
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть экран на весь экран">
+            <img class="theme-light" src="img/cameras-view.webp?v=3" alt="Просмотр камеры «Внутренний двор» с&nbsp;кнопками снимка и&nbsp;просмотра во&nbsp;весь экран" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="img/cameras-view-dark.webp?v=3" alt="Просмотр камеры «Внутренний двор» с&nbsp;кнопками снимка и&nbsp;просмотра во&nbsp;весь экран" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">Двор, паркинг и&nbsp;вызывные панели открываются в&nbsp;одно касание</figcaption>
+        </figure>
+      </div>
+      <div class="section__body">
+        <p class="text-l"><strong>Куда приходит звонок, выбирает жилец.</strong> Одни отвечали только с&nbsp;телефона, другие пользовались обоими устройствами. Поэтому звонок можно направить на&nbsp;домофон, на&nbsp;телефон или на&nbsp;оба сразу.</p>
+      </div>
+      <div class="section__body">
+        <p class="text-l"><strong>Режим «Не&nbsp;беспокоить» вместо выключенного звука.</strong> Громкость домофона можно было убавить или полностью выключить звук. В&nbsp;заявках жильцы писали о&nbsp;двух проблемах. Днём, пока спят дети, звук выключали, потом забывали включить и&nbsp;пропускали звонки. А&nbsp;ночью будили случайные вызовы, когда кто-то ошибался квартирой.</p>
+        <p class="text-l">Добавил режим «Не&nbsp;беспокоить». Жилец включает его на&nbsp;главном экране домофона и&nbsp;выбирает срок. Пока режим включён, домофон не&nbsp;принимает вызовы. Если звонок настроен и&nbsp;на&nbsp;телефон, он сразу уходит в&nbsp;приложение, если нет, звонка не&nbsp;будет. Потом домофон возвращается в&nbsp;обычное состояние, а&nbsp;пропущенные вызовы видны в&nbsp;истории.</p>
+      </div>
+      <div class="section__wide gallery" data-gallery>
+        <div class="gallery__track" tabindex="0" role="region" aria-label="Режим «Не беспокоить» на домофоне, 4 картинки">
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+              <img class="theme-light" src="img/dnd-1.webp?v=6" alt="Главный экран домофона: под&nbsp;датой кнопки уведомлений и&nbsp;«Не&nbsp;беспокоить», режим выключен" width="1920" height="1200" loading="lazy" decoding="async">
+              <img class="theme-dark" src="img/dnd-1-dark.webp?v=6" alt="Главный экран домофона: под&nbsp;датой кнопки уведомлений и&nbsp;«Не&nbsp;беспокоить», режим выключен" width="1920" height="1200" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">Кнопка режима стоит под&nbsp;часами, рядом с&nbsp;уведомлениями</figcaption>
+          </figure>
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+              <img class="theme-light" src="img/dnd-2.webp?v=6" alt="Окно «Не&nbsp;беспокоить» поверх главного экрана: сроки 1, 2, 4&nbsp;часа и&nbsp;«Другое», кнопка «Включить»" width="1920" height="1200" loading="lazy" decoding="async">
+              <img class="theme-dark" src="img/dnd-2-dark.webp?v=6" alt="Окно «Не&nbsp;беспокоить» поверх главного экрана: сроки 1, 2, 4&nbsp;часа и&nbsp;«Другое», кнопка «Включить»" width="1920" height="1200" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">Срок выбирается в&nbsp;одно касание</figcaption>
+          </figure>
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+              <img class="theme-light" src="img/dnd-3.webp?v=6" alt="Окно «Не&nbsp;беспокоить до»: поля 07:00, подпись «Завтра, 27&nbsp;декабря» и&nbsp;циферблат с&nbsp;выбранным часом" width="1920" height="1200" loading="lazy" decoding="async">
+              <img class="theme-dark" src="img/dnd-3-dark.webp?v=6" alt="Окно «Не&nbsp;беспокоить до»: поля 07:00, подпись «Завтра, 27&nbsp;декабря» и&nbsp;циферблат с&nbsp;выбранным часом" width="1920" height="1200" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">«Другое» открывает выбор времени, например до&nbsp;утра</figcaption>
+          </figure>
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+              <img class="theme-light" src="img/dnd-4.webp?v=6" alt="Главный экран домофона с&nbsp;включённым режимом: плашка «Не&nbsp;беспокоить до&nbsp;17:10»" width="1920" height="1200" loading="lazy" decoding="async">
+              <img class="theme-dark" src="img/dnd-4-dark.webp?v=6" alt="Главный экран домофона с&nbsp;включённым режимом: плашка «Не&nbsp;беспокоить до&nbsp;17:10»" width="1920" height="1200" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">Режим показывает, до&nbsp;какого времени он включён, и&nbsp;выключается сам</figcaption>
+          </figure>
+        </div>
+        <div class="gallery__nav" hidden>
+          <p class="gallery__count label-s" aria-live="polite"><span data-gallery-current>01</span> / <span data-gallery-total>04</span></p>
+          <button class="gallery__btn btn-outline" type="button" data-gallery-prev aria-label="Предыдущий экран"><svg class="px-arrow px-arrow--back" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
+          <button class="gallery__btn btn-outline" type="button" data-gallery-next aria-label="Следующий экран"><svg class="px-arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
+        </div>
+      </div>
+      <div class="section__body">
+        <p class="text-l"><strong>Пропуск на&nbsp;машину без&nbsp;звонка диспетчеру.</strong> Дворы в&nbsp;большинстве современных ЖК без&nbsp;машин. Чтобы впустить во&nbsp;двор машину, например с&nbsp;мебелью, жилец звонил диспетчеру, а&nbsp;тот мог быть занят или не&nbsp;на&nbsp;месте. Вынес пропуск в&nbsp;отдельную заявку в&nbsp;приложении, с&nbsp;номером машины и&nbsp;временем. УК рассматривает её обычно за&nbsp;пару минут, а&nbsp;при&nbsp;отказе причина видна в&nbsp;заявке.</p>
+      </div>
+      <div class="section__wide trio">
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть экран на весь экран">
+            <img class="theme-light" src="img/passes-list.webp?v=1" alt="Экран «Пропуска» с&nbsp;вкладками «Активные» и&nbsp;«История» и&nbsp;списком пропусков со&nbsp;статусами «На&nbsp;рассмотрении» и&nbsp;«Принята»" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="img/passes-list-dark.webp?v=1" alt="Экран «Пропуска» с&nbsp;вкладками «Активные» и&nbsp;«История» и&nbsp;списком пропусков со&nbsp;статусами «На&nbsp;рассмотрении» и&nbsp;«Принята»" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">Пропуска собраны в&nbsp;одном списке, кнопка «+» создаёт новый</figcaption>
+        </figure>
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть экран на весь экран">
+            <img class="theme-light" src="img/pass-new.webp?v=6" alt="Форма нового пропуска: номер машины, телефон гостя, дата, время и&nbsp;комментарий" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="img/pass-new-dark.webp?v=6" alt="Форма нового пропуска: номер машины, телефон гостя, дата, время и&nbsp;комментарий" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">Жилец указывает машину, гостя, время и&nbsp;пишет комментарий</figcaption>
+        </figure>
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть экран на весь экран">
+            <img class="theme-light" src="img/pass-rejected.webp?v=3" alt="Отклонённый пропуск У&nbsp;431&nbsp;КН&nbsp;178: гость, дата и&nbsp;время въезда, квартира, комментарий жильца и&nbsp;причина отказа" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="img/pass-rejected-dark.webp?v=3" alt="Отклонённый пропуск У&nbsp;431&nbsp;КН&nbsp;178: гость, дата и&nbsp;время въезда, квартира, комментарий жильца и&nbsp;причина отказа" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">Жилец видит, почему пропуск отклонили</figcaption>
+        </figure>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Открыть картинку на весь экран">
+          <img class="theme-light" src="img/admin-reject.webp?v=9" alt="Админ-панель: диспетчер отклоняет заявку на&nbsp;пропуск, в&nbsp;поле «Причина отказа» написано, что&nbsp;27&nbsp;декабря во&nbsp;дворе вывозят снег" width="1920" height="1158" loading="lazy" decoding="async">
+          <img class="theme-dark" src="img/admin-reject-dark.webp?v=9" alt="Админ-панель: диспетчер отклоняет заявку на&nbsp;пропуск, в&nbsp;поле «Причина отказа» написано, что&nbsp;27&nbsp;декабря во&nbsp;дворе вывозят снег" width="1920" height="1158" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Без&nbsp;причины отказ не&nbsp;отправить, жилец увидит её в&nbsp;приложении</figcaption>
+      </figure>
+    </section>
+
+    <!-- 5. Запуск и результат -->
+    <section class="section grid" id="launch" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Запуск и&nbsp;результат</p></div>
+      <div class="section__body">
+        <h2 class="h3">Новый ЖК получал проверенный набор функций</h2>
+        <p class="text-l">Перед установкой каждый домофон проверяли на&nbsp;тестовом стенде, потом обновления приходили удалённо. При&nbsp;заселении УК выдавала жильцу доступ к&nbsp;приложению.</p>
+      </div>
+      <figure class="section__wide figure">
+        <div class="trio">
+        <div>
+          <div class="figure__stage">
+            <img src="img/photo-stand-1.webp?v=2" alt="Стенд с&nbsp;устройствами квартиры: домофон, панель управления и&nbsp;выключатели" width="960" height="1280" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <div>
+          <div class="figure__stage">
+            <img src="img/photo-stand-2.webp" alt="Ряд стендов с&nbsp;вызывными панелями и&nbsp;домофонами в&nbsp;офисе" width="960" height="1280" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <div>
+          <div class="figure__stage">
+            <img src="img/photo-test.webp?v=2" alt="Стеллажи с&nbsp;включёнными домофонами в&nbsp;тёмном помещении" width="591" height="788" loading="lazy" decoding="async">
+          </div>
+        </div>
+        </div>
+        <figcaption class="text-s">Тестовые стенды</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l">Набор функций и&nbsp;интерфейса для&nbsp;нового ЖК предлагали исходя из&nbsp;статистики прошлых. Иногда приходилось переубеждать застройщика.</p>
+        <p class="text-l"><strong>Застройщики возвращались с&nbsp;новыми комплексами.</strong> Восемь застройщиков поставили Butler в&nbsp;27&nbsp;ЖК, домофоны стоят в&nbsp;17&#8239;011&nbsp;квартирах, а&nbsp;активных пользователей около 25&#8239;000 в&nbsp;месяц.</p>
+      </div>
+    </section>
+
+    <!-- 6. Что сделал бы иначе — пока не верстаем, Роман думает над причиной -->
+
+    <!-- Следующий кейс -->
+    <nav class="next grid" aria-label="Следующий кейс">
+      <a class="next-case" href="../predictive-dialer/">
+        <span class="next-case__text">
+          <span class="label-m muted">Следующий кейс</span>
+          <span class="h4">Предиктивный набор</span>
+        </span>
+        <svg class="px-arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg>
+      </a>
+    </nav>
+
+  </main>
+</div>
+
+
+<footer class="site-footer ln ln-t">
+  <div class="shell">
+    <div class="canvas footer">
+      <p class="footer__cell label-s muted">©&nbsp;2026</p>
+      <a class="footer__cell footer__link label-s" data-goatcounter-click="write-footer-telegram" href="https://t.me/grisroman" target="_blank" rel="noopener">Telegram</a>
+      <a class="footer__cell footer__link label-s" data-goatcounter-click="footer-linkedin" href="https://www.linkedin.com/in/roman-grishin/" target="_blank" rel="noopener">LinkedIn</a>
+      <p class="footer__cell label-s muted">grisroman.space</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
