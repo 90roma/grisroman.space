@@ -81,7 +81,7 @@
   --grid-cell: var(--space-16);
   --grid-major: 128px;
   --grid-radius: 400px;
-  --grid-fade: 300ms;
+  --grid-fade: 600ms;
 
   /* Шрифты */
   --font-sans: 'Geologica', system-ui, sans-serif;

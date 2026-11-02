@@ -53,9 +53,10 @@ ul, ol { list-style: none; padding: 0; }
 .value__unit { margin-left: var(--space-4); }
 
 /* ---------- Шаговая шкала результата кейса: сегменты по ширине, синим — «стало», тёмной меткой — «было» ---------- */
-.scale { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--scale-gap); height: var(--scale-h); }
+.scale { display: grid; grid-auto-flow: column; grid-auto-columns: var(--scale-seg); gap: var(--scale-gap); height: var(--scale-h); }
 .scale > i { background: var(--line); }
-.scale > i.is-base { background: var(--fg); }
+.scale > i.is-base { background: var(--muted); }  /* «было» — тише, чем «стало» */
+.scale-pair { display: flex; flex-direction: column; gap: var(--space-4); }  /* полосы «было» и «стало» */
 .scale > i.is-change { background: var(--accent-text); }
 .scale-row { display: flex; flex-direction: column; gap: var(--space-8); }
 .scale-ends { display: flex; justify-content: space-between; }

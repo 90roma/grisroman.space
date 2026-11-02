@@ -193,7 +193,8 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   flex: none;
   margin-block: var(--line-width);
   margin-left: var(--line-width);
-  padding: var(--space-12) var(--space-32);
+  /* текст тега на линии названия: поле контента (16 / 24 / 32) минус отступ заливки от линии */
+  padding: var(--space-12) var(--content-pad) var(--space-12) calc(var(--content-pad) - var(--line-width));
   background: var(--dash-v) right / var(--line-width) 100% no-repeat, var(--cell);
   color: var(--fg);
 }
@@ -260,6 +261,7 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   transition: opacity var(--grid-fade) var(--motion-ease);
 }
 .page-home.is-lit::before { opacity: 1; }
+.page-home.is-jump::before { transition: none; }  /* мгновенно погасить перед переносом к курсору */
 @media (hover: none), (prefers-reduced-motion: reduce) {
   .page-home::before { display: none; }
 }

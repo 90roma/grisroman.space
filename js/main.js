@@ -103,7 +103,7 @@
     });
   });
 
-  // ---------- Схема на весь экран: [data-zoom] открывает видимую картинку в натуральную величину ----------
+  // ---------- Просмотр на весь экран [data-zoom]: схема — в натуральную величину, скриншот (fit) — вписан в экран ----------
   var zoom = null;
   function openZoom(trigger) {
     var img = Array.prototype.find.call(trigger.querySelectorAll('img'), function (i) {
@@ -116,7 +116,22 @@
       zoom.innerHTML = '<div class="zoom__scroll"></div><button class="zoom__close btn label-m" type="button">Закрыть</button>';
       document.body.appendChild(zoom);
       zoom.querySelector('.zoom__close').addEventListener('click', function () { zoom.close(); });
-      zoom.querySelector('.zoom__scroll').addEventListener('click', function () { zoom.close(); });
+      zoom.querySelector('.zoom__scroll').addEventListener('click', function (e) {
+        var box = this, pic = box.querySelector('img');
+        // скриншот: клик по картинке переключает «вписать в экран» ↔ «натуральный размер», клик по фону закрывает;
+        // схема — закрывается любым кликом, как раньше
+        if (!zoom.classList.contains('zoom--fit') || e.target !== pic) { zoom.close(); return; }
+        if (!zoom.classList.contains('zoom--can-grow')) return;
+        var r = pic.getBoundingClientRect();
+        var fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
+        var big = zoom.classList.toggle('zoom--big');
+        // в натуральном размере точка под курсором остаётся под курсором
+        if (big) {
+          var nr = pic.getBoundingClientRect();
+          box.scrollLeft += nr.left + fx * nr.width - e.clientX;
+          box.scrollTop += nr.top + fy * nr.height - e.clientY;
+        }
+      });
       zoom.addEventListener('close', function () {
         root.classList.remove('is-zoomed');
         if (zoom.trigger) zoom.trigger.focus();
@@ -133,6 +148,12 @@
     }
     zoom.querySelector('.zoom__scroll').replaceChildren(copy);
     zoom.classList.toggle('zoom--fit', trigger.dataset.zoom === 'fit');
+    zoom.classList.remove('zoom--big', 'zoom--can-grow');
+    // увеличивать есть смысл, только если вписанная картинка меньше своего натурального размера
+    if (trigger.dataset.zoom === 'fit') {
+      var canGrow = function () { zoom.classList.toggle('zoom--can-grow', copy.naturalWidth > copy.clientWidth + 1); };
+      if (copy.complete) requestAnimationFrame(canGrow); else copy.addEventListener('load', canGrow, { once: true });
+    }
     zoom.classList.toggle('zoom--natural', trigger.dataset.zoom === 'natural');
     // большая схема начинается слева: открываем её у левого края, по середине высоты
     if (trigger.dataset.zoom === 'natural') {
@@ -239,9 +260,15 @@
 
   // ---------- Шаговые шкалы: число сегментов — по ширине (сегмент и промежуток из токенов) ----------
   var scaleNoMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Сегменты одной ширины: число считается по ширине контейнера, а полоса получает ровно n × (сегмент + зазор) − зазор.
+  // Резиновые колонки (1fr) давали дробную ширину, и сегменты на экране выходили 7–9 px вперемешку
   function fillScale(bar, paint) {
     var seg = cssMs('--scale-seg'), gap = cssMs('--scale-gap');
-    var n = Math.max(1, Math.floor((bar.clientWidth + gap) / (seg + gap)));
+    var n = Math.max(1, Math.floor((bar.parentElement.clientWidth + gap) / (seg + gap)));
+    var w = n * (seg + gap) - gap + 'px';
+    bar.style.width = w;
+    var ends = bar.closest('.scale-row') && bar.closest('.scale-row').querySelector('.scale-ends');
+    if (ends) ends.style.width = w;
     if (bar.children.length !== n) {
       bar.textContent = '';
       for (var i = 0; i < n; i++) bar.appendChild(document.createElement('i'));
@@ -249,31 +276,37 @@
     for (var k = 0; k < n; k++) bar.children[k].className = paint(k, n);
   }
 
-  // Шкала результата [data-scale]: синим — «стало» (заполнено от нуля), тёмной меткой в один сегмент — «было».
-  // Синее заполняется по сегменту, когда шкала появляется на экране; при «уменьшить движение» — сразу
+  // Шкала результата [data-scale]: две полосы в общем масштабе — «было» (muted) над «стало» (синим), обе от нуля.
+  // Полоса «было» строится скриптом над исходной. Заполняются по сегменту, сначала «было», потом «стало»,
+  // когда шкала появляется на экране; при «уменьшить движение» — сразу
   document.querySelectorAll('[data-scale]').forEach(function (bar) {
     var max = +bar.dataset.max, before = +bar.dataset.before, after = +bar.dataset.after;
-    var shown = 0, end = 0, done = false;
-    function paint(i, n) {
-      end = Math.round(after / max * n);
-      if (i === Math.min(n - 1, Math.floor(before / max * n))) return 'is-base';
-      return i < Math.min(shown, end) ? 'is-change' : '';
-    }
+    var pair = document.createElement('div');
+    pair.className = 'scale-pair';
+    var base = document.createElement('div');
+    base.className = 'scale';
+    base.setAttribute('aria-hidden', 'true');
+    bar.parentNode.insertBefore(pair, bar);
+    pair.append(base, bar);
+    var shownB = 0, shownA = 0, endB = 0, endA = 0, done = false;
+    function paintB(i, n) { endB = Math.round(before / max * n); return i < Math.min(shownB, endB) ? 'is-base' : ''; }
+    function paintA(i, n) { endA = Math.round(after / max * n); return i < Math.min(shownA, endA) ? 'is-change' : ''; }
+    function draw() { fillScale(base, paintB); fillScale(bar, paintA); }
     function run() {
-      fillScale(bar, paint);
-      if (scaleNoMotion) { shown = end; done = true; fillScale(bar, paint); return; }
+      draw();
+      if (scaleNoMotion) { shownB = endB; shownA = endA; done = true; draw(); return; }
       var t = setInterval(function () {
-        shown++;
-        fillScale(bar, paint);
-        if (shown >= end) { clearInterval(t); done = true; }
+        if (shownB < endB) shownB++; else shownA++;
+        draw();
+        if (shownB >= endB && shownA >= endA) { clearInterval(t); done = true; }
       }, cssMs('--scale-step'));
     }
-    fillScale(bar, paint);
+    draw();
     if (scaleNoMotion || !('IntersectionObserver' in window)) { run(); return; }
     new IntersectionObserver(function (entries, obs) {
       if (entries[0].isIntersecting) { run(); obs.disconnect(); }
-    }, { threshold: 1 }).observe(bar);
-    window.addEventListener('resize', function () { if (done) { shown = Infinity; fillScale(bar, paint); } });
+    }, { threshold: 1 }).observe(pair);
+    window.addEventListener('resize', function () { if (done) { shownB = shownA = Infinity; draw(); } });
   });
 
   // Прогресс чтения [data-read-progress] (страницы кейсов): нижняя линия шапки заполняется цветом текста (fg)
@@ -315,13 +348,23 @@
     // Подсветка сетки — в координатах страницы: при прокрутке остаётся на месте страницы и уезжает с ней,
     // к курсору возвращается только при движении мыши (после прокрутки браузер шлёт mousemove без движения — пропускаем)
     if (window.matchMedia('(hover: hover)').matches) {
-      var lastX = -1, lastY = -1;
+      var lastX = -1, lastY = -1, scrolled = false;
+      window.addEventListener('scroll', function () { scrolled = true; }, { passive: true });
       document.addEventListener('mousemove', function (e) {
         if (e.clientX === lastX && e.clientY === lastY) return;
         lastX = e.clientX; lastY = e.clientY;
+        // После прокрутки подсветка осталась в другом месте страницы: гасим её мгновенно,
+        // переносим к курсору и проявляем заново — без резкого скачка
+        if (scrolled) {
+          scrolled = false;
+          page.classList.add('is-jump');
+          page.classList.remove('is-lit');
+          void page.offsetWidth;
+          page.classList.remove('is-jump');
+        }
         page.style.setProperty('--cursor-x', e.pageX + 'px');
         page.style.setProperty('--cursor-y', e.pageY + 'px');
-        page.classList.add('is-lit');
+        requestAnimationFrame(function () { page.classList.add('is-lit'); });
       });
       document.documentElement.addEventListener('mouseleave', function () { page.classList.remove('is-lit'); });
     }

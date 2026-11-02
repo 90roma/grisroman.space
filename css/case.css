@@ -153,7 +153,19 @@
 .zoom__scroll { width: 100%; height: 100%; overflow: auto; overscroll-behavior: contain; cursor: zoom-out; }
 :root.is-zoomed { overflow: hidden; }  /* пока открыт просмотр, страница под ним не прокручивается */
 .zoom__scroll img { width: var(--diagram-w); max-width: none; height: auto; margin: var(--space-64) auto; }
-.zoom--fit .zoom__scroll img { width: auto; max-width: calc(100% - var(--space-64)); }  /* скриншот — в ширину экрана, без прокрутки вбок */
+/* Скриншот: сначала целиком вписан в экран по ширине и высоте; клик по нему — натуральный размер
+   с прокруткой, ещё клик — снова вписать. Клик по фону закрывает. margin: auto центрирует и не обрезает большую картинку */
+.zoom--fit .zoom__scroll { display: flex; cursor: default; }
+.zoom--fit .zoom__scroll img {
+  width: auto;
+  /* по бокам поле контента (16 / 24 / 32) — на телефоне картинка не теряет треть ширины;
+     сверху и снизу 64 — картинка не уходит под кнопку «Закрыть» */
+  max-width: calc(100% - var(--content-pad) * 2);
+  max-height: calc(100% - var(--space-64) * 2);
+  margin: auto;
+}
+.zoom--fit.zoom--can-grow .zoom__scroll img { cursor: zoom-in; }
+.zoom--fit.zoom--big .zoom__scroll img { max-width: none; max-height: none; margin: auto; padding: var(--space-64) var(--content-pad); box-sizing: content-box; cursor: zoom-out; }
 .zoom__close { position: fixed; top: var(--space-16); right: var(--space-16); }
 
 /* Галерея: картинки на всю ширину контента по одной, листаются стрелками или свайпом; по клику — на весь экран */
@@ -194,7 +206,7 @@
 /* Легенда шкалы: перед «Было» — тёмный сегмент, перед «Стало» — синий, как в шкале */
 .legend { display: flex; align-items: center; gap: var(--space-8); }
 .legend::before { content: ""; flex: none; width: var(--scale-seg); height: var(--scale-h); }
-.legend--before::before { background: var(--fg); }
+.legend--before::before { background: var(--muted); }
 .legend--after::before { background: var(--accent-text); }
 
 /* ---------- Следующий кейс: плашка cell в колонке чтения, H4 — мельче заголовков разделов ---------- */
