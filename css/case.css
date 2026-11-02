@@ -312,7 +312,7 @@
   -webkit-text-stroke: var(--line-width) var(--line);
 }
 
-/* Интервью: на телефоне и планшете — аккордеон (каждый вопрос раскрывается сам), на desktop — таблица «вопрос + три ответа» */
+/* Интервью: аккордеон на всех ширинах, каждый вопрос раскрывается сам; на desktop ответы раскрытого вопроса — в три колонки */
 .interview__head { display: none; }
 .interview__row { padding-block: var(--space-16); }
 .interview__row:last-child { --ln-b: var(--dash-h) bottom / 100% var(--line-width) no-repeat; }  /* пунктир и под последним вопросом */
@@ -345,27 +345,22 @@
   .step { aspect-ratio: 1; }
   .compare { grid-template-columns: 1fr 1fr; gap: var(--gutter); }
 
-  /* Таблица: вопрос — первая колонка, ответы — три колонки; имена — в шапке, у ответов скрыты (остаются для скринридера) */
-  /* Таблица с полной сеткой пунктиром (исключение, как блок «было | стало»): 4 равные колонки, поля ячейки 24 / 16.
-     У <details> содержимое лежит в отдельном слоте, сеткой его не разложить: вопрос — слева обтеканием, ответы — сеткой справа */
+  /* Интервью — тот же аккордеон, но раскрытый вопрос показывает три ответа рядом, колонками. Первый вопрос раскрыт.
+     Полная сетка пунктиром (исключение, как блок «было | стало»): внешний край, строки, линия под вопросом и между ответами; поля ячейки 24 / 16 */
   .interview {
     --ln-l: var(--dash-v) left / var(--line-width) 100% no-repeat;
     --ln-r: var(--dash-v) right / var(--line-width) 100% no-repeat;
   }
-  .interview__head {
-    display: grid;
+  .interview__row { padding-block: 0; }
+  .interview__q { padding: var(--space-24) var(--space-16); }
+  .interview__a {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    padding-left: 25%;  /* верхняя линия — на всю ширину, и над пустой ячейкой вопроса */
+    gap: 0;
+    padding-top: 0;
     --ln-t: var(--dash-h) top / 100% var(--line-width) no-repeat;
   }
-  .interview__head > *, .interview__answer { --ln-l: var(--dash-v) left / var(--line-width) 100% no-repeat; }
-  .interview__head > * { padding: var(--space-16); }
-  .interview__row { padding-block: 0; display: flow-root; }
-  .interview__q { float: left; width: 25%; padding: var(--space-24) var(--space-16); cursor: default; }
-  .px-toggle { display: none; }
-  .interview__a { margin-left: 25%; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; padding-top: 0; }
   .interview__answer { padding: var(--space-24) var(--space-16); }
-  .interview__answer > .label-s { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .interview__answer + .interview__answer { --ln-l: var(--dash-v) left / var(--line-width) 100% no-repeat; }
 }
 
 /* Скринфлоу на весь экран — в натуральную величину файла, прокрутка по обеим осям */

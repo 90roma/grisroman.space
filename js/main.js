@@ -191,14 +191,11 @@
     update();
   });
 
-  // ---------- Аккордеон [data-accordion]: на телефоне и планшете вопросы свёрнуты, на desktop — таблица, всё раскрыто ----------
+  // ---------- Аккордеон [data-accordion]: вопросы свёрнуты; на desktop первый раскрыт, чтобы было видно, что внутри. Без JS всё раскрыто ----------
   var wideTable = window.matchMedia('(min-width: 1024px)');
   document.querySelectorAll('[data-accordion]').forEach(function (box) {
     var rows = box.querySelectorAll('details');
-    function sync() { rows.forEach(function (row) { row.open = wideTable.matches; }); }
-    rows.forEach(function (row) {
-      row.querySelector('summary').addEventListener('click', function (e) { if (wideTable.matches) e.preventDefault(); });
-    });
+    function sync() { rows.forEach(function (row, i) { row.open = wideTable.matches && i === 0; }); }
     wideTable.addEventListener('change', sync);
     sync();
   });
