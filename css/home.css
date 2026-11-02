@@ -8,13 +8,20 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   z-index: 10;
 }
 .site-header.ln { background-color: var(--bg); }
-/* Прогресс чтения на страницах кейсов: штрихи нижней линии шапки темнеют при прокрутке.
+/* Главная: вверху страницы шапка без заливки и линии — лежит на холсте, под ней видна сетка.
+   С первого пикселя прокрутки появляются заливка bg и линия (класс .is-scrolled ставит main.js) */
+.page-home .site-header.ln {
+  background-color: transparent;
+  --dash-color: transparent;
+  transition: background-color var(--motion-duration) var(--motion-ease), --dash-color var(--motion-duration) var(--motion-ease);
+}
+.page-home.is-scrolled .site-header.ln { background-color: var(--bg); --dash-color: var(--line); }
+/* Прогресс чтения на страницах кейсов: нижняя линия шапки заполняется цветом fg при прокрутке.
    На главной не ставится — там лишний шум */
 .read-progress {
   position: absolute; left: 0; bottom: 0;
   width: 0; height: var(--line-width);
-  /* тот же пунктир 4/4 и с той же точки, что линия шапки, — штрихи совпадают; цвет fg, как пунктир при наведении */
-  background: repeating-linear-gradient(90deg, var(--fg) 0 var(--dash), transparent var(--dash) calc(var(--dash) * 2));
+  background: var(--fg);
 }
 .read-progress[hidden] { display: none; }
 /* Шапка и футер не упираются в края экрана: поле не меньше поля контента (на mobile холст стоит вплотную, а шапка — нет) */
@@ -109,11 +116,16 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   align-items: flex-start;
   gap: var(--space-8); /* заголовок → подзаголовок */
 }
-/* Плашка выходит за колонку чтения на своё поле, текст стоит на линии колонки */
+/* Плашка выходит за колонку чтения на своё поле, текст стоит на линии колонки.
+   На mobile поле экрана 16 — плашка от края до края, иначе слева она у края экрана, а справа нет */
 .plate {
   margin-left: calc(var(--space-16) * -1);
   background: var(--surface);
   padding: var(--space-12) var(--space-16);
+}
+@media (max-width: 599px) {
+  .hero__plates { align-items: stretch; }
+  .plate { margin-inline: calc(var(--space-16) * -1); }
 }
 
 /* Кнопки «Открыть в Claude / ChatGPT» справа от опыта: чат открывается пустым,
@@ -140,18 +152,18 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
 
 /* ---------- Заголовок секции ---------- */
 .section-head {
-  /* до заголовка — граница раздела (64), после — вдвое меньше, заголовок держится за список */
-  padding: var(--space-64) var(--content-pad) var(--space-32);
+  /* до заголовка — 48 (hero) + 64, после — 48: заголовок держится за список (до ≥ 2 × после) */
+  padding: var(--space-64) var(--content-pad) var(--space-48);
   scroll-margin-top: var(--space-16);
 }
 .section-head__title { display: flex; align-items: center; gap: var(--space-8); }
 
-/* ---------- Список кейсов: крестики у контейнера (TL, BR) и у каждого кейса (BL) ---------- */
-.cases { position: relative; }
-.cases__item { position: relative; padding-bottom: var(--space-64); }
-.cases__item:last-child { padding-bottom: 0; }
+/* ---------- Список кейсов: карточки через 64, и после последней — 64 до футера ---------- */
+.cases__item { padding-bottom: var(--space-64); }
 
 /* ---------- Карточка кейса ---------- */
+/* Без заливки. Сверху картинка на сцене cover со свечением, без рамки; рамка — у нижней части:
+   строка тега и текст (линии .ln у .case__tagrow и .case__body) */
 .case {
   display: block;
   transition: --dash-color var(--motion-duration) var(--motion-ease);
@@ -170,15 +182,20 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   transform-origin: 50% 100%;
   transition: transform var(--motion-duration) var(--motion-ease);
 }
+.case__img--wide { max-width: var(--cover-wide); }
+.case__img--monitor { max-width: var(--cover-monitor); }
 
 .case__tagrow { display: flex; align-items: stretch; }
+/* Тег — мягкая заливка cell, текст fg; заливка отступает от линий строки на их толщину, справа разделитель */
 .tag {
   display: flex;
   align-items: center;
   flex: none;
+  margin-block: var(--line-width);
+  margin-left: var(--line-width);
   padding: var(--space-12) var(--space-32);
-  background: var(--fg);
-  color: var(--bg);
+  background: var(--dash-v) right / var(--line-width) 100% no-repeat, var(--cell);
+  color: var(--fg);
 }
 .case__meta {
   display: flex;
@@ -194,55 +211,57 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   transition: opacity var(--motion-duration) var(--motion-ease);
 }
 
-.case__body { row-gap: 0; }
-.case__text {
-  grid-column: 1 / -1;
+/* Тело: название и описание слева, результат справа — цифры на линии названия, подпись на линии описания.
+   На mobile всё друг под другом: название → описание → цифры → подпись */
+.case__body { row-gap: 0; padding-block: var(--space-32); }
+.case__title, .case__desc, .case__values, .case__metric { grid-column: 1 / -1; }
+.case__desc { margin-top: var(--space-8); }      /* заголовок → описание */
+.case__values {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-8); /* заголовок → описание */
-  padding-block: var(--space-32);
+  align-items: baseline;
+  gap: var(--space-16);
+  margin-top: var(--space-24);                  /* блок → блок внутри карточки */
 }
-
-/* Блок результата «было | стало» с внутренним пунктиром (исключение стиля).
-   Растянут на всю высоту строки, ячейки — тоже, содержимое по центру. */
-.result {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  margin-inline: calc(var(--content-pad) * -1);
-}
-.result.ln { --ln-t: var(--dash-h) top / 100% var(--line-width) no-repeat; }
-.result__head { padding: var(--space-16); }  /* по левому краю, как значения в ячейках */
-.result__cells { flex: 1; display: grid; grid-template-columns: 1fr 1fr; }
-.result__cell {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: var(--space-8);
-  padding: var(--space-16);
-}
+.case__metric { margin-top: var(--space-8); }   /* цифры → подпись, как в фактоиде */
+.case__to { align-self: center; color: var(--muted); }  /* пиксельная стрелка «было → стало» */
 /* Подчёркивание «стало»: линия 3 px accent-text, зазор space/4 от текста */
 .result__after {
-  align-self: flex-start;
+  display: inline-block;
   padding-bottom: calc(var(--space-4) + var(--result-line));
   background: linear-gradient(var(--accent-text), var(--accent-text)) left bottom / 100% var(--result-line) no-repeat;
 }
 
-.case__stores {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-16);  /* между контурными кнопками — 16, как у кнопок нейросетей */
-  padding-bottom: var(--space-32);
-}
-
-/* Наведение = фокус: пунктир line → fg, стрелка, картинка +3% */
-.case:hover, .case:focus-visible { --dash-color: var(--fg); }
+/* Наведение = фокус: рамка line → muted (fg слишком резкий), стрелка, картинка +2% */
+.case:hover, .case:focus-visible { --dash-color: var(--muted); }
 .case:hover .case__arrow, .case:focus-visible .case__arrow { opacity: 1; }
-.case__img--wide { max-width: var(--cover-wide); }
 .case:hover .case__img, .case:focus-visible .case__img { transform: scale(var(--zoom)); }
 @media (prefers-reduced-motion: reduce) {
   .case:hover .case__img, .case:focus-visible .case__img { transform: none; }
+}
+
+/* ---------- Сетка под курсором (только главная, только с мышью) ----------
+   Клетка 16 цветом cell, крупная 128 цветом line; видна кругом вокруг курсора. Слой — на всю страницу,
+   координаты страницы: при прокрутке подсветка уезжает вместе с ней и возвращается при движении мыши */
+.page-home { position: relative; }
+.page-home::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, var(--line) var(--line-width), transparent 0) 0 0 / var(--grid-major) var(--grid-major),
+    linear-gradient(var(--line) var(--line-width), transparent 0) 0 0 / var(--grid-major) var(--grid-major),
+    linear-gradient(90deg, var(--cell) var(--line-width), transparent 0) 0 0 / var(--grid-cell) var(--grid-cell),
+    linear-gradient(var(--cell) var(--line-width), transparent 0) 0 0 / var(--grid-cell) var(--grid-cell);
+  -webkit-mask-image: radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 50%), #000 0, transparent var(--grid-radius));
+          mask-image: radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 50%), #000 0, transparent var(--grid-radius));
+  opacity: 0;
+  transition: opacity var(--grid-fade) var(--motion-ease);
+}
+.page-home.is-lit::before { opacity: 1; }
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .page-home::before { display: none; }
 }
 
 /* ---------- Футер: 2 × 2 на mobile, 4 ячейки шире ---------- */
@@ -267,18 +286,12 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
 
   .case__cover { padding-top: var(--space-48); }
 
-  .case__text { grid-column: 1 / span 5; }
-  .result {
-    grid-column: 6 / -1;
-    margin-left: 0;
-  }
-  .result.ln { --ln-t: none; --ln-l: var(--dash-v) left / var(--line-width) 100% no-repeat; }
-  .case__stores {
-    grid-column: 6 / -1;
-    justify-content: flex-end;
-    align-self: center;
-    padding-block: var(--space-32);
-  }
+  /* Две строки, две общие линии: название | цифры, описание | подпись */
+  .case__body { row-gap: var(--space-8); align-items: baseline; }
+  .case__title, .case__desc { grid-column: 1 / span 5; }
+  .case__values, .case__metric { grid-column: 6 / -1; justify-self: end; margin-top: 0; }
+  .case__title, .case__values { grid-row: 1; }
+  .case__desc, .case__metric { grid-row: 2; margin-top: 0; }
 
   .footer {
     display: flex;
@@ -288,6 +301,6 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
 
 /* ================= Desktop: 12 колонок ================= */
 @media (min-width: 1024px) {
-  .case__text { grid-column: 1 / span 7; }
-  .result, .case__stores { grid-column: 8 / -1; }
+  .case__title, .case__desc { grid-column: 1 / span 7; }
+  .case__values, .case__metric { grid-column: 8 / -1; }
 }

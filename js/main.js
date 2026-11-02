@@ -276,16 +276,15 @@
     window.addEventListener('resize', function () { if (done) { shown = Infinity; fillScale(bar, paint); } });
   });
 
-  // Прогресс чтения [data-read-progress] (страницы кейсов): штрихи пунктира шапки по одному становятся цветом текста (fg)
-  // по доле прокрутки — ширина кратна шагу пунктира (штрих + пробел). Только на странице длиннее двух экранов
+  // Прогресс чтения [data-read-progress] (страницы кейсов): нижняя линия шапки заполняется цветом текста (fg)
+  // по доле прокрутки. Только на странице длиннее двух экранов
   document.querySelectorAll('[data-read-progress]').forEach(function (bar) {
     function update() {
       var doc = document.documentElement, max = doc.scrollHeight - window.innerHeight;
       bar.hidden = doc.scrollHeight < window.innerHeight * 2;
       if (bar.hidden) return;
       var part = max > 0 ? window.scrollY / max : 0;
-      var step = cssMs('--dash') * 2;
-      bar.style.width = Math.round(part * bar.parentElement.clientWidth / step) * step + 'px';
+      bar.style.width = Math.round(part * bar.parentElement.clientWidth) + 'px';
     }
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
@@ -304,6 +303,28 @@
         window.goatcounter.count({ path: 'read-result' + location.pathname, title: 'Дочитал до «Результата»', event: true });
       }
     }).observe(resultSection);
+  }
+
+  // ---------- Главная: шапка без заливки вверху страницы, сетка под курсором ----------
+  if (document.body.classList.contains('page-home')) {
+    var page = document.body;
+    var onScroll = function () { page.classList.toggle('is-scrolled', window.scrollY > 0); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Подсветка сетки — в координатах страницы: при прокрутке остаётся на месте страницы и уезжает с ней,
+    // к курсору возвращается только при движении мыши (после прокрутки браузер шлёт mousemove без движения — пропускаем)
+    if (window.matchMedia('(hover: hover)').matches) {
+      var lastX = -1, lastY = -1;
+      document.addEventListener('mousemove', function (e) {
+        if (e.clientX === lastX && e.clientY === lastY) return;
+        lastX = e.clientX; lastY = e.clientY;
+        page.style.setProperty('--cursor-x', e.pageX + 'px');
+        page.style.setProperty('--cursor-y', e.pageY + 'px');
+        page.classList.add('is-lit');
+      });
+      document.documentElement.addEventListener('mouseleave', function () { page.classList.remove('is-lit'); });
+    }
   }
 
   // ---------- Появление: [data-reveal] получает .is-visible, когда попадает в экран ----------

@@ -64,10 +64,10 @@ ul, ol { list-style: none; padding: 0; }
 .fg { color: var(--fg); }
 .muted { color: var(--muted); }
 
-/* ---------- Пунктир: штрих 4/4, цвет --dash-color (line, при наведении fg) ---------- */
+/* ---------- Линии: сплошные 1 px, цвет --dash-color (line, при наведении muted) ---------- */
 .ln {
-  --dash-h: repeating-linear-gradient(90deg, var(--dash-color) 0 var(--dash), transparent var(--dash) calc(var(--dash) * 2));
-  --dash-v: repeating-linear-gradient(180deg, var(--dash-color) 0 var(--dash), transparent var(--dash) calc(var(--dash) * 2));
+  --dash-h: linear-gradient(var(--dash-color), var(--dash-color));
+  --dash-v: linear-gradient(var(--dash-color), var(--dash-color));
   /* сброс: вложенный .ln не наследует линии родителя */
   --ln-t: none; --ln-b: none; --ln-l: none; --ln-r: none;
   background: var(--ln-t), var(--ln-b), var(--ln-l), var(--ln-r);

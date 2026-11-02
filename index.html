@@ -16,15 +16,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400&family=Martian+Mono:wdth,wght@87.5..100,300..500&display=swap">
-  <link rel="stylesheet" href="css/tokens.css?v=41">
-  <link rel="stylesheet" href="css/base.css?v=34">
-  <link rel="stylesheet" href="css/home.css?v=49">
+  <link rel="stylesheet" href="css/tokens.css?v=42">
+  <link rel="stylesheet" href="css/base.css?v=35">
+  <link rel="stylesheet" href="css/home.css?v=50">
   <link rel="icon" href="img/avatar.png">
-  <script src="js/main.js?v=45" defer></script>
+  <script src="js/main.js?v=46" defer></script>
   <!-- Аналитика GoatCounter: без cookies, баннер не нужен. Локальный просмотр (localhost) не считается -->
   <script data-goatcounter="https://grisroman.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
-<body>
+<body class="page-home">
 
 <header class="site-header ln ln-b">
   <div class="shell">
@@ -48,9 +48,9 @@
 </header>
 
 <div class="shell">
-  <main class="canvas ln ln-l ln-r">
+  <main class="canvas">
 
-    <section class="hero ln ln-b grid" aria-label="Обо мне" data-reveal>
+    <section class="hero grid" aria-label="Обо мне" data-reveal>
       <div class="hero__plates">
         <h1 class="plate h2">Продуктовый дизайнер в&nbsp;B2B и&nbsp;B2C</h1>
         <p class="plate subtitle-2 muted">7+&nbsp;лет опыта, в&nbsp;особенности в&nbsp;телекоме и&nbsp;внутренних сервисах. Опираюсь на&nbsp;исследования и&nbsp;метрики, а&nbsp;понимание фронтенда и&nbsp;его ограничений помогает проектировать то, что легко реализовать.</p>
@@ -85,109 +85,66 @@
     </div>
 
     <div class="cases">
-      <i class="mark mark--cross at-tl" aria-hidden="true"></i>
-      <i class="mark mark--cross at-br" aria-hidden="true"></i>
       <ul class="cases__list">
 
       <li class="cases__item" data-reveal>
-        <a class="case ln ln-l ln-r" href="cases/predictive-dialer/">
+        <a class="case" href="cases/predictive-dialer/">
           <div class="case__cover">
-            <img class="case__img" src="img/cover-predictive.webp?v=3" alt="Мастер настройки кампании и&nbsp;рабочее место оператора со&nbsp;звонком из&nbsp;кампании в&nbsp;MightyCall" width="1715" height="1148" loading="lazy" decoding="async">
+            <img class="case__img case__img--monitor theme-light" src="img/cover-predictive-light.webp" alt="Рабочее место оператора MightyCall со&nbsp;звонком из&nbsp;кампании на&nbsp;мониторе" width="1800" height="1442" loading="lazy" decoding="async">
+            <img class="case__img case__img--monitor theme-dark" src="img/cover-predictive-dark.webp" alt="Рабочее место оператора MightyCall со&nbsp;звонком из&nbsp;кампании на&nbsp;мониторе" width="1800" height="1442" loading="lazy" decoding="async">
           </div>
-          <div class="case__tagrow ln ln-t ln-b">
+          <div class="case__tagrow ln ln-t ln-b ln-l ln-r">
             <span class="tag label-m">B2B SaaS</span>
             <span class="case__meta label-s muted">MightyCall&nbsp;· 2024&nbsp;· Web, desktop</span>
             <svg class="px-arrow case__arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg>
           </div>
-          <div class="case__body ln ln-b grid">
-            <div class="case__text">
-              <h3 class="h2">Предиктивный набор</h3>
-              <p class="text-l muted">Автоматические звонки по&nbsp;заранее заданному списку номеров</p>
-            </div>
-            <div class="result ln">
-              <p class="result__head label-s muted ln ln-b">Занятость</p>
-              <div class="result__cells">
-                <div class="result__cell">
-                  <p class="label-s muted">Было</p>
-                  <p class="h3 value">40%</p>
-                </div>
-                <div class="result__cell ln ln-l">
-                  <p class="label-s muted">Стало</p>
-                  <p class="h3 value result__after">78%</p>
-                </div>
-              </div>
-            </div>
+          <div class="case__body ln ln-b ln-l ln-r grid">
+            <h3 class="case__title h2">Предиктивный набор</h3>
+            <p class="case__desc text-l muted">Автоматические звонки по&nbsp;заранее заданному списку номеров</p>
+            <p class="case__values"><span class="visually-hidden">Было </span><span class="h3 value">40%</span><svg class="px-arrow case__to" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg><span class="visually-hidden"> стало </span><span class="h3 value result__after">78%</span></p>
+            <p class="case__metric label-s muted">Занятость</p>
           </div>
         </a>
-        <i class="mark mark--cross at-bl" aria-hidden="true"></i>
       </li>
 
       <li class="cases__item" data-reveal>
-        <a class="case ln ln-l ln-r" href="cases/firefighter/">
+        <a class="case" href="cases/firefighter/">
           <div class="case__cover">
             <img class="case__img theme-light" src="img/cover-firefighter.webp" alt="Экраны приложения Огнеборец: таймер работы звена и карта" width="1680" height="1056" loading="lazy" decoding="async">
             <img class="case__img theme-dark" src="img/cover-firefighter-dark.webp" alt="Экраны приложения Огнеборец: таймер работы звена и карта" width="1680" height="1056" loading="lazy" decoding="async">
           </div>
-          <div class="case__tagrow ln ln-t ln-b">
+          <div class="case__tagrow ln ln-t ln-b ln-l ln-r">
             <span class="tag label-m">Благотворительный</span>
             <span class="case__meta label-s muted">МЧС&nbsp;· 2022–2023&nbsp;· Android</span>
             <svg class="px-arrow case__arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg>
           </div>
-          <div class="case__body ln ln-b grid">
-            <div class="case__text">
-              <h3 class="h2">Огнеборец</h3>
-              <p class="text-l muted">Приложение, которое считает показатели времени и&nbsp;давления при&nbsp;тушении пожара</p>
-            </div>
-            <div class="result ln">
-              <p class="result__head label-s muted ln ln-b">Расчёт</p>
-              <div class="result__cells">
-                <div class="result__cell">
-                  <p class="label-s muted">Было</p>
-                  <p class="h3 value">6<span class="value__unit label-m muted">мин</span></p>
-                </div>
-                <div class="result__cell ln ln-l">
-                  <p class="label-s muted">Стало</p>
-                  <p class="h3 value result__after">47<span class="value__unit label-m muted">сек</span></p>
-                </div>
-              </div>
-            </div>
+          <div class="case__body ln ln-b ln-l ln-r grid">
+            <h3 class="case__title h2">Огнеборец</h3>
+            <p class="case__desc text-l muted">Приложение, которое считает показатели времени и&nbsp;давления при&nbsp;тушении пожара</p>
+            <p class="case__values"><span class="visually-hidden">Было </span><span class="h3 value">6<span class="value__unit label-m muted">мин</span></span><svg class="px-arrow case__to" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg><span class="visually-hidden"> стало </span><span class="h3 value result__after">47<span class="value__unit label-m muted">сек</span></span></p>
+            <p class="case__metric label-s muted">Расчёт</p>
           </div>
         </a>
-        <i class="mark mark--cross at-bl" aria-hidden="true"></i>
       </li>
 
       <li class="cases__item" data-reveal>
-        <a class="case ln ln-l ln-r" href="cases/butler/">
+        <a class="case" href="cases/butler/">
           <div class="case__cover">
             <img class="case__img case__img--wide theme-light" src="img/cover-butler.webp?v=6" alt="Админ-панель управляющей компании, домофон и приложение Butler" width="1680" height="788" loading="lazy" decoding="async">
             <img class="case__img case__img--wide theme-dark" src="img/cover-butler-dark.webp?v=6" alt="Админ-панель управляющей компании, домофон и приложение Butler" width="1680" height="788" loading="lazy" decoding="async">
           </div>
-          <div class="case__tagrow ln ln-t ln-b">
+          <div class="case__tagrow ln ln-t ln-b ln-l ln-r">
             <span class="tag label-m">B2B2C</span>
             <span class="case__meta label-s muted">ITFrog&nbsp;· 2019–2022&nbsp;· Домофон, iOS, Android, веб</span>
             <svg class="px-arrow case__arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg>
           </div>
-          <div class="case__body ln ln-b grid">
-            <div class="case__text">
-              <h3 class="h2">Butler</h3>
-              <p class="text-l muted">Облачная экосистема для&nbsp;управления домом в&nbsp;современных жилых комплексах</p>
-            </div>
-            <div class="result ln">
-              <p class="result__head label-s muted ln ln-b">Масштаб</p>
-              <div class="result__cells">
-                <div class="result__cell">
-                  <p class="label-s muted">Квартиры</p>
-                  <p class="h3 value">17&#8239;011</p>
-                </div>
-                <div class="result__cell ln ln-l">
-                  <p class="label-s muted">ЖК</p>
-                  <p class="h3 value">27</p>
-                </div>
-              </div>
-            </div>
+          <div class="case__body ln ln-b ln-l ln-r grid">
+            <h3 class="case__title h2">Butler</h3>
+            <p class="case__desc text-l muted">Облачная экосистема для&nbsp;управления домом в&nbsp;современных жилых комплексах</p>
+            <p class="case__values"><span class="h3 value">17&#8239;011<span class="value__unit label-m muted">квартир</span></span><span class="h3 value">27<span class="value__unit label-m muted">ЖК</span></span></p>
+            <p class="case__metric label-s muted">Масштаб</p>
           </div>
         </a>
-        <i class="mark mark--cross at-bl" aria-hidden="true"></i>
       </li>
       </ul>
     </div>
