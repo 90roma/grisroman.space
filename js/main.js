@@ -3,13 +3,36 @@
   var root = document.documentElement;
   var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
+  // ---------- Строки, которые пишет скрипт: по языку страницы (<html lang>) ----------
+  var STRINGS = {
+    ru: {
+      toLight: 'Включить светлую тему',
+      toDark: 'Включить тёмную тему',
+      copyFail: 'Скопируйте запрос и вставьте его в чат: ',
+      copied: 'Запрос скопирован, вставьте его в чат.',
+      video: 'Видео',
+      close: 'Закрыть',
+      image: 'Картинка'
+    },
+    en: {
+      toLight: 'Switch to light theme',
+      toDark: 'Switch to dark theme',
+      copyFail: 'Copy the prompt and paste it into the chat: ',
+      copied: 'Prompt copied. Paste it into the chat.',
+      video: 'Video',
+      close: 'Close',
+      image: 'Image'
+    }
+  };
+  var str = STRINGS[(root.lang || 'ru').slice(0, 2)] || STRINGS.ru;
+
   // ---------- Тема: системная по умолчанию, выбор пользователя важнее и сохраняется ----------
   function currentTheme() {
     return root.dataset.theme || (darkQuery.matches ? 'dark' : 'light');
   }
 
   function themeHint() {
-    return currentTheme() === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему';
+    return currentTheme() === 'dark' ? str.toLight : str.toDark;
   }
 
   document.querySelectorAll('.theme-toggle').forEach(function (button) {
@@ -79,10 +102,10 @@
     var status = box.querySelector('.ask-ai__status');
     box.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
-        var fail = function () { status.textContent = 'Скопируйте запрос и вставьте его в чат: ' + box.dataset.aiPrompt; };
+        var fail = function () { status.textContent = str.copyFail + box.dataset.aiPrompt; };
         if (!navigator.clipboard) { fail(); return; }
         navigator.clipboard.writeText(box.dataset.aiPrompt).then(function () {
-          status.textContent = 'Запрос скопирован, вставьте его в чат.';
+          status.textContent = str.copied;
         }, fail);
       });
     });
@@ -95,7 +118,7 @@
     button.addEventListener('click', function () {
       var frame = document.createElement('iframe');
       frame.src = 'https://www.youtube-nocookie.com/embed/' + box.dataset.video + '?autoplay=1&rel=0';
-      frame.title = box.dataset.title || 'Видео';
+      frame.title = box.dataset.title || str.video;
       frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
       frame.allowFullscreen = true;
       box.replaceChildren(frame);
@@ -113,7 +136,7 @@
     if (!zoom) {
       zoom = document.createElement('dialog');
       zoom.className = 'zoom';
-      zoom.innerHTML = '<div class="zoom__scroll"></div><button class="zoom__close btn label-m" type="button">Закрыть</button>';
+      zoom.innerHTML = '<div class="zoom__scroll"></div><button class="zoom__close btn label-m" type="button">' + str.close + '</button>';
       document.body.appendChild(zoom);
       zoom.querySelector('.zoom__close').addEventListener('click', function () { zoom.close(); });
       zoom.querySelector('.zoom__scroll').addEventListener('click', function (e) {
@@ -162,7 +185,7 @@
         box.scrollTop = (box.scrollHeight - box.clientHeight) / 2;
       }, { once: true });
     }
-    zoom.setAttribute('aria-label', trigger.getAttribute('aria-label') || 'Картинка');
+    zoom.setAttribute('aria-label', trigger.getAttribute('aria-label') || str.image);
     zoom.trigger = trigger;
     root.classList.add('is-zoomed');
     zoom.showModal();
