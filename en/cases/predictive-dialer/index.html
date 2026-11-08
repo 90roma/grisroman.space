@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Predictive dialer — case study by Roman Grishin</title>
+  <meta name="description" content="How the predictive dialing mode in MightyCall raised agent occupancy from 40% to 78%.">
+  <link rel="alternate" hreflang="ru" href="https://grisroman.space/cases/predictive-dialer/">
+  <link rel="alternate" hreflang="en" href="https://grisroman.space/en/cases/predictive-dialer/">
+  <script>
+    (function () {
+      var root = document.documentElement;
+      try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') root.dataset.theme = t; } catch (e) {}
+      root.classList.add('js');
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400&family=Martian+Mono:wdth,wght@87.5..100,300..500&display=swap">
+  <link rel="stylesheet" href="../../../css/tokens.css?v=43">
+  <link rel="stylesheet" href="../../../css/base.css?v=37">
+  <link rel="stylesheet" href="../../../css/home.css?v=52">
+  <link rel="stylesheet" href="../../../css/case.css?v=59">
+  <link rel="icon" href="../../../img/avatar.png">
+  <script src="../../../js/main.js?v=51" defer></script>
+  <!-- Аналитика GoatCounter: без cookies, баннер не нужен. Локальный просмотр (localhost) не считается -->
+  <script data-goatcounter="https://grisroman.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<header class="site-header ln ln-b">
+  <div class="shell">
+    <div class="canvas header">
+      <a class="header__me" href="../../" aria-label="Roman Grishin, home">
+        <img class="header__avatar" src="../../../img/avatar.png" alt="" width="48" height="48">
+        <span class="header__name text-l">Roman Grishin</span>
+      </a>
+      <nav class="header__nav" aria-label="Main navigation">
+        <a class="nav-link label-s" href="../../#cases">Work</a>
+        <!-- RU скрыт до готовности английской версии: <a class="nav-link label-s" href="../../../cases/predictive-dialer/" lang="ru" hreflang="ru">RU</a> -->
+        <button class="nav-link label-s theme-toggle" type="button" aria-label="Toggle theme">
+          <!-- Иконки Radix Icons (MIT): солнце в светлой теме, луна в тёмной -->
+          <svg class="theme-icon theme-light" viewBox="0 0 15 15" aria-hidden="true"><path d="M7.5 0C7.77614 0 8 0.223858 8 0.5V2.5C8 2.77614 7.77614 3 7.5 3C7.22386 3 7 2.77614 7 2.5V0.5C7 0.223858 7.22386 0 7.5 0ZM2.1967 2.1967C2.39196 2.00144 2.70854 2.00144 2.90381 2.1967L4.31802 3.61091C4.51328 3.80617 4.51328 4.12276 4.31802 4.31802C4.12276 4.51328 3.80617 4.51328 3.61091 4.31802L2.1967 2.90381C2.00144 2.70854 2.00144 2.39196 2.1967 2.1967ZM0.5 7C0.223858 7 0 7.22386 0 7.5C0 7.77614 0.223858 8 0.5 8H2.5C2.77614 8 3 7.77614 3 7.5C3 7.22386 2.77614 7 2.5 7H0.5ZM2.1967 12.8033C2.00144 12.608 2.00144 12.2915 2.1967 12.0962L3.61091 10.682C3.80617 10.4867 4.12276 10.4867 4.31802 10.682C4.51328 10.8772 4.51328 11.1938 4.31802 11.3891L2.90381 12.8033C2.70854 12.9986 2.39196 12.9986 2.1967 12.8033ZM12.5 7C12.2239 7 12 7.22386 12 7.5C12 7.77614 12.2239 8 12.5 8H14.5C14.7761 8 15 7.77614 15 7.5C15 7.22386 14.7761 7 14.5 7H12.5ZM10.682 4.31802C10.4867 4.12276 10.4867 3.80617 10.682 3.61091L12.0962 2.1967C12.2915 2.00144 12.608 2.00144 12.8033 2.1967C12.9986 2.39196 12.9986 2.70854 12.8033 2.90381L11.3891 4.31802C11.1938 4.51328 10.8772 4.51328 10.682 4.31802ZM8 12.5C8 12.2239 7.77614 12 7.5 12C7.22386 12 7 12.2239 7 12.5V14.5C7 14.7761 7.22386 15 7.5 15C7.77614 15 8 14.7761 8 14.5V12.5ZM10.682 10.682C10.8772 10.4867 11.1938 10.4867 11.3891 10.682L12.8033 12.0962C12.9986 12.2915 12.9986 12.608 12.8033 12.8033C12.608 12.9986 12.2915 12.9986 12.0962 12.8033L10.682 11.3891C10.4867 11.1938 10.4867 10.8772 10.682 10.682ZM5.5 7.5C5.5 6.39543 6.39543 5.5 7.5 5.5C8.60457 5.5 9.5 6.39543 9.5 7.5C9.5 8.60457 8.60457 9.5 7.5 9.5C6.39543 9.5 5.5 8.60457 5.5 7.5ZM7.5 4.5C5.84315 4.5 4.5 5.84315 4.5 7.5C4.5 9.15685 5.84315 10.5 7.5 10.5C9.15685 10.5 10.5 9.15685 10.5 7.5C10.5 5.84315 9.15685 4.5 7.5 4.5Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+          <svg class="theme-icon theme-dark" viewBox="0 0 15 15" aria-hidden="true"><path d="M2.89998 0.499976C2.89998 0.279062 2.72089 0.0999756 2.49998 0.0999756C2.27906 0.0999756 2.09998 0.279062 2.09998 0.499976V1.09998H1.49998C1.27906 1.09998 1.09998 1.27906 1.09998 1.49998C1.09998 1.72089 1.27906 1.89998 1.49998 1.89998H2.09998V2.49998C2.09998 2.72089 2.27906 2.89998 2.49998 2.89998C2.72089 2.89998 2.89998 2.72089 2.89998 2.49998V1.89998H3.49998C3.72089 1.89998 3.89998 1.72089 3.89998 1.49998C3.89998 1.27906 3.72089 1.09998 3.49998 1.09998H2.89998V0.499976ZM5.89998 3.49998C5.89998 3.27906 5.72089 3.09998 5.49998 3.09998C5.27906 3.09998 5.09998 3.27906 5.09998 3.49998V4.09998H4.49998C4.27906 4.09998 4.09998 4.27906 4.09998 4.49998C4.09998 4.72089 4.27906 4.89998 4.49998 4.89998H5.09998V5.49998C5.09998 5.72089 5.27906 5.89998 5.49998 5.89998C5.72089 5.89998 5.89998 5.72089 5.89998 5.49998V4.89998H6.49998C6.72089 4.89998 6.89998 4.72089 6.89998 4.49998C6.89998 4.27906 6.72089 4.09998 6.49998 4.09998H5.89998V3.49998ZM1.89998 6.49998C1.89998 6.27906 1.72089 6.09998 1.49998 6.09998C1.27906 6.09998 1.09998 6.27906 1.09998 6.49998V7.09998H0.499976C0.279062 7.09998 0.0999756 7.27906 0.0999756 7.49998C0.0999756 7.72089 0.279062 7.89998 0.499976 7.89998H1.09998V8.49998C1.09998 8.72089 1.27906 8.89997 1.49998 8.89997C1.72089 8.89997 1.89998 8.72089 1.89998 8.49998V7.89998H2.49998C2.72089 7.89998 2.89998 7.72089 2.89998 7.49998C2.89998 7.27906 2.72089 7.09998 2.49998 7.09998H1.89998V6.49998ZM8.54406 0.98184L8.24618 0.941586C8.03275 0.917676 7.90692 1.1655 8.02936 1.34194C8.17013 1.54479 8.29981 1.75592 8.41754 1.97445C8.91878 2.90485 9.20322 3.96932 9.20322 5.10022C9.20322 8.37201 6.82247 11.0878 3.69887 11.6097C3.45736 11.65 3.20988 11.6772 2.96008 11.6906C2.74563 11.702 2.62729 11.9535 2.77721 12.1072C2.84551 12.1773 2.91535 12.2458 2.98667 12.3128L3.05883 12.3795L3.31883 12.6045L3.50684 12.7532L3.62796 12.8433L3.81491 12.9742L3.99079 13.089C4.11175 13.1651 4.23536 13.2375 4.36157 13.3059L4.62496 13.4412L4.88553 13.5607L5.18837 13.6828L5.43169 13.7686C5.56564 13.8128 5.70149 13.8529 5.83857 13.8885C5.94262 13.9155 6.04767 13.9401 6.15405 13.9622C6.27993 13.9883 6.40713 14.0109 6.53544 14.0298L6.85241 14.0685L7.11934 14.0892C7.24637 14.0965 7.37436 14.1002 7.50322 14.1002C11.1483 14.1002 14.1032 11.1453 14.1032 7.50023C14.1032 7.25044 14.0893 7.00389 14.0623 6.76131L14.0255 6.48407C13.991 6.26083 13.9453 6.04129 13.8891 5.82642C13.8213 5.56709 13.7382 5.31398 13.6409 5.06881L13.5279 4.80132L13.4507 4.63542L13.3766 4.48666C13.2178 4.17773 13.0353 3.88295 12.8312 3.60423L12.6782 3.40352L12.4793 3.16432L12.3157 2.98361L12.1961 2.85951L12.0355 2.70246L11.8134 2.50184L11.4925 2.24191L11.2483 2.06498L10.9562 1.87446L10.6346 1.68894L10.3073 1.52378L10.1938 1.47176L9.95488 1.3706L9.67791 1.2669L9.42566 1.1846L9.10075 1.09489L8.83599 1.03486L8.54406 0.98184ZM10.4032 5.30023C10.4032 4.27588 10.2002 3.29829 9.83244 2.40604C11.7623 3.28995 13.1032 5.23862 13.1032 7.50023C13.1032 10.593 10.596 13.1002 7.50322 13.1002C6.63646 13.1002 5.81597 12.9036 5.08355 12.5522C6.5419 12.0941 7.81081 11.2082 8.74322 10.0416C8.87963 10.2284 9.10028 10.3497 9.34928 10.3497C9.76349 10.3497 10.0993 10.0139 10.0993 9.59971C10.0993 9.24256 9.84965 8.94373 9.51535 8.86816C9.57741 8.75165 9.63653 8.63334 9.6926 8.51332C9.88358 8.63163 10.1088 8.69993 10.35 8.69993C11.0403 8.69993 11.6 8.14028 11.6 7.44993C11.6 6.75976 11.0406 6.20024 10.3505 6.19993C10.3853 5.90487 10.4032 5.60464 10.4032 5.30023Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+        </button>
+        <a class="btn label-m" data-goatcounter-click="write-header" href="https://t.me/grisroman" target="_blank" rel="noopener">Message me<span class="visually-hidden"> on Telegram (opens in a new tab)</span></a>
+      </nav>
+    </div>
+  </div>
+<div class="read-progress" data-read-progress aria-hidden="true" hidden></div>
+</header>
+
+<!-- Оглавление кейса: вне холста, закреплено слева на широком экране, видно в зоне разделов -->
+<nav class="toc" aria-label="Case sections">
+  <ol class="toc__list">
+    <li><a class="toc__link label-s" href="#context">Context and problem</a></li>
+    <li><a class="toc__link label-s" href="#research">Research</a></li>
+    <li><a class="toc__link label-s" href="#solution">Idea</a></li>
+    <li><a class="toc__link label-s" href="#my-work">What I designed</a></li>
+    <li><a class="toc__link label-s" href="#result">Result</a></li>
+  </ol>
+</nav>
+
+<div class="shell">
+  <main class="canvas longread">
+
+    <div class="case-top grid-pad">
+      <a class="back-link label-s" href="../../#cases">
+        <svg class="px-arrow px-arrow--back" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg>
+        All cases
+      </a>
+    </div>
+
+    <!-- Hero: заголовок → обложка → результаты → о проекте -->
+    <section class="case-hero grid" data-reveal>
+      <div class="case-hero__text">
+        <h1 class="h1">Predictive dialer</h1>
+        <p class="subtitle-1 muted">How we cut agent idle time and nearly doubled talk time, from 24 to 47&nbsp;minutes an&nbsp;hour</p>
+      </div>
+    </section>
+
+    <div class="case-cover">
+      <div class="video" data-video="yGk4wkB7bvM" data-title="Predictive dialer: the agent workspace">
+        <img class="video__poster" src="../../../cases/predictive-dialer/img/video-poster.webp" alt="" width="1280" height="720">
+        <button class="video__play btn label-m" type="button">
+          <svg class="px-play" viewBox="0 0 5 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 0h1v7H0zM1 1h1v5H1zM2 2h1v3H2zM3 3h1v1H3z" fill="currentColor"/></svg>
+          Watch<span class="visually-hidden"> the video: predictive dialing from the agent’s side, YouTube</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Результаты — сразу под обложкой, в пунктирной рамке -->
+    <section class="case-results grid" aria-label="Results" data-reveal>
+      <div class="result-box ln ln-t ln-b ln-l ln-r">
+        <i class="mark mark--cross at-tl" aria-hidden="true"></i>
+        <i class="mark mark--dot at-tr" aria-hidden="true"></i>
+        <i class="mark mark--dot at-bl" aria-hidden="true"></i>
+        <i class="mark mark--cross at-br" aria-hidden="true"></i>
+        <div class="factoid">
+          <p class="label-m muted">Talk time per hour</p>
+          <p class="h2 value">47<span class="value__unit label-m muted">min</span></p>
+          <p class="text-s muted">up from 24&nbsp;min. That’s 78% of working time, within the 70&#8288;–&#8288;90%&nbsp;norm</p>
+        </div>
+        <div class="factoid">
+          <p class="label-m muted">Wait for next call</p>
+          <p class="h2 value">≤40<span class="value__unit label-m muted">sec</span></p>
+          <p class="text-s muted">how long an agent waits for the next&nbsp;conversation</p>
+        </div>
+        <div class="factoid">
+          <p class="label-m muted">Abandoned calls</p>
+          <p class="h2 value">1–3%</p>
+          <p class="text-s muted">of connected calls, with a recommended limit of&nbsp;3%</p>
+        </div>
+        <div class="factoid">
+          <p class="label-m muted">Hold time</p>
+          <p class="h2 value">≤3<span class="value__unit label-m muted">sec</span></p>
+          <p class="text-s muted">from the contact answering to being connected to an&nbsp;agent</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-meta grid" aria-label="About the project" data-reveal>
+      <dl class="project">
+        <div class="meta-pair"><dt class="label-s muted">Company</dt><dd class="text-l">MightyCall</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Type</dt><dd class="text-l">B2B SaaS</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Year</dt><dd class="text-l">2024</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Team</dt><dd class="text-l">Product manager, designer, developers, and QA&nbsp;engineers</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Platform</dt><dd class="text-l">Web and desktop</dd></div>
+        <div class="meta-pair meta-pair--wide">
+          <dt class="label-s muted">What I did</dt>
+          <dd class="text-l">Analyzed the statistics and the research team’s report, and reviewed competitors. Designed the campaign setup and the agent workspace. <a class="link" href="#my-work">How I&nbsp;did it</a></dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- 1. Контекст и проблема -->
+    <section class="section grid" id="context" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Context and problem</p></div>
+      <div class="section__body">
+        <h2 class="h3">Calling one contact at a time couldn’t keep up as&nbsp;customers grew</h2>
+        <p class="text-l">MightyCall is a cloud phone system for businesses. Outbound campaigns let them call through long lists of contacts for sales, reminders, or surveys.</p>
+        <p class="text-l">Campaigns had two modes. In preview mode, a call with the contact’s details pops up in the agent’s webphone. The system dials only after the agent accepts it. In progressive mode, the system dials the next number as soon as the agent is free.</p>
+        <p class="text-l">Both modes call one contact at a time. People pick up 20&#8288;–&#8288;25% of calls on average, and the agent waits while the system tries to reach someone. Small teams could live with that. But as contact lists and teams grew, users started asking how to make campaigns faster.</p>
+        <p class="text-l"><strong>Volume.</strong> Teams couldn’t get through their calls in time, and campaigns cost more.</p>
+        <p class="text-l"><strong>Pauses between calls.</strong> In preview mode, agents accepted every call by hand. In progressive mode, they still sat waiting for someone to answer.</p>
+        <p class="text-l"><strong>Goal.</strong> Remove manual work and waiting between calls so agents spend more time talking.</p>
+      </div>
+    </section>
+
+    <!-- 2. Исследование -->
+    <section class="section grid" id="research" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Research</p></div>
+      <div class="section__body">
+        <h2 class="h3">Agents spent less than half their working time talking</h2>
+        <p class="text-l list-intro">I joined at the research stage, when the customer interviews were already done. I looked at the problem from three angles.</p>
+        <ol class="list list--num">
+          <li class="text-l"><span><strong>Statistics.</strong> Average agent occupancy was about 40%, or roughly 24&nbsp;minutes of talking per hour. The rest went to switching between calls and waiting for contacts to pick up.</span></li>
+          <li class="text-l"><span><strong>The research team’s report.</strong> The company’s researchers interviewed customers with 20 or more agents. They complained most about idle time, mistakes in manual dialing, overload at peak hours, and a dialing pace that was hard to control.</span></li>
+          <li class="text-l"><span><strong>Competitors.</strong> Most competitors dial at a fixed pace, no matter how busy the agents are. Below 70% occupancy, agents sit idle, and above 90%, they get overloaded and burn out (<a class="link" href="https://techsee.com/blog/call-center-occupancy/" target="_blank" rel="noopener">research on agent occupancy</a>).</span></li>
+        </ol>
+      </div>
+      <div class="section__wide">
+        <ul class="cards">
+          <li class="card">
+            <h3 class="h5">Call flow should adapt to&nbsp;agents</h3>
+            <p class="text-l muted">Agents either sit idle or can’t keep up with the queue.</p>
+          </li>
+          <li class="card">
+            <h3 class="h5">Pace should be&nbsp;configurable</h3>
+            <p class="text-l muted">Customers want to set dialing speed, timeouts, and post-call pauses for each campaign.</p>
+          </li>
+          <li class="card">
+            <h3 class="h5">Customers need analytics</h3>
+            <p class="text-l muted">They want to see how many calls went out and spot problems, so they can fix the campaign quickly.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3. Идея -->
+    <section class="section grid" id="solution" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Idea</p></div>
+      <div class="section__body">
+        <h2 class="h3">The system dials ahead while the agent is still on&nbsp;a&nbsp;call</h2>
+        <div class="callout">
+          <p class="label-m muted">Hypothesis</p>
+          <p class="subtitle-2">If the system tracks the team’s workload and adjusts the call flow, agents will stop sitting idle between&nbsp;calls</p>
+        </div>
+        <p class="text-l">This led to a third mode, predictive, built for large call centers with many agents and heavy calling. Preview and progressive wait for a free agent and then call one contact. Predictive dials ahead, several contacts per agent at once, and connects agents only to the people who answer. How many calls it places depends on how often people on the list pick up, what kind of numbers they are, and the time of day.</p>
+      </div>
+      <!-- Зацикленное видео без интерфейса: схема-пример дозвона в предиктивном режиме -->
+      <figure class="section__wide figure">
+        <div class="figure__stage">
+          <video class="figure__video theme-light" src="../../../cases/predictive-dialer/video/dialer-pattern.mp4" width="1440" height="756" autoplay muted loop playsinline disablepictureinpicture disableremoteplayback preload="auto" aria-label="Animation: the system calls several contacts and connects the one who answers to a free agent"></video>
+          <video class="figure__video theme-dark" src="../../../cases/predictive-dialer/video/dialer-pattern-dark.mp4" width="1440" height="758" autoplay muted loop playsinline disablepictureinpicture disableremoteplayback preload="auto" aria-label="Animation: the system calls several contacts and connects the one who answers to a free agent"></video>
+        </div>
+        <figcaption class="text-s">Example of predictive dialing</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l">To keep up the pace without overloading agents, the algorithm watches average talk time, idle and wrap-up time, how busy agents are, the list’s contact rate, and the abandon rate.</p>
+        <p class="text-l">A campaign starts slow. At first it works like progressive mode, one contact per agent, and collects statistics. Then it speeds up. If the abandon rate goes over the limit, it slows down again. Small teams are better off with progressive mode, since the forecast needs enough agents to be accurate.</p>
+      </div>
+      <figure class="section__wide figure figure--diagram">
+        <button class="figure__stage figure__zoom" type="button" data-zoom aria-label="Open the diagram full screen">
+          <img class="theme-light" src="../../../cases/predictive-dialer/img/scheme.svg" alt="Diagram: the system dials a record, logs the “contact no response” and “line busy” events, puts the record off for a retry, and connects the contact who answered to a free agent" width="2904" height="2021" loading="lazy" decoding="async">
+          <img class="theme-dark" src="../../../cases/predictive-dialer/img/scheme-dark.svg" alt="Diagram: the system dials a record, logs the “contact no response” and “line busy” events, puts the record off for a retry, and connects the contact who answered to a free agent" width="2904" height="2021" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">How predictive dialing works, from dialing a record to connecting an agent and&nbsp;retrying</figcaption>
+      </figure>
+    </section>
+
+    <!-- 4. Что спроектировал -->
+    <section class="section grid" id="my-work" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">What I designed</p></div>
+      <div class="section__body">
+        <h2 class="h3">Teams pick a mode by their&nbsp;size</h2>
+        <p class="text-l">I started with campaign setup in the wizard. Then I moved on to the agent workspace, where agents take calls, see contact details, and log the outcome.</p>
+        <p class="text-l"><strong>Hints for choosing a mode.</strong> The three dialing modes are easy to mix up. Predictive mode also does poorly in a small team, where it ends up calling one contact per agent. In the wizard, each mode is a card with a short hint on who it’s for. Preview is for small teams, progressive for small and mid-size ones, and predictive for large ones. Nobody has to understand the algorithm to choose. If a predictive campaign gets fewer than 5&nbsp;agents on the next step, the wizard suggests adding more.</p>
+        <p class="text-l">Once a mode is picked, its settings fill in automatically. Users can still change the dialing pace, pauses between calls, and the allowed abandon rate by hand.</p>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the image full screen">
+          <img class="theme-light" src="../../../cases/predictive-dialer/img/wizard.webp" alt="The Dialer settings step of the campaign wizard with predictive mode selected, and timing, dialing attempts, and disposition settings below" width="1923" height="1070" loading="lazy" decoding="async">
+          <img class="theme-dark" src="../../../cases/predictive-dialer/img/wizard-dark.webp" alt="The Dialer settings step of the campaign wizard with predictive mode selected, and timing, dialing attempts, and disposition settings below" width="1922" height="1069" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Setting up predictive mode in the outbound campaign wizard</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l"><strong>Contact details at the moment of the call.</strong> In predictive mode, the agent doesn’t choose whom to call and gets no time to prepare. The contact is already on the line and waits 3&nbsp;seconds at most. That’s why the call arrives in the webphone together with the campaign name and description and the contact’s name and details. In a couple of seconds, the agent knows who’s on the line and why, without digging through other tabs.</p>
+        <p class="text-l"><strong>Call outcome during wrap-up.</strong> The next call is ready almost as soon as a conversation ends, but the agent still has to log the outcome. The webphone opens the outcome list right after the call, with a wrap-up timer running. This keeps the pause short and predictable, and the algorithm factors it in when it sets the pace.</p>
+      </div>
+      <div class="section__wide gallery" data-gallery>
+        <div class="gallery__track" tabindex="0" role="region" aria-label="Agent screens, 3 images">
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the image full screen">
+              <img class="theme-light" src="../../../cases/predictive-dialer/img/ringing.webp?v=3" alt="Agent workspace with an incoming campaign call, the campaign name, contact details, and the answer button on the right" width="1926" height="1071" loading="lazy" decoding="async">
+              <img class="theme-dark" src="../../../cases/predictive-dialer/img/ringing-dark.webp?v=3" alt="Agent workspace with an incoming campaign call, the campaign name, contact details, and the answer button on the right" width="1926" height="1071" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">A campaign call arrives when the contact is already on the line. On the right are the campaign name and contact details</figcaption>
+          </figure>
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the image full screen">
+              <img class="theme-light" src="../../../cases/predictive-dialer/img/on-call.webp?v=4" alt="Agent workspace during a call with a campaign contact, contact details and the call outcome tab on the right" width="1926" height="1071" loading="lazy" decoding="async">
+              <img class="theme-dark" src="../../../cases/predictive-dialer/img/on-call-dark.webp?v=4" alt="Agent workspace during a call with a campaign contact, contact details and the call outcome tab on the right" width="1926" height="1071" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">During the call, the contact details stay on screen, next to the call outcome tab</figcaption>
+          </figure>
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the image full screen">
+              <img class="theme-light" src="../../../cases/predictive-dialer/img/wrap-up.webp?v=3" alt="Agent workspace after the call, with call outcome selection and the wrap-up timer" width="1926" height="1071" loading="lazy" decoding="async">
+              <img class="theme-dark" src="../../../cases/predictive-dialer/img/wrap-up-dark.webp?v=3" alt="Agent workspace after the call, with call outcome selection and the wrap-up timer" width="1926" height="1071" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">After the call, the agent picks an outcome while the wrap-up timer&nbsp;runs</figcaption>
+          </figure>
+        </div>
+        <div class="gallery__nav" hidden>
+          <p class="gallery__count label-s" aria-live="polite"><span data-gallery-current>01</span> / <span data-gallery-total>03</span></p>
+          <button class="gallery__btn btn-outline" type="button" data-gallery-prev aria-label="Previous screen"><svg class="px-arrow px-arrow--back" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
+          <button class="gallery__btn btn-outline" type="button" data-gallery-next aria-label="Next screen"><svg class="px-arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
+        </div>
+      </div>
+      <div class="section__body">
+        <p class="text-l"><strong>Analytics.</strong> It didn’t need its own screen. Campaign calls show up in the existing Reports section, and the Campaigns report includes the abandon rate.</p>
+      </div>
+    </section>
+
+    <!-- 5. Результат -->
+    <section class="section grid" id="result" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Result</p></div>
+      <div class="section__body">
+        <h2 class="h3">Agents’ talk time nearly&nbsp;doubled</h2>
+        <p class="text-l">We first ran the mode as a test on live campaigns. We checked whether agents were comfortable with the new pace, whether the settings made sense, and how many calls were abandoned.</p>
+        <div class="numbers result-box ln ln-t ln-b ln-l ln-r" role="group" aria-label="Agent occupancy">
+          <i class="mark mark--cross at-tl" aria-hidden="true"></i>
+          <i class="mark mark--dot at-tr" aria-hidden="true"></i>
+          <i class="mark mark--dot at-bl" aria-hidden="true"></i>
+          <i class="mark mark--cross at-br" aria-hidden="true"></i>
+          <div class="factoid">
+            <p class="label-m muted legend legend--before">Before</p>
+            <p class="h2 value">24<span class="value__unit label-m muted">min</span></p>
+            <p class="text-s muted">talk time per hour, 40% occupancy</p>
+          </div>
+          <div class="factoid">
+            <p class="label-m muted legend legend--after">After</p>
+            <p class="h2 value">47<span class="value__unit label-m muted">min</span></p>
+            <p class="text-s muted">talk time per hour, 78% occupancy, within the 70&#8288;–&#8288;90%&nbsp;norm</p>
+          </div>
+          <div class="scale-row">
+            <div class="scale" data-scale data-before="24" data-after="47" data-max="60"></div>
+            <div class="scale-ends"><span class="label-s muted">0</span><span class="label-s muted">60&nbsp;min</span></div>
+          </div>
+        </div>
+        <p class="text-l">Agents now spend most of their working time talking instead of clicking between calls. In bulk dialing, the next call reaches an agent within 40&nbsp;seconds, and the abandon rate stays at a normal 1&#8288;–&#8288;3%.</p>
+        <p class="text-l">After launch, the number of outbound campaigns grew. MightyCall can now offer outbound campaigns to large teams, just like competing services do. We’re still tracking how the mode performs and collecting customer feedback.</p>
+      </div>
+    </section>
+
+    <!-- Следующий кейс -->
+    <nav class="next grid" aria-label="Next case">
+      <a class="next-case" href="../../../cases/firefighter/" hreflang="ru">
+        <span class="next-case__text">
+          <span class="label-m muted">Next case</span>
+          <span class="h4">Firefighter</span>
+        </span>
+        <svg class="px-arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg>
+      </a>
+    </nav>
+
+  </main>
+</div>
+
+<footer class="site-footer ln ln-t">
+  <div class="shell">
+    <div class="canvas footer">
+      <p class="footer__cell label-s muted">©&nbsp;2026</p>
+      <a class="footer__cell footer__link label-s" data-goatcounter-click="write-footer-telegram" href="https://t.me/grisroman" target="_blank" rel="noopener">Telegram</a>
+      <a class="footer__cell footer__link label-s" data-goatcounter-click="footer-linkedin" href="https://www.linkedin.com/in/roman-grishin/" target="_blank" rel="noopener">LinkedIn</a>
+      <p class="footer__cell label-s muted">grisroman.space</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
