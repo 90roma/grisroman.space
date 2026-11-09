@@ -1,0 +1,10 @@
+# Roman Grishin
+
+> Product designer for B2B and B2C, 7+ years of experience, now at MightyCall. A portfolio with case studies and results.
+
+- [Full portfolio text](https://grisroman.space/en/llms-full.txt): experience, all case studies with results, contacts
+- [Home](https://grisroman.space/en/)
+- [Predictive dialer case study](https://grisroman.space/en/cases/predictive-dialer/): agent occupancy up from 40% to 78%
+- [Firefighter case study](https://grisroman.space/en/cases/firefighter/): crew turnaround time calculated in 47 seconds instead of 6 minutes
+- [Butler case study](https://grisroman.space/en/cases/butler/): a home management platform with an intercom, an app, and an admin panel in 17,011 apartments across 27 complexes
+- [Русская версия](https://grisroman.space/llms.txt)

@@ -1,0 +1,76 @@
+# Roman Grishin, product designer
+
+Full text version of the grisroman.space portfolio, for AI assistants and people. The website is the source of truth, and this file repeats its content.
+
+## In brief
+
+- Experience in product design: 7+ years, mostly in telecom and internal tools.
+- Role: product designer for B2B and B2C.
+- Now: MightyCall, working on a cloud contact center app.
+- Contact: Telegram https://t.me/grisroman, LinkedIn https://www.linkedin.com/in/roman-grishin/
+
+## About
+
+Product designer for B2B and B2C. 7+ years of experience, mostly in telecom and internal tools. I rely on research and metrics, and my frontend background helps me design things that are easy to build.
+
+## Experience
+
+- August 2022 to present. Product Designer at MightyCall. VoIP SaaS, cloud contact center.
+- October 2019 to July 2022. Product Designer at ITFrog. IP intercom, cloud white-label platform.
+
+## Case studies
+
+### Predictive dialer (MightyCall, 2024, B2B SaaS, web and desktop)
+
+Page: https://grisroman.space/en/cases/predictive-dialer/
+
+An automated outbound calling mode. The system dials several contacts per agent at once and connects agents only to the people who answer. The pace adapts to how busy the agents are. The mode is built for large call centers with many agents and heavy calling.
+
+Result:
+- agent talk time grew from 24 to 47 minutes an hour, occupancy from 40% to 78%, within the 70–90% norm;
+- the next call reaches an agent within 40 seconds;
+- the abandon rate is 1–3% of connected calls, within the norm;
+- a contact waits no longer than 3 seconds to be connected to an agent;
+- after launch, the number of outbound campaigns grew.
+
+What Roman did: joined at the research stage, when the company's researchers had already interviewed customers; analyzed the statistics and the research team's report, reviewed competitors, designed the campaign setup and the agent workspace.
+
+How it went: the statistics showed that agents spent less than half their working time talking, and the rest went to switching between calls and waiting for contacts to pick up. Interviews with customers with 20 or more agents revealed idle time, overload at peak hours, and a dialing pace that was hard to control. The solution was the predictive mode. In the campaign wizard, teams pick a mode by their size, and the settings fill in automatically.
+
+### Firefighter (pro bono project for EMERCOM, 2022–2023, Android)
+
+Page: https://grisroman.space/en/cases/firefighter/
+
+A mobile app for firefighters that tracks cylinder pressure and the time to head back to safety. Idea by shift commander Yuri Konovalov, design by Roman Grishin, development by Dmitry Zhgun.
+
+Result:
+- calculation time dropped from 6 minutes by hand to 47 seconds in the app (on average in drills);
+- there are fewer mistakes, since the app does the counting, not the entry control officer with a calculator;
+- the firefighting report comes out already filled in, in the standard form.
+
+What Roman did: interviewed entry control officers, designed the app's logic and interface, and gathered feedback after drills.
+
+How it went: the entry control officer is responsible for the crew's safety, watches cylinder pressure, and works out the turnaround time. Before, they did all the math by hand on a cardboard board and reworked the numbers with formulas when conditions changed. Interviews with three officers with 8, 11, and 12 years on the job showed that recalculating on the fly takes time and leads to mistakes, there is no shared way of keeping records, and the board is familiar, always at hand, and doesn't depend on charging or internet. The app works offline too. Firefighters tested an interim version themselves during training exercises. Based on their feedback, we added saved shifts, fixed the formulas, made the total time timer bigger, and added report export. When time runs out, the app sounds an alarm and the interface changes color.
+
+What's next: quarterly reports in digital form, a record of the breathing apparatus each unit has in service, and a map of fire hydrants.
+
+### Butler (ITFrog, 2019–2022, B2B2C, intercom, iOS, Android, and web)
+
+Page: https://grisroman.space/en/cases/butler/
+
+A cloud platform for managing a home in new residential complexes. It combines an intercom with a screen in every apartment, a resident mobile app, a property manager admin panel, and info screens in the entrances. A developer buys Butler for its complex and hands it to residents along with the apartment. It is a white-label product: the app and the intercom carry the developer's brand.
+
+Scale:
+- 17,011 apartments with Butler intercoms in 27 complexes;
+- about 25,000 active users a month across all complexes;
+- eight developers installed Butler in their complexes and came back with new ones.
+
+What Roman did: joined ITFrog in 2019 and designed all of the system's interfaces from the first version: the intercom, the admin panel, and the app. Talked with residents and property managers, prepared surveys, tested features on test benches and in complexes. The team was a product manager, developers, and a designer.
+
+The task: complexes install systems from different manufacturers, such as access control, video surveillance, metering, and the smart home, and each has its own app. Butler connects them, so that a resident can use all of the complex's amenities from the intercom in the apartment or from one app on the phone. Every complex has its own set of features, while the interface structure is the same on all devices.
+
+What was designed: on the intercom, residents answer calls from the entry panel, open the door, read messages from the property manager, and check the meters. The app mirrors the intercom away from home, opens the door with a Bluetooth key, sends guests temporary codes with a validity period, and shows meters and sensor alerts. In the admin panel, dispatchers and concierges take residents' requests and passes and send notifications, and a developer can run several of its complexes.
+
+How it went: feedback came from complexes where people had already moved in, through intercom logs, app analytics, residents' requests to the property manager, surveys in complex groups, and about 20 conversations with residents and property managers. The logs and analytics showed that residents most often answered calls and watched cameras. The interface was refined in spots. Cameras moved to the navigation bar. Residents choose where a call goes: to the intercom, the phone, or both at once. Instead of muting, there is a "Do not disturb" mode with a duration, and missed calls show in the history. A car pass became a request in the app with the car number and time, with no call to the dispatcher, and if it is rejected, the resident sees why. Each improvement was carried over to the next complexes, and the set of features for a new complex was proposed from the statistics of earlier ones.
+
+The app in the stores: App Store https://apps.apple.com/ru/app/butler-intelligent-home/id1599351507, Google Play https://play.google.com/store/apps/details?id=com.itfrog.butler

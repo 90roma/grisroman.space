@@ -7,3 +7,4 @@
 - [Кейс «Предиктивный набор»](https://grisroman.space/cases/predictive-dialer/): занятость операторов с 40% до 78%
 - [Кейс «Огнеборец»](https://grisroman.space/cases/firefighter/): расчёт времени возврата пожарных за 47 секунд вместо 6 минут
 - [Кейс «Butler»](https://grisroman.space/cases/butler/): экосистема для управления домом, домофон, приложение и админ-панель в 17 011 квартирах 27 ЖК
+- [English version](https://grisroman.space/en/llms.txt)
