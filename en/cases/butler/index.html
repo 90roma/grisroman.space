@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Butler — case study by Roman Grishin</title>
+  <meta name="description" content="Butler: an intercom, a resident app, and a property manager admin panel that bring the amenities of a residential complex together in one place. How the interface was refined from resident feedback.">
+  <link rel="alternate" hreflang="ru" href="https://grisroman.space/cases/butler/">
+  <link rel="alternate" hreflang="en" href="https://grisroman.space/en/cases/butler/">
+  <script>
+    (function () {
+      var root = document.documentElement;
+      try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') root.dataset.theme = t; } catch (e) {}
+      root.classList.add('js');
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400&family=Martian+Mono:wdth,wght@87.5..100,300..500&display=swap">
+  <link rel="stylesheet" href="../../../css/tokens.css?v=43">
+  <link rel="stylesheet" href="../../../css/base.css?v=38">
+  <link rel="stylesheet" href="../../../css/home.css?v=52">
+  <link rel="stylesheet" href="../../../css/case.css?v=60">
+  <link rel="icon" href="../../../img/avatar.png">
+  <script src="../../../js/main.js?v=52" defer></script>
+  <!-- Аналитика GoatCounter: без cookies, баннер не нужен. Локальный просмотр (localhost) не считается -->
+  <script data-goatcounter="https://grisroman.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<header class="site-header ln ln-b">
+  <div class="shell">
+    <div class="canvas header">
+      <a class="header__me" href="../../" aria-label="Roman Grishin, home">
+        <img class="header__avatar" src="../../../img/avatar.png" alt="" width="48" height="48">
+        <span class="header__name text-l">Roman Grishin</span>
+      </a>
+      <nav class="header__nav" aria-label="Main navigation">
+        <a class="nav-link label-s" href="../../#cases">Work</a>
+        <!-- RU скрыт до готовности английской версии: <a class="nav-link label-s" href="../../../cases/butler/" lang="ru" hreflang="ru">RU</a> -->
+        <button class="nav-link label-s theme-toggle" type="button" aria-label="Toggle theme">
+          <!-- Иконки Radix Icons (MIT): солнце в светлой теме, луна в тёмной -->
+          <svg class="theme-icon theme-light" viewBox="0 0 15 15" aria-hidden="true"><path d="M7.5 0C7.77614 0 8 0.223858 8 0.5V2.5C8 2.77614 7.77614 3 7.5 3C7.22386 3 7 2.77614 7 2.5V0.5C7 0.223858 7.22386 0 7.5 0ZM2.1967 2.1967C2.39196 2.00144 2.70854 2.00144 2.90381 2.1967L4.31802 3.61091C4.51328 3.80617 4.51328 4.12276 4.31802 4.31802C4.12276 4.51328 3.80617 4.51328 3.61091 4.31802L2.1967 2.90381C2.00144 2.70854 2.00144 2.39196 2.1967 2.1967ZM0.5 7C0.223858 7 0 7.22386 0 7.5C0 7.77614 0.223858 8 0.5 8H2.5C2.77614 8 3 7.77614 3 7.5C3 7.22386 2.77614 7 2.5 7H0.5ZM2.1967 12.8033C2.00144 12.608 2.00144 12.2915 2.1967 12.0962L3.61091 10.682C3.80617 10.4867 4.12276 10.4867 4.31802 10.682C4.51328 10.8772 4.51328 11.1938 4.31802 11.3891L2.90381 12.8033C2.70854 12.9986 2.39196 12.9986 2.1967 12.8033ZM12.5 7C12.2239 7 12 7.22386 12 7.5C12 7.77614 12.2239 8 12.5 8H14.5C14.7761 8 15 7.77614 15 7.5C15 7.22386 14.7761 7 14.5 7H12.5ZM10.682 4.31802C10.4867 4.12276 10.4867 3.80617 10.682 3.61091L12.0962 2.1967C12.2915 2.00144 12.608 2.00144 12.8033 2.1967C12.9986 2.39196 12.9986 2.70854 12.8033 2.90381L11.3891 4.31802C11.1938 4.51328 10.8772 4.51328 10.682 4.31802ZM8 12.5C8 12.2239 7.77614 12 7.5 12C7.22386 12 7 12.2239 7 12.5V14.5C7 14.7761 7.22386 15 7.5 15C7.77614 15 8 14.7761 8 14.5V12.5ZM10.682 10.682C10.8772 10.4867 11.1938 10.4867 11.3891 10.682L12.8033 12.0962C12.9986 12.2915 12.9986 12.608 12.8033 12.8033C12.608 12.9986 12.2915 12.9986 12.0962 12.8033L10.682 11.3891C10.4867 11.1938 10.4867 10.8772 10.682 10.682ZM5.5 7.5C5.5 6.39543 6.39543 5.5 7.5 5.5C8.60457 5.5 9.5 6.39543 9.5 7.5C9.5 8.60457 8.60457 9.5 7.5 9.5C6.39543 9.5 5.5 8.60457 5.5 7.5ZM7.5 4.5C5.84315 4.5 4.5 5.84315 4.5 7.5C4.5 9.15685 5.84315 10.5 7.5 10.5C9.15685 10.5 10.5 9.15685 10.5 7.5C10.5 5.84315 9.15685 4.5 7.5 4.5Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+          <svg class="theme-icon theme-dark" viewBox="0 0 15 15" aria-hidden="true"><path d="M2.89998 0.499976C2.89998 0.279062 2.72089 0.0999756 2.49998 0.0999756C2.27906 0.0999756 2.09998 0.279062 2.09998 0.499976V1.09998H1.49998C1.27906 1.09998 1.09998 1.27906 1.09998 1.49998C1.09998 1.72089 1.27906 1.89998 1.49998 1.89998H2.09998V2.49998C2.09998 2.72089 2.27906 2.89998 2.49998 2.89998C2.72089 2.89998 2.89998 2.72089 2.89998 2.49998V1.89998H3.49998C3.72089 1.89998 3.89998 1.72089 3.89998 1.49998C3.89998 1.27906 3.72089 1.09998 3.49998 1.09998H2.89998V0.499976ZM5.89998 3.49998C5.89998 3.27906 5.72089 3.09998 5.49998 3.09998C5.27906 3.09998 5.09998 3.27906 5.09998 3.49998V4.09998H4.49998C4.27906 4.09998 4.09998 4.27906 4.09998 4.49998C4.09998 4.72089 4.27906 4.89998 4.49998 4.89998H5.09998V5.49998C5.09998 5.72089 5.27906 5.89998 5.49998 5.89998C5.72089 5.89998 5.89998 5.72089 5.89998 5.49998V4.89998H6.49998C6.72089 4.89998 6.89998 4.72089 6.89998 4.49998C6.89998 4.27906 6.72089 4.09998 6.49998 4.09998H5.89998V3.49998ZM1.89998 6.49998C1.89998 6.27906 1.72089 6.09998 1.49998 6.09998C1.27906 6.09998 1.09998 6.27906 1.09998 6.49998V7.09998H0.499976C0.279062 7.09998 0.0999756 7.27906 0.0999756 7.49998C0.0999756 7.72089 0.279062 7.89998 0.499976 7.89998H1.09998V8.49998C1.09998 8.72089 1.27906 8.89997 1.49998 8.89997C1.72089 8.89997 1.89998 8.72089 1.89998 8.49998V7.89998H2.49998C2.72089 7.89998 2.89998 7.72089 2.89998 7.49998C2.89998 7.27906 2.72089 7.09998 2.49998 7.09998H1.89998V6.49998ZM8.54406 0.98184L8.24618 0.941586C8.03275 0.917676 7.90692 1.1655 8.02936 1.34194C8.17013 1.54479 8.29981 1.75592 8.41754 1.97445C8.91878 2.90485 9.20322 3.96932 9.20322 5.10022C9.20322 8.37201 6.82247 11.0878 3.69887 11.6097C3.45736 11.65 3.20988 11.6772 2.96008 11.6906C2.74563 11.702 2.62729 11.9535 2.77721 12.1072C2.84551 12.1773 2.91535 12.2458 2.98667 12.3128L3.05883 12.3795L3.31883 12.6045L3.50684 12.7532L3.62796 12.8433L3.81491 12.9742L3.99079 13.089C4.11175 13.1651 4.23536 13.2375 4.36157 13.3059L4.62496 13.4412L4.88553 13.5607L5.18837 13.6828L5.43169 13.7686C5.56564 13.8128 5.70149 13.8529 5.83857 13.8885C5.94262 13.9155 6.04767 13.9401 6.15405 13.9622C6.27993 13.9883 6.40713 14.0109 6.53544 14.0298L6.85241 14.0685L7.11934 14.0892C7.24637 14.0965 7.37436 14.1002 7.50322 14.1002C11.1483 14.1002 14.1032 11.1453 14.1032 7.50023C14.1032 7.25044 14.0893 7.00389 14.0623 6.76131L14.0255 6.48407C13.991 6.26083 13.9453 6.04129 13.8891 5.82642C13.8213 5.56709 13.7382 5.31398 13.6409 5.06881L13.5279 4.80132L13.4507 4.63542L13.3766 4.48666C13.2178 4.17773 13.0353 3.88295 12.8312 3.60423L12.6782 3.40352L12.4793 3.16432L12.3157 2.98361L12.1961 2.85951L12.0355 2.70246L11.8134 2.50184L11.4925 2.24191L11.2483 2.06498L10.9562 1.87446L10.6346 1.68894L10.3073 1.52378L10.1938 1.47176L9.95488 1.3706L9.67791 1.2669L9.42566 1.1846L9.10075 1.09489L8.83599 1.03486L8.54406 0.98184ZM10.4032 5.30023C10.4032 4.27588 10.2002 3.29829 9.83244 2.40604C11.7623 3.28995 13.1032 5.23862 13.1032 7.50023C13.1032 10.593 10.596 13.1002 7.50322 13.1002C6.63646 13.1002 5.81597 12.9036 5.08355 12.5522C6.5419 12.0941 7.81081 11.2082 8.74322 10.0416C8.87963 10.2284 9.10028 10.3497 9.34928 10.3497C9.76349 10.3497 10.0993 10.0139 10.0993 9.59971C10.0993 9.24256 9.84965 8.94373 9.51535 8.86816C9.57741 8.75165 9.63653 8.63334 9.6926 8.51332C9.88358 8.63163 10.1088 8.69993 10.35 8.69993C11.0403 8.69993 11.6 8.14028 11.6 7.44993C11.6 6.75976 11.0406 6.20024 10.3505 6.19993C10.3853 5.90487 10.4032 5.60464 10.4032 5.30023Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/></svg>
+        </button>
+        <a class="btn label-m" data-goatcounter-click="write-header" href="https://t.me/grisroman" target="_blank" rel="noopener">Message me<span class="visually-hidden"> on Telegram (opens in a new tab)</span></a>
+      </nav>
+    </div>
+  </div>
+<div class="read-progress" data-read-progress aria-hidden="true" hidden></div>
+</header>
+
+<!-- Оглавление кейса: вне холста, закреплено слева на широком экране, видно в зоне разделов -->
+<nav class="toc" aria-label="Case sections">
+  <ol class="toc__list">
+    <li><a class="toc__link label-s" href="#context">Context and&nbsp;goal</a></li>
+    <li><a class="toc__link label-s" href="#design">What I&nbsp;designed</a></li>
+    <li><a class="toc__link label-s" href="#feedback">Feedback</a></li>
+    <li><a class="toc__link label-s" href="#changes">Improvements</a></li>
+    <li><a class="toc__link label-s" href="#launch">Launch and&nbsp;result</a></li>
+  </ol>
+</nav>
+
+<div class="shell">
+  <main class="canvas longread">
+
+    <div class="case-top grid-pad">
+      <a class="back-link label-s" href="../../#cases">
+        <svg class="px-arrow px-arrow--back" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg>
+        All cases
+      </a>
+    </div>
+
+    <!-- Hero: заголовок → обложка → результаты → о проекте -->
+    <section class="case-hero grid" data-reveal>
+      <div class="case-hero__text">
+        <h1 class="h1">Butler</h1>
+        <p class="subtitle-1 muted">A cloud platform for managing a home in a residential complex</p>
+      </div>
+    </section>
+
+    <div class="case-cover">
+      <img class="theme-light" src="../../../cases/butler/img/cover.webp?v=7" alt="The intercom home screen with a clock, a message from the property manager, and water usage, next to a phone showing a list of cameras" width="1920" height="1207">
+      <img class="theme-dark" src="../../../cases/butler/img/cover-dark.webp?v=7" alt="The intercom home screen with a clock, a message from the property manager, and water usage, next to a phone showing a list of cameras" width="1920" height="1207">
+    </div>
+
+    <!-- Результаты — масштаб продукта, сразу под обложкой -->
+    <section class="case-results grid" aria-label="Scale" data-reveal>
+      <div class="result-box ln ln-t ln-b ln-l ln-r">
+        <i class="mark mark--cross at-tl" aria-hidden="true"></i>
+        <i class="mark mark--dot at-tr" aria-hidden="true"></i>
+        <i class="mark mark--dot at-bl" aria-hidden="true"></i>
+        <i class="mark mark--cross at-br" aria-hidden="true"></i>
+        <div class="factoid">
+          <p class="label-m muted">Apartments</p>
+          <p class="h2 value">17,011</p>
+          <p class="text-s muted">with Butler intercoms in 27&nbsp;complexes</p>
+        </div>
+        <div class="factoid">
+          <p class="label-m muted">Users</p>
+          <p class="h2 value">≈25,000</p>
+          <p class="text-s muted">active per month across all complexes</p>
+        </div>
+        <div class="factoid">
+          <p class="label-m muted">Developers</p>
+          <p class="h2 value">8</p>
+          <p class="text-s muted">installed Butler in their complexes</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-meta grid" aria-label="About the project" data-reveal>
+      <dl class="project">
+        <div class="meta-pair"><dt class="label-s muted">Company</dt><dd class="text-l">ITFrog</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Years</dt><dd class="text-l">2019–2022</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Team</dt><dd class="text-l">Product manager, developers, and a&nbsp;designer</dd></div>
+        <div class="meta-pair"><dt class="label-s muted">Platform</dt><dd class="text-l">Intercom, iOS, Android, and web</dd></div>
+        <div class="meta-pair meta-pair--wide">
+          <dt class="label-s muted">What I did</dt>
+          <dd class="text-l">Designed all of the system’s interfaces from the first version. Talked with residents and property managers and prepared surveys. Tested features on test benches and in complexes.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- 1. Контекст и задача -->
+    <section class="section grid" id="context" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Context and goal</p></div>
+      <div class="section__body">
+        <h2 class="h3">Managing a home in one&nbsp;place</h2>
+        <p class="text-l">ITFrog builds cloud solutions for IP intercoms. Its Butler platform for new buildings combines an intercom with a screen in every apartment, a resident mobile app, a property manager admin panel, and info screens in the entrances. A developer buys Butler for its complex and hands it to residents along with the apartment. It is a white-label product: the app and the intercom carry the developer’s brand.</p>
+        <p class="text-l">Developers attract buyers with amenities. Gated, guarded grounds, a car-free courtyard, a quick call to a technician through the property manager.</p>
+        <p class="text-l">To offer this, complexes install systems from different manufacturers. Access control, video surveillance, metering, and the smart home don’t talk to each other, and each has its own app. In the end, a resident has the lights, the sensors, and the call to a dispatcher in separate apps.</p>
+        <p class="text-l">Butler’s task was to connect these systems, so that a resident could use all of the complex’s amenities from the intercom in the apartment or from one app on the phone. At the same time, every complex is different, and each has its own set of features.</p>
+      </div>
+    </section>
+
+    <!-- 2. Что спроектировал -->
+    <section class="section grid" id="design" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">What I designed</p></div>
+      <div class="section__body">
+        <h2 class="h3">One system for residents and the property&nbsp;manager</h2>
+        <p class="text-l">I joined ITFrog in&nbsp;2019, when Butler was just taking its current shape, and designed all of its interfaces. The intercom and the admin panel came first, and the app appeared a little later. All devices share one structure and differ only in the set of features.</p>
+        <p class="text-l"><strong>The intercom</strong> sits in every apartment. Residents use it to answer calls from the entry panel and open the door, read messages from the property manager, and check the meters, if they are connected.</p>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the image full screen">
+          <img class="theme-light" src="../../../cases/butler/img/call.webp?v=5" alt="An incoming call from the entry panel “Main entrance”: video of a courier on the intercom and on the phone, with the buttons “Decline”, “Open”, and “Answer”" width="1920" height="1207" loading="lazy" decoding="async">
+          <img class="theme-dark" src="../../../cases/butler/img/call-dark.webp?v=5" alt="An incoming call from the entry panel “Main entrance”: video of a courier on the intercom and on the phone, with the buttons “Decline”, “Open”, and “Answer”" width="1920" height="1207" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">A call from the entry panel arrives on the intercom and the phone</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l"><strong>The phone</strong> mirrors the intercom, wherever the resident is, at home or away. A call from the entry panel comes to the app, and the resident opens the door for a guest or courier. The door can also be opened without a call. Instead of a key or card, the apartment owner can turn on a Bluetooth key in the app, and the door opens by itself when they walk up to it.</p>
+        <p class="text-l">A guest can be sent a temporary code by text or messenger in advance. The guest enters it on the entry panel and reaches the apartment without a call. The resident sets how long the code is valid in the app, within the limits the developer has set. The guest can be picked from contacts, and the code can be labeled to remember who it was given to.</p>
+      </div>
+      <div class="section__wide trio">
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the screen full screen">
+            <img class="theme-light" src="../../../cases/butler/img/access.webp?v=1" alt="“Access” screen: a Bluetooth key and a list of guest codes with guest names and validity periods, one code with an “Expired” chip" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="../../../cases/butler/img/access-dark.webp?v=1" alt="“Access” screen: a Bluetooth key and a list of guest codes with guest names and validity periods, one code with an “Expired” chip" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">Guest codes in the “Access” section, the “+” button creates a new&nbsp;one</figcaption>
+        </figure>
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the screen full screen">
+            <img class="theme-light" src="../../../cases/butler/img/code-new.webp?v=6" alt="“New code” screen: a “Guest” field with a contacts icon and the code’s validity period" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="../../../cases/butler/img/code-new-dark.webp?v=6" alt="“New code” screen: a “Guest” field with a contacts icon and the code’s validity period" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">The resident enters the guest and the validity&nbsp;period</figcaption>
+        </figure>
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the screen full screen">
+            <img class="theme-light" src="../../../cases/butler/img/code-created.webp?v=6" alt="“Guest code” screen: code 4821 with a copy button, the guest, the validity period, and a “Send code” button" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="../../../cases/butler/img/code-created-dark.webp?v=6" alt="“Guest code” screen: code 4821 with a copy button, the guest, the validity period, and a “Send code” button" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">The code is sent by text or messenger</figcaption>
+        </figure>
+      </div>
+      <div class="section__body">
+        <p class="text-l">Residents add meters and sensors to the app themselves. If a sensor goes off, the app sends a notification right away.</p>
+      </div>
+      <div class="section__wide trio">
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the screen full screen">
+            <img class="theme-light" src="../../../cases/butler/img/meters.webp?v=1" alt="“Readings” screen: a week of electricity use by day and by day and night rates" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="../../../cases/butler/img/meters-dark.webp?v=1" alt="“Readings” screen: a week of electricity use by day and by day and night rates" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">Electricity and water use by day and rate</figcaption>
+        </figure>
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the screen full screen">
+            <img class="theme-light" src="../../../cases/butler/img/sensors-list.webp?v=3" alt="“Sensors” screen: an alert “Leak in the bathroom, water shut off automatically”, a “Status / History” switch, and sensors by group: leak, smoke, doors, lights" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="../../../cases/butler/img/sensors-list-dark.webp?v=3" alt="“Sensors” screen: an alert “Leak in the bathroom, water shut off automatically”, a “Status / History” switch, and sensors by group: leak, smoke, doors, lights" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">The leak sensor went off, and the water was shut off</figcaption>
+        </figure>
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the screen full screen">
+            <img class="theme-light" src="../../../cases/butler/img/sensors-leak.webp?v=3" alt="Card of the leak sensor “Bathroom”: name, serial number, switches for notifications and water supply, history of alerts" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="../../../cases/butler/img/sensors-leak-dark.webp?v=3" alt="Card of the leak sensor “Bathroom”: name, serial number, switches for notifications and water supply, history of alerts" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">The card shows the history of alerts</figcaption>
+        </figure>
+      </div>
+      <div class="section__body">
+        <p class="text-l"><strong>The property manager</strong> works in the admin panel. Through it, dispatchers and concierges take residents’ requests and passes, reply to them, and send notifications to the app and the info screens in the entrances. The property manager also assigns roles to staff there, and a developer can run several of its complexes in one panel.</p>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the image full screen">
+          <img class="theme-light" src="../../../cases/butler/img/admin-requests.webp?v=9" alt="Property manager admin panel: a list of requests with statuses; on the right, an open request for a car pass with a guest, arrival time, the resident’s comment, and the buttons “Reject” and “Accept”" width="1920" height="1158" loading="lazy" decoding="async">
+          <img class="theme-dark" src="../../../cases/butler/img/admin-requests-dark.webp?v=9" alt="Property manager admin panel: a list of requests with statuses; on the right, an open request for a car pass with a guest, arrival time, the resident’s comment, and the buttons “Reject” and “Accept”" width="1920" height="1158" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">Residents’ requests arrive in the property manager’s admin panel</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l">In the app, a resident sees only what their building has. The screens in this case study were rebuilt for a neutral brand. The interface is in Russian, the language of the product.</p>
+      </div>
+    </section>
+
+    <!-- 3. Обратная связь -->
+    <section class="section grid" id="feedback" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Feedback</p></div>
+      <div class="section__body">
+        <h2 class="h3">Residents care most about answering calls and watching&nbsp;cameras</h2>
+        <p class="text-l list-intro">The first complexes got an interface built around the features the developer ordered. While a building isn’t handed over, there are no residents in it, so I collected feedback in complexes where people had already moved in.</p>
+        <ol class="list list--num">
+          <li class="text-l"><span>Intercom logs.</span></li>
+          <li class="text-l"><span>App analytics.</span></li>
+          <li class="text-l"><span>Residents’ requests to the property manager.</span></li>
+          <li class="text-l"><span>Surveys in complex groups on social networks.</span></li>
+          <li class="text-l"><span>Conversations with residents and property managers in the complexes, about 20 in all.</span></li>
+        </ol>
+        <p class="text-l">The main conclusions came from the logs and analytics. They showed that residents most often answered calls from the entry panel and watched cameras, and the rest was an extra.</p>
+        <p class="text-l">Most complaints were about the technical side. A camera didn’t show a picture, a door didn’t open. Residents rarely complained about the interface, so we didn’t rebuild it all. We refined it in spots, where the data and the complaints pointed to something inconvenient.</p>
+        <p class="text-l">Property managers asked us to take some of the load off dispatchers. Many calls were about technician visits and car passes.</p>
+      </div>
+    </section>
+
+    <!-- 4. Доработки -->
+    <section class="section grid" id="changes" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Improvements</p></div>
+      <div class="section__body">
+        <h2 class="h3">The interface was refined around what residents use</h2>
+        <p class="text-l">These changes came out of the feedback and were then carried over to the next complexes.</p>
+        <p class="text-l"><strong>Cameras in the navigation bar.</strong> In the first version, the intercom’s cameras were hidden in a menu, although the statistics showed they were watched very often. There are cameras at every entry panel, in the parking lot, on the playground, and in the courtyard. I moved them to the intercom’s navigation bar, and in the app they became a separate item too.</p>
+      </div>
+      <div class="section__wide compare">
+        <figure class="compare__item figure figure--phone figure--screen">
+          <p class="label-m">Cameras</p>
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the screen full screen">
+            <img class="theme-light" src="../../../cases/butler/img/cameras-list.webp?v=3" alt="“Cameras” screen: tiles with shots of the inner courtyard, buildings, playground, parking lot, courtyard entrance, and building entrances" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="../../../cases/butler/img/cameras-list-dark.webp?v=3" alt="“Cameras” screen: tiles with shots of the inner courtyard, buildings, playground, parking lot, courtyard entrance, and building entrances" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">In the app, cameras have their own navigation item</figcaption>
+        </figure>
+        <figure class="compare__item figure figure--phone figure--screen">
+          <p class="label-m">Viewing</p>
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the screen full screen">
+            <img class="theme-light" src="../../../cases/butler/img/cameras-view.webp?v=3" alt="Viewing the camera “Inner courtyard” with buttons for a snapshot and full-screen view" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="../../../cases/butler/img/cameras-view-dark.webp?v=3" alt="Viewing the camera “Inner courtyard” with buttons for a snapshot and full-screen view" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">Courtyard, parking lot, and entry panels open with one tap</figcaption>
+        </figure>
+      </div>
+      <div class="section__body">
+        <p class="text-l"><strong>Residents choose where a call goes.</strong> Some answered only on the phone, others used both devices. So a call can be routed to the intercom, to the phone, or to both at once.</p>
+      </div>
+      <div class="section__body">
+        <p class="text-l"><strong>“Do not disturb” instead of muting.</strong> The intercom’s volume could be turned down or the sound turned off completely. In their requests, residents wrote about two problems. In the daytime, while children slept, they turned the sound off, forgot to turn it back on, and missed calls. At night, accidental calls woke them up when someone got the wrong apartment.</p>
+        <p class="text-l">I added a “Do not disturb” mode. The resident turns it on from the intercom’s home screen and picks a duration. While it’s on, the intercom doesn’t accept calls. If the call is also set up for the phone, it goes straight to the app, and if not, there will be no call. Then the intercom returns to normal, and missed calls show in the history.</p>
+      </div>
+      <div class="section__wide gallery" data-gallery>
+        <div class="gallery__track" tabindex="0" role="region" aria-label="“Do not disturb” mode on the intercom, 4 images">
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the image full screen">
+              <img class="theme-light" src="../../../cases/butler/img/dnd-1.webp?v=6" alt="Intercom home screen: under the date, the buttons for notifications and “Do not disturb”, the mode is off" width="1920" height="1200" loading="lazy" decoding="async">
+              <img class="theme-dark" src="../../../cases/butler/img/dnd-1-dark.webp?v=6" alt="Intercom home screen: under the date, the buttons for notifications and “Do not disturb”, the mode is off" width="1920" height="1200" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">The mode button sits under the clock, next to&nbsp;notifications</figcaption>
+          </figure>
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the image full screen">
+              <img class="theme-light" src="../../../cases/butler/img/dnd-2.webp?v=6" alt="“Do not disturb” window over the home screen: durations of 1, 2, 4&nbsp;hours and “Other”, an “Enable” button" width="1920" height="1200" loading="lazy" decoding="async">
+              <img class="theme-dark" src="../../../cases/butler/img/dnd-2-dark.webp?v=6" alt="“Do not disturb” window over the home screen: durations of 1, 2, 4&nbsp;hours and “Other”, an “Enable” button" width="1920" height="1200" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">The duration is picked with one tap</figcaption>
+          </figure>
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the image full screen">
+              <img class="theme-light" src="../../../cases/butler/img/dnd-3.webp?v=6" alt="“Do not disturb until” window: field 07:00, label “Tomorrow, December&nbsp;27”, and a clock dial with the hour selected" width="1920" height="1200" loading="lazy" decoding="async">
+              <img class="theme-dark" src="../../../cases/butler/img/dnd-3-dark.webp?v=6" alt="“Do not disturb until” window: field 07:00, label “Tomorrow, December&nbsp;27”, and a clock dial with the hour selected" width="1920" height="1200" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">“Other” opens a time picker, for example until&nbsp;morning</figcaption>
+          </figure>
+          <figure class="figure gallery__slide">
+            <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the image full screen">
+              <img class="theme-light" src="../../../cases/butler/img/dnd-4.webp?v=6" alt="Intercom home screen with the mode on: a “Do not disturb until 17:10” banner" width="1920" height="1200" loading="lazy" decoding="async">
+              <img class="theme-dark" src="../../../cases/butler/img/dnd-4-dark.webp?v=6" alt="Intercom home screen with the mode on: a “Do not disturb until 17:10” banner" width="1920" height="1200" loading="lazy" decoding="async">
+            </button>
+            <figcaption class="text-s">The mode shows until what time it is on and turns off by itself</figcaption>
+          </figure>
+        </div>
+        <div class="gallery__nav" hidden>
+          <p class="gallery__count label-s" aria-live="polite"><span data-gallery-current>01</span> / <span data-gallery-total>04</span></p>
+          <button class="gallery__btn btn-outline" type="button" data-gallery-prev aria-label="Previous screen"><svg class="px-arrow px-arrow--back" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
+          <button class="gallery__btn btn-outline" type="button" data-gallery-next aria-label="Next screen"><svg class="px-arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg></button>
+        </div>
+      </div>
+      <div class="section__body">
+        <p class="text-l"><strong>A car pass without calling the dispatcher.</strong> In many new complexes, the courtyard is car-free. To let a car in, for example one with furniture, a resident called the dispatcher, who could be busy or away. I moved the pass into a separate request in the app, with the car number and time. All of the property manager’s dispatchers see the request, and whoever is around will handle it. If a pass is rejected, the reason shows in the request.</p>
+      </div>
+      <div class="section__wide trio">
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the screen full screen">
+            <img class="theme-light" src="../../../cases/butler/img/passes-list.webp?v=1" alt="“Passes” screen with the tabs “Active” and “History” and a list of passes with the statuses “Under review” and “Accepted”" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="../../../cases/butler/img/passes-list-dark.webp?v=1" alt="“Passes” screen with the tabs “Active” and “History” and a list of passes with the statuses “Under review” and “Accepted”" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">Passes are in one list, the “+” button creates a new&nbsp;one</figcaption>
+        </figure>
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the screen full screen">
+            <img class="theme-light" src="../../../cases/butler/img/pass-new.webp?v=6" alt="New pass form: car number, guest’s phone, date, time, and a comment" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="../../../cases/butler/img/pass-new-dark.webp?v=6" alt="New pass form: car number, guest’s phone, date, time, and a comment" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">The resident enters the car, the guest, the time, and a comment</figcaption>
+        </figure>
+        <figure class="figure figure--phone figure--screen">
+          <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the screen full screen">
+            <img class="theme-light" src="../../../cases/butler/img/pass-rejected.webp?v=3" alt="Rejected pass У&nbsp;431&nbsp;КН&nbsp;178: guest, arrival date and time, apartment, resident’s comment, and the reason for rejection" width="750" height="1624" loading="lazy" decoding="async">
+            <img class="theme-dark" src="../../../cases/butler/img/pass-rejected-dark.webp?v=3" alt="Rejected pass У&nbsp;431&nbsp;КН&nbsp;178: guest, arrival date and time, apartment, resident’s comment, and the reason for rejection" width="750" height="1624" loading="lazy" decoding="async">
+          </button>
+          <figcaption class="text-s">The resident sees why the pass was rejected</figcaption>
+        </figure>
+      </div>
+      <figure class="section__wide figure">
+        <button class="figure__stage figure__zoom" type="button" data-zoom="fit" aria-label="Open the image full screen">
+          <img class="theme-light" src="../../../cases/butler/img/admin-reject.webp?v=9" alt="Admin panel: a dispatcher rejects a pass request; the “Reason for rejection” field says that snow is being removed from the courtyard on December&nbsp;27" width="1920" height="1158" loading="lazy" decoding="async">
+          <img class="theme-dark" src="../../../cases/butler/img/admin-reject-dark.webp?v=9" alt="Admin panel: a dispatcher rejects a pass request; the “Reason for rejection” field says that snow is being removed from the courtyard on December&nbsp;27" width="1920" height="1158" loading="lazy" decoding="async">
+        </button>
+        <figcaption class="text-s">A rejection can’t be sent without a reason, and the resident sees it in the app</figcaption>
+      </figure>
+    </section>
+
+    <!-- 5. Запуск и результат -->
+    <section class="section grid" id="launch" data-reveal>
+      <div class="section__aside"><p class="section__label label-l">Launch and result</p></div>
+      <div class="section__body">
+        <h2 class="h3">A new complex got a tested set of features</h2>
+        <p class="text-l">Before installation, every intercom was checked on a test bench, and updates then arrived remotely. When residents moved in, the property manager gave them access to the app.</p>
+      </div>
+      <figure class="section__wide figure">
+        <div class="trio">
+        <div>
+          <div class="figure__stage">
+            <img src="../../../cases/butler/img/photo-stand-1.webp?v=2" alt="A bench with an apartment’s devices: an intercom, a control panel, and switches" width="960" height="1280" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <div>
+          <div class="figure__stage">
+            <img src="../../../cases/butler/img/photo-stand-2.webp" alt="A row of benches with entry panels and intercoms in an office" width="960" height="1280" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <div>
+          <div class="figure__stage">
+            <img src="../../../cases/butler/img/photo-test.webp?v=2" alt="Shelves with powered-on intercoms in a dark room" width="591" height="788" loading="lazy" decoding="async">
+          </div>
+        </div>
+        </div>
+        <figcaption class="text-s">Test benches</figcaption>
+      </figure>
+      <div class="section__body">
+        <p class="text-l">The set of features for a new complex was proposed from the statistics of earlier complexes. If a developer wanted it differently, we showed them that data.</p>
+        <p class="text-l"><strong>Developers came back with new complexes.</strong> Eight developers installed Butler in 27&nbsp;complexes, intercoms are in 17,011 apartments, and there are about 25,000 active users a month.</p>
+      </div>
+    </section>
+
+    <!-- Следующий кейс -->
+    <nav class="next grid" aria-label="Next case">
+      <a class="next-case" href="../predictive-dialer/">
+        <span class="next-case__text">
+          <span class="label-m muted">Next case</span>
+          <span class="h4">Predictive dialer</span>
+        </span>
+        <svg class="px-arrow" viewBox="0 0 8 7" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 3h8v1H0zM4 0h1v1H4zM5 1h1v1H5zM6 2h1v1H6zM6 4h1v1H6zM5 5h1v1H5zM4 6h1v1H4z" fill="currentColor"/></svg>
+      </a>
+    </nav>
+
+  </main>
+</div>
+
+
+<footer class="site-footer ln ln-t">
+  <div class="shell">
+    <div class="canvas footer">
+      <p class="footer__cell label-s muted">©&nbsp;2026</p>
+      <a class="footer__cell footer__link label-s" data-goatcounter-click="write-footer-telegram" href="https://t.me/grisroman" target="_blank" rel="noopener">Telegram</a>
+      <a class="footer__cell footer__link label-s" data-goatcounter-click="footer-linkedin" href="https://www.linkedin.com/in/roman-grishin/" target="_blank" rel="noopener">LinkedIn</a>
+      <p class="footer__cell label-s muted">grisroman.space</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
