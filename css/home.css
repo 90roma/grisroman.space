@@ -272,7 +272,7 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-16);
-  padding-block: var(--space-48);
+  padding-block: var(--space-24);
 }
 .footer__link { transition: color var(--motion-duration) var(--motion-ease); }
 .footer__link:hover, .footer__link:focus-visible { color: var(--accent-text); }

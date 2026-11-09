@@ -9,10 +9,11 @@
       toLight: 'Включить светлую тему',
       toDark: 'Включить тёмную тему',
       copyFail: 'Скопируйте запрос и вставьте его в чат: ',
-      copied: 'Запрос скопирован, вставьте его в чат.',
+      copied: 'Запрос скопирован, вставьте его в\u00a0чат',
       video: 'Видео',
       close: 'Закрыть',
-      image: 'Картинка'
+      image: 'Картинка',
+      of: ' из '
     },
     en: {
       toLight: 'Switch to light theme',
@@ -21,7 +22,8 @@
       copied: 'Prompt copied. Paste it into the chat.',
       video: 'Video',
       close: 'Close',
-      image: 'Image'
+      image: 'Image',
+      of: ' of '
     }
   };
   var str = STRINGS[(root.lang || 'ru').slice(0, 2)] || STRINGS.ru;
@@ -185,10 +187,63 @@
         box.scrollTop = (box.scrollHeight - box.clientHeight) / 2;
       }, { once: true });
     }
+    setupMinimap(img, trigger.dataset.zoom === 'natural');
     zoom.setAttribute('aria-label', trigger.getAttribute('aria-label') || str.image);
     zoom.trigger = trigger;
     root.classList.add('is-zoomed');
     zoom.showModal();
+  }
+  // Мини-карта большой схемы: превью слева внизу, рамка — видимая часть; клик или перетаскивание переносит туда
+  function setupMinimap(img, on) {
+    var map = zoom.querySelector('.minimap');
+    if (!map) {
+      map = document.createElement('div');
+      map.className = 'minimap';
+      map.setAttribute('aria-hidden', 'true');
+      map.innerHTML = '<div class="minimap__in"><img alt=""><span class="minimap__view"></span></div>';
+      zoom.appendChild(map);
+      var box = zoom.querySelector('.zoom__scroll');
+      var view = map.querySelector('.minimap__view');
+      var draw = function () {
+        var pic = box.querySelector('img');
+        if (!pic || map.hidden) return;
+        var ir = pic.getBoundingClientRect(), br = box.getBoundingClientRect();
+        if (!ir.width) return;
+        var x0 = Math.max(0, (br.left - ir.left) / ir.width), x1 = Math.min(1, (br.right - ir.left) / ir.width);
+        var y0 = Math.max(0, (br.top - ir.top) / ir.height), y1 = Math.min(1, (br.bottom - ir.top) / ir.height);
+        view.style.left = x0 * 100 + '%';
+        view.style.top = y0 * 100 + '%';
+        view.style.width = Math.max(0, x1 - x0) * 100 + '%';
+        view.style.height = Math.max(0, y1 - y0) * 100 + '%';
+      };
+      var go = function (e) {
+        var pic = box.querySelector('img');
+        var mr = map.querySelector('img').getBoundingClientRect();
+        var fx = Math.min(1, Math.max(0, (e.clientX - mr.left) / mr.width));
+        var fy = Math.min(1, Math.max(0, (e.clientY - mr.top) / mr.height));
+        var ir = pic.getBoundingClientRect(), br = box.getBoundingClientRect();
+        box.scrollLeft += ir.left + fx * ir.width - (br.left + br.width / 2);
+        box.scrollTop += ir.top + fy * ir.height - (br.top + br.height / 2);
+      };
+      map.addEventListener('pointerdown', function (e) {
+        e.preventDefault();
+        map.setPointerCapture(e.pointerId);
+        map.classList.add('is-dragging');
+        go(e);
+      });
+      map.addEventListener('pointermove', function (e) { if (map.hasPointerCapture(e.pointerId)) go(e); });
+      map.addEventListener('pointerup', function () { map.classList.remove('is-dragging'); });
+      map.addEventListener('click', function (e) { e.stopPropagation(); });
+      box.addEventListener('scroll', draw, { passive: true });
+      window.addEventListener('resize', draw);
+      zoom.drawMinimap = draw;
+    }
+    map.hidden = !on;
+    if (!on) return;
+    map.querySelector('img').src = img.currentSrc || img.src;
+    var copy = zoom.querySelector('.zoom__scroll img');
+    if (copy.complete) requestAnimationFrame(zoom.drawMinimap);
+    else copy.addEventListener('load', function () { requestAnimationFrame(zoom.drawMinimap); }, { once: true });
   }
   document.querySelectorAll('[data-zoom]').forEach(function (trigger) {
     trigger.addEventListener('click', function () { openZoom(trigger); });
@@ -200,15 +255,24 @@
     var slides = track.children;
     var prev = gallery.querySelector('[data-gallery-prev]');
     var next = gallery.querySelector('[data-gallery-next]');
-    var current = gallery.querySelector('[data-gallery-current]');
-    var pad = function (n) { return String(n).padStart(2, '0'); };
+    // Позиция — ряд квадратов размером с сегмент шкалы: активный залит акцентом. Для скринридера — текст «2 из 3»
+    var count = gallery.querySelector('.gallery__count');
+    count.replaceChildren();
+    var dots = document.createElement('span');
+    dots.className = 'gallery__dots';
+    dots.setAttribute('aria-hidden', 'true');
+    for (var d = 0; d < slides.length; d++) dots.appendChild(document.createElement('i'));
+    var current = document.createElement('span');
+    current.className = 'visually-hidden';
+    count.append(dots, current);
     var offset = function (i) { return slides[i].offsetLeft - slides[0].offsetLeft; };
     var index = function () { return Math.round(track.scrollLeft / offset(1)); };
     var target = null;  // куда листаем стрелкой; null — свайп, цель не задана
     function go(i) { target = i; track.scrollTo({ left: offset(i) }); }
     function update() {
       var i = index();
-      current.textContent = pad(i + 1);
+      current.textContent = (i + 1) + str.of + slides.length;
+      Array.prototype.forEach.call(dots.children, function (dot, n) { dot.classList.toggle('is-active', n === i); });
       prev.disabled = i === 0;
       next.disabled = i === slides.length - 1;
     }
@@ -217,7 +281,6 @@
       go(i);
       if (i === edge && document.activeElement === button) other.focus();
     }
-    gallery.querySelector('[data-gallery-total]').textContent = pad(slides.length);
     prev.addEventListener('click', function () { step(prev, next, Math.max(index() - 1, 0), 0); });
     next.addEventListener('click', function () { step(next, prev, Math.min(index() + 1, slides.length - 1), slides.length - 1); });
     track.addEventListener('scroll', update, { passive: true });

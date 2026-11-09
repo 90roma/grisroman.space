@@ -104,14 +104,14 @@
 .section__body > .h3 + * { margin-top: var(--space-24); }                  /* заголовок → любое содержимое: больше абзаца */
 .section__wide, .section__wide + .section__body { margin-top: var(--space-32); }
 
-/* Списки: маркер «—» в колонке 24 / номер Label/S в колонке 32, перенос — по тексту */
+/* Списки: маркер «—» в колонке 24 / номер Label/S без ведущего нуля в колонке 32, перенос — по тексту */
 .list { display: flex; flex-direction: column; gap: var(--space-12); }
 .list > li { display: grid; grid-template-columns: var(--space-24) 1fr; align-items: baseline; }  /* маркер — по базовой линии первой строки */
 .list > li::before { content: '—'; color: var(--muted); }
 .list--num { counter-reset: item; }
 .list--num > li { grid-template-columns: var(--space-32) 1fr; counter-increment: item; }
 .list--num > li::before {
-  content: counter(item, decimal-leading-zero);
+  content: counter(item);
   font-family: var(--font-mono);
   font-size: var(--label-s-size);
   line-height: var(--label-lh);
@@ -167,6 +167,26 @@
 .zoom--fit.zoom--can-grow .zoom__scroll img { cursor: zoom-in; }
 .zoom--fit.zoom--big .zoom__scroll img { max-width: none; max-height: none; margin: auto; padding: var(--space-64) var(--content-pad); box-sizing: content-box; cursor: zoom-out; }
 .zoom__close { position: fixed; top: var(--space-16); right: var(--space-16); }
+/* Мини-карта большой схемы: слева внизу, плашка surface, рамка видимой части — accent. На телефоне не показывается */
+.minimap {
+  position: fixed; left: var(--space-16); bottom: var(--space-16);
+  width: var(--minimap-w);
+  padding: var(--space-8);
+  background: var(--surface);
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+}
+.minimap[hidden] { display: none; }
+.minimap__in { position: relative; }
+.minimap__in > img { display: block; width: 100%; height: auto; pointer-events: none; }
+.minimap__view {
+  position: absolute;
+  box-shadow: inset 0 0 0 var(--accent-line) var(--accent-text);
+  pointer-events: none;
+}
+.minimap.is-dragging { cursor: grabbing; }
+@media (max-width: 599px), (hover: none) { .minimap { display: none; } }
 
 /* Галерея: картинки на всю ширину контента по одной, листаются стрелками или свайпом; по клику — на весь экран */
 .gallery { display: flex; flex-direction: column; gap: var(--space-16); }
@@ -184,7 +204,11 @@
 .gallery__slide { scroll-snap-align: start; }
 .gallery__nav { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-16); }  /* между контурными кнопками — 16 */
 .gallery__nav[hidden] { display: none; }
-.gallery__count { color: var(--muted); }
+.gallery__count { display: flex; }
+/* Квадраты позиции: как сегменты шкалы — 8 × 8, промежуток 2; неактивные line, текущий accent */
+.gallery__dots { display: flex; gap: var(--scale-gap); }
+.gallery__dots > i { width: var(--scale-seg); height: var(--scale-h); background: var(--line); }
+.gallery__dots > i.is-active { background: var(--accent-text); }
 .gallery__btn:disabled { border-color: var(--line); color: var(--muted); background: none; cursor: default; }
 @media (prefers-reduced-motion: reduce) { .gallery__track { scroll-behavior: auto; } }
 
