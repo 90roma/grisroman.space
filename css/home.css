@@ -283,6 +283,9 @@ html { scroll-padding-top: calc(var(--avatar) + var(--space-16) * 2); }
   .header__name { display: inline; }
 
   .about__inner { grid-template-columns: max-content minmax(0, 1fr); }
+  /* Кнопки нейросетей и подсказка — по правому краю контента: опыт держит левый край, кнопки правый */
+  .ask-ai { align-items: flex-end; text-align: right; }
+  .ask-ai__buttons { justify-content: flex-end; }
 
   .case__cover { padding-top: var(--space-48); }
 
