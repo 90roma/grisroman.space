@@ -339,7 +339,7 @@
 }
 .interview__q::-webkit-details-marker { display: none; }
 .px-toggle { width: var(--px-icon); height: var(--px-icon); flex: none; color: var(--muted); align-self: center; }
-.interview__row[open] .px-toggle__v { display: none; }  /* «+» → «−» */
+.interview__row[open]:not(.is-closing) .px-toggle__v { display: none; }  /* «+» → «−»; при закрытии «+» сразу, пока схлопывается высота */
 .interview__q:hover .px-toggle, .interview__q:focus-visible .px-toggle { color: var(--fg); }
 .interview__a { display: grid; gap: var(--space-16); padding-top: var(--space-16); }
 .interview__answer { display: flex; flex-direction: column; gap: var(--space-4); }

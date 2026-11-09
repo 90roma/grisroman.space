@@ -242,6 +242,47 @@
     function sync() { rows.forEach(function (row, i) { row.open = wideTable.matches && i === 0; }); }
     wideTable.addEventListener('change', sync);
     sync();
+
+    // Плавное раскрытие: строка меняет высоту вслед за ответами, ответы проявляются прозрачностью.
+    // Замеряем строку в открытом и закрытом виде и анимируем высоту между ними; open снимается после анимации,
+    // иначе ответы пропадут раньше, чем схлопнется высота. При «уменьшить движение» — мгновенно, как у обычного <details>
+    var reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var motion = getComputedStyle(root);
+    var duration = parseFloat(motion.getPropertyValue('--motion-duration')) || 200;
+    var ease = motion.getPropertyValue('--motion-ease').trim() || 'ease-out';
+    rows.forEach(function (row) {
+      var summary = row.querySelector('summary');
+      var content = summary.nextElementSibling;
+      var anims = [];
+      var closing = false;
+      summary.addEventListener('click', function (e) {
+        if (reduceMotionQuery.matches || !row.animate) return;
+        e.preventDefault();
+        var start = row.getBoundingClientRect().height;          // текущая высота, даже посреди анимации
+        var fade = parseFloat(getComputedStyle(content).opacity);
+        anims.forEach(function (a) { a.cancel(); });
+        var opening = !row.open || closing;
+        closing = !opening;
+        row.classList.toggle('is-closing', closing);              // «−» → «+» сразу, не дожидаясь конца
+        row.open = false;
+        var closed = row.getBoundingClientRect().height;
+        row.open = true;
+        var open = row.getBoundingClientRect().height;
+        if (opening && start === closed) fade = 0;
+        row.style.overflow = 'hidden';
+        var timing = { duration: duration, easing: ease, fill: 'forwards' };
+        anims = [
+          row.animate({ height: [start + 'px', (opening ? open : closed) + 'px'] }, timing),
+          content.animate({ opacity: [fade, opening ? 1 : 0] }, timing)
+        ];
+        anims[0].onfinish = function () {
+          if (closing) { row.open = false; closing = false; row.classList.remove('is-closing'); }
+          anims.forEach(function (a) { a.cancel(); });
+          anims = [];
+          row.style.overflow = '';
+        };
+      });
+    });
   });
 
   // ---------- Оглавление кейса: подсветка текущего раздела, видно только в зоне разделов ----------
